@@ -34,7 +34,7 @@
     "name": "Fig",
     "link": "https://fig.io/"
   },
-  
+
   {
     "image": "uses/apps/raycast.webp",
     "name": "Raycast",
@@ -49,11 +49,6 @@
     "image": "uses/apps/arc.png",
     "name": "Arc",
     "link": "https://arc.net/gift/19a9c1b6"
-  },
-  {
-    "image": "uses/apps/spotify.webp",
-    "name": "Spotify",
-    "link": "https://spotify.com/"
   },
   {
     "image": "uses/apps/hyper.png",

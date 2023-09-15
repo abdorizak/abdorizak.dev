@@ -42,8 +42,7 @@ This application requires Node.js v16.20+.
 ```bash
 git clone https://github.com/abdorizak/abdorizak.dev.git
 cd abdorizak.dev
-yarn
-yarn setup # Remove all of my personal content and files
+yarn install
 ```
 
 Create a `.env` file similar to [`.env.example`](https://github.com/abdorizak/abdorizak.dev/blob/main/.env.example).

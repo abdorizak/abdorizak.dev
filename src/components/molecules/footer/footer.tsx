@@ -12,12 +12,6 @@ import { FooterLinksList, type FooterLinkProps } from './links-list';
 
 const primaryLinks: Array<FooterLinkProps> = [
   {
-    title: 'Dashboard',
-    href: '/dashboard',
-    className: 'from-gradient-blue to-gradient-green',
-    underlineColor: 'blue',
-  },
-  {
     title: 'About',
     href: '/about',
     className: 'from-gradient-blue to-gradient-green',

@@ -16,7 +16,6 @@
   "dependencies": {
     "@mdi/react": "^1.6.1",
     "@planetscale/database": "^1.7.0",
-    "@vercel/analytics": "^1.0.1",
     "canvas-confetti": "^1.6.0",
     "colord": "^2.9.3",
     "contentlayer": "^0.3.3",

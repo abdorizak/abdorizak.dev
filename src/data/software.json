@@ -1,13 +1,23 @@
 [
   {
-    "image": "uses/apps/notion.webp",
-    "name": "Notion",
-    "link": "https://www.notion.so/"
+    "image": "uses/apps/Xcode.png",
+    "name": "Xcode",
+    "link": "https://developer.apple.com/xcode/"
   },
   {
     "image": "uses/apps/code.webp",
     "name": "VS Code",
     "link": "https://code.visualstudio.com/"
+  },
+  {
+    "image": "uses/apps/notion.webp",
+    "name": "Notion",
+    "link": "https://www.notion.so/"
+  },
+  {
+    "image": "uses/apps/fig.png",
+    "name": "Fig",
+    "link": "https://fig.io/"
   },
   {
     "image": "uses/apps/android-studio.png",
@@ -23,16 +33,6 @@
     "image": "uses/apps/iina.png",
     "name": "iina",
     "link": "https://iina.io/"
-  },
-  {
-    "image": "uses/apps/xcode.png",
-    "name": "Xcode",
-    "link": "https://developer.apple.com/xcode/"
-  },
-  {
-    "image": "uses/apps/fig.png",
-    "name": "Fig",
-    "link": "https://fig.io/"
   },
 
   {

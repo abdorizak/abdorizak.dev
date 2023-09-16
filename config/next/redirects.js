@@ -28,10 +28,6 @@ module.exports = [
   /* Other redirections */
   buildRedirect('/links', 'https://links.abdorizak.dev'),
   buildRedirect('/contact', '/about#contact'),
-  /* Dashboard aliases */
-  buildRedirect('/music', '/dashboard'),
-  buildRedirect('/now', '/dashboard'),
-  buildRedirect('/stats', '/dashboard'),
   /* Uses blog post aliases */
   buildRedirect('/blog/uses', '/uses'),
   buildRedirect('/gear', '/uses'),

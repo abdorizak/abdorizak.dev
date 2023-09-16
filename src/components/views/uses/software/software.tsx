@@ -11,20 +11,12 @@ import {
   AppName,
 } from './software.styles';
 
-const sortedSoftware = software.sort((a, b) => {
-  const nameA = a.name.toLowerCase();
-  const nameB = b.name.toLowerCase();
-  if (nameA < nameB) return -1;
-  if (nameB > nameA) return 1;
-  return 0;
-});
-
 export const Software = () => {
   return (
     <NoPaddingSection $as={'div'}>
       <GridContainer>
         <SoftwareGrid>
-          {sortedSoftware.map((item, index) => {
+          {software.map((item, index) => {
             return (
               <li key={index}>
                 <SoftwareItem

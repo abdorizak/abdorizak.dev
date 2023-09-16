@@ -1,6 +1,5 @@
 import '@/styles/globals.scss';
 
-import { Analytics } from '@vercel/analytics/react';
 import { Inter, Manrope } from 'next/font/google';
 import { type PropsWithChildren } from 'react';
 
@@ -69,7 +68,6 @@ export default function RootLayout(props: PropsWithChildren) {
           <Footer />
           <BackToTop />
         </Providers>
-        <Analytics />
       </body>
     </html>
   );

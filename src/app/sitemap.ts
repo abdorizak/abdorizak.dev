@@ -11,15 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const routes = [
-    '',
-    'about',
-    'blog',
-    'dashboard',
-    'donate',
-    'projects',
-    'uses',
-  ].map((route) => ({
+  const routes = ['', 'about', 'blog', 'projects', 'uses'].map((route) => ({
     url: `https://abdorizak.dev/${route}`,
     lastModified: new Date().toISOString().split('T')[0],
     priority: route ? 0.8 : 1,

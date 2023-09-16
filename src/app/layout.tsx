@@ -30,7 +30,7 @@ export const metadata = {
     title: 'Abdorizak Abdalla – Software Engineer',
     description:
       // eslint-disable-next-line max-len
-      "I'm a passionate and creative full-stack software engineer from Colombia 🇨🇴. Visit my website to learn more about me and my projects",
+      "I'm a passionate and creative a software engineer from Somalia 🇸🇴. Visit my website to learn more about me and my projects",
     keywords: [
       'Abdorizak Abdalla',
       'Abdorizak',

@@ -41,11 +41,6 @@ const Colophon = () => {
           <Icon path={planetscale} size={3} />
         </IconLink>
       </IconContainer>
-      <IconContainer>
-        <IconLink title={'Vercel'} href={'https://vercel.com/'}>
-          <Icon path={mdiTriangle} size={3} />
-        </IconLink>
-      </IconContainer>
     </DotsContainer>
   );
 };
@@ -75,8 +70,8 @@ export const Website = () => {
           PlanetScale
         </Link>
         . It&apos;s all deployed on{' '}
-        <Link title={'Vercel'} href={'https://vercel.com/'}>
-          Vercel
+        <Link title={'Contabo'} href={'https://contabo.com/'}>
+          Contabo VPS
         </Link>{' '}
         and you can check out the{' '}
         <Link

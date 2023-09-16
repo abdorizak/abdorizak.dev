@@ -5,7 +5,6 @@ import { NoPaddingSection } from '@/components/core/section';
 import {
   contentlayer,
   mdiTailwind,
-  mdiTriangle,
   mdx,
   nextJs,
   planetscale,

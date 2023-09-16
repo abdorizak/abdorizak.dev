@@ -9,21 +9,7 @@ import cafe2 from '@/assets/images/about/6.jpg';
 
 // import neon from '@/assets/images/about/8.png';
 
-const imagesAlts: Array<string> = [
-  "Visiting Lima, Perú – Oct '19",
-  "Visiting Sativa Norte, Boyacá, Colombia – Jan '22",
-  "Hiking in my hometown – Mar '20",
-  "Hanging out with friends at a cafe – Dec '20",
-  "Hanging out with friends in Iza, Boyacá, Colombia – Mar '21",
-  "Hanging out with friends in Playa Blanca, Boyacá, Colombia – Jul '21",
-  "Hanging out with friends at a cafe – Feb '22",
-  "Visiting a small town – Jan '22",
-  // "In a neon room at Graffiti Tour in Medellin – Jun '22",
-  // "At Festival Estéreo Picnic – Mar '23",
-  // "Visiting Medellin – Jun '22",
-  // "At Festival Estéreo Picnic – Mar '23",
-  // "At Festival Estéreo Picnic – Mar '23",
-];
+const imagesAlts: Array<string> = [];
 
 export const images = [
   { src: lima, alt: imagesAlts[0] },

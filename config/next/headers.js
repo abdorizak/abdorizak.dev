@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
 const ContentSecurityPolicy = `
-  default-src 'self' vercel.live;
   worker-src 'self' blob:;
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live;
   child-src *.google.com *.unsplash.com *.scdn.co **.abdorizak.dev unavatar.now.sh *.unavatar.io cdn.discordapp.com *.cdninstagram.com;
   style-src 'self' 'unsafe-inline' *.googleapis.com;
   img-src *.cdninstagram.com *.gstatic.com * blob: data:;

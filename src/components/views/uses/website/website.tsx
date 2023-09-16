@@ -8,6 +8,7 @@ import {
   mdx,
   nextJs,
   planetscale,
+  mdiHost,
 } from '@/components/icons';
 
 import { DotsContainer, IconContainer, IconLink } from './website.styles';
@@ -38,6 +39,11 @@ const Colophon = () => {
       <IconContainer>
         <IconLink title={'PlanetScale'} href={'https://planetscale.com/'}>
           <Icon path={planetscale} size={3} />
+        </IconLink>
+      </IconContainer>
+      <IconContainer>
+        <IconLink title={'Contabo'} href={'http://contentlayer.dev/'}>
+          <Icon path={mdiHost} size={3} />
         </IconLink>
       </IconContainer>
     </DotsContainer>

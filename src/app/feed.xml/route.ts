@@ -117,7 +117,7 @@ const defaultChannel = {
   language: 'en-US',
   link: 'https://abdorizak.dev',
   title: 'Abdorizak Abdalla',
-  description: 'Passionate and creative full-stack developer from Colombia',
+  description: 'Passionate and creative iOS developer from Somalia',
   image_url: 'https://abdorizak.dev/api/og',
   image: {
     title: 'Abdorizak Abdalla',

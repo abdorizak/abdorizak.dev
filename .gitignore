@@ -43,7 +43,6 @@ public/*.xml
 .contentlayer
 !.env.example
 content/sheet.mdx
-content/hello-world.mdx
 config/contentlayer/themes/*.json
 
 .frontmatter

@@ -1,11 +1,11 @@
 import lima from '@/assets/images/about/0.jpg';
-import sativa from '@/assets/images/about/1.jpg';
+import sativa from '@/assets/images/about/1.png';
 import hike from '@/assets/images/about/2.jpg';
-import cafe from '@/assets/images/about/3.jpg';
-import iza from '@/assets/images/about/4.jpg';
-import playaBlanca from '@/assets/images/about/5.jpg';
-import cafe2 from '@/assets/images/about/6.jpg';
-// import town from '@/assets/images/about/7.jpg';
+import cafe from '@/assets/images/about/3.png';
+import iza from '@/assets/images/about/4.png';
+import playaBlanca from '@/assets/images/about/5.png';
+import cafe2 from '@/assets/images/about/6.png';
+import town from '@/assets/images/about/7.png';
 
 // import neon from '@/assets/images/about/8.png';
 
@@ -19,6 +19,6 @@ export const images = [
   { src: iza, alt: imagesAlts[4] },
   { src: playaBlanca, alt: imagesAlts[5] },
   { src: cafe2, alt: imagesAlts[6] },
-  // { src: town, alt: imagesAlts[7] },
+  { src: town, alt: imagesAlts[7] },
   // { src: neon, alt: imagesAlts[8] },
 ];

@@ -1,0 +1,119 @@
+[
+  {
+    "order": 0,
+    "name": "Expense Tracker App",
+    "description": "Expense Tracker 🫰 is a financial app that used to track daily Expense from you Income",
+    "icon": "other/expenses-Tracker.png",
+    "preview": "other/expenses-Tracker.png",
+    "link": "https://github.com/abdorizak/Expense-Tracker-App",
+    "color": "#fffff",
+    "darkColor": "#4d8af0",
+    "stack": ["Swift", "UIKit", "MVC", "Programmatic UI"],
+    "repo": "Expense-Tracker-App",
+    "iconMeta": {
+      "size": {
+        "width": 96,
+        "height": 96
+      },
+      "blurDataURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAIAAABvrngfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAeklEQVR4nGNgSN7BYDefQbOfQbmLQXcyg9tSBgbnRQxFB91aFrt1XWJI3s5gNJWBQaEjoK3v+3+TOYdeM6TuZJBpZWBQ6VarPnHg4jmGrrMM/isZFDsZQCqTt/EWHmLwXcHgt4LBaBoDg0obg0wdA3chg2AJg0w9kAsAqtwlHHgm0HQAAAAASUVORK5CYII="
+    }
+  },
+  {
+    "order": 1,
+    "name": "Hisnul Muslim",
+    "description": "Hisnul Muslim App. is Supplication of Muslims. from holy quran and hadith of prophet Muhammad Salallahu Alaihi Wasallam",
+    "icon": "apps/hisnul-muslim.png",
+    "preview": "apps/hisnul-muslim.png",
+    "link": "https://github.com/abdorizak/Hisnul-Muslim",
+    "color": "#4d8af0",
+    "darkColor": "#4d8af0",
+    "stack": ["iOS", "Swift", "UIKit"],
+    "repo": "Hisnul-Muslim",
+    "iconMeta": {
+      "size": {
+        "width": 96,
+        "height": 96
+      },
+      "blurDataURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAIAAABvrngfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAeElEQVR4nGOwW/aUIWc3g2E3g2EXiBG+loEhZwdD0kaG2LUMIcsZLCaAEEPd0bc//597/n/yzqunvv1n8J7PwJC36/SFV8u2XKyZtfPoq/8MVpMYQMJG3QxSZQyKNQzChQwSJQwMQcsZnGczGHQxcOcyKNYzCBUBAJaaLDdzP07wAAAAAElFTkSuQmCC"
+    }
+  },
+  {
+    "order": 2,
+    "name": "Doctor Appointment App",
+    "description": "This is simple app It also connects patients with doctors by requesting there Favorite doctor, It also allow the users to make favorite.",
+    "icon": "other/doctor-appointment.png",
+    "preview": "other/doctor-appointment.png",
+    "link": "https://github.com/abdorizak/Doctor_Appointment_App",
+    "color": "#00202b",
+    "darkColor": "#4dcc89",
+    "stack": ["Swift", "UIKit", "MVC", "Programmatic UI"],
+    "repo": "Doctor_Appointment_App",
+    "iconMeta": {
+      "size": {
+        "width": 96,
+        "height": 96
+      },
+      "blurDataURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAIAAABvrngfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAeElEQVR4nGOwW/aUIWc3g2E3g2EXiBG+loEhZwdD0kaG2LUMIcsZLCaAEEPd0bc//597/n/yzqunvv1n8J7PwJC36/SFV8u2XKyZtfPoq/8MVpMYQMJG3QxSZQyKNQzChQwSJQwMQcsZnGczGHQxcOcyKNYzCBUBAJaaLDdzP07wAAAAAElFTkSuQmCC"
+    }
+  },
+  {
+    "order": 3,
+    "name": "Github Followers",
+    "description": "Github Followers is a simple app that allow you to search for any github user and see their followers and following",
+    "icon": "other/github-followers.png",
+    "preview": "other/github-followers.png",
+    "link": "https://github.com/abdorizak/Github_Followers",
+    "color": "#00202b",
+    "darkColor": "#4dcc89",
+    "stack": ["Swift", "UIKit", "MVC", "Programmatic UI"],
+    "repo": "Github_Followers",
+    "iconMeta": {
+      "size": {
+        "width": 96,
+        "height": 96
+      },
+      "blurDataURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAIAAABvrngfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAeElEQVR4nGOwW/aUIWc3g2E3g2EXiBG+loEhZwdD0kaG2LUMIcsZLCaAEEPd0bc//597/n/yzqunvv1n8J7PwJC36/SFV8u2XKyZtfPoq/8MVpMYQMJG3QxSZQyKNQzChQwSJQwMQcsZnGczGHQxcOcyKNYzCBUBAJaaLDdzP07wAAAAAElFTkSuQmCC"
+    }
+  },
+  {
+    "order": 5,
+    "name": "Doctor Appointment Backend",
+    "description": "Doctor Appointment Backend is a simple backend for Doctor Appointment App that allows you to get all doctors and book an appointment.",
+    "icon": "other/backends.png",
+    "preview": "other/backends.png",
+    "link": "https://github.com/abdorizak/Doctor-Appoint-BackEnd",
+    "color": "#00202b",
+    "darkColor": "#4dcc89",
+    "stack": ["Swift", "UIKit", "MVC", "Programmatic UI"],
+    "repo": "Doctor-Appoint-BackEnd",
+    "hide": true,
+    "iconMeta": {
+      "size": {
+        "width": 96,
+        "height": 96
+      },
+      "blurDataURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAIAAABvrngfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAeElEQVR4nGOwW/aUIWc3g2E3g2EXiBG+loEhZwdD0kaG2LUMIcsZLCaAEEPd0bc//597/n/yzqunvv1n8J7PwJC36/SFV8u2XKyZtfPoq/8MVpMYQMJG3QxSZQyKNQzChQwSJQwMQcsZnGczGHQxcOcyKNYzCBUBAJaaLDdzP07wAAAAAElFTkSuQmCC"
+    }
+  },
+  {
+    "order": 5,
+    "name": "Expense Tracker Backend",
+    "description": "Expense Tracker Backend is a simple backend that used to store the data from the Expense Tracker App it was built using Node.js and MongoDB.",
+    "icon": "other/backends.png",
+    "preview": "other/backends.png",
+    "link": "https://github.com/abdorizak/expense_managerBackEnd",
+    "color": "#00202b",
+    "darkColor": "#4dcc89",
+    "stack": ["Swift", "UIKit", "MVC", "Programmatic UI"],
+    "repo": "expense_managerBackEnd",
+    "inProgress": true,
+    "hide": true,
+    "iconMeta": {
+      "size": {
+        "width": 96,
+        "height": 96
+      },
+      "blurDataURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAIAAABvrngfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAeElEQVR4nGOwW/aUIWc3g2E3g2EXiBG+loEhZwdD0kaG2LUMIcsZLCaAEEPd0bc//597/n/yzqunvv1n8J7PwJC36/SFV8u2XKyZtfPoq/8MVpMYQMJG3QxSZQyKNQzChQwSJQwMQcsZnGczGHQxcOcyKNYzCBUBAJaaLDdzP07wAAAAAElFTkSuQmCC"
+    }
+  }
+]

@@ -1,0 +1,271 @@
+---
+title: WaafiPay API Integration Guide
+date: '2022-12-30'
+color: '#E4625A'
+summary: 'A guide to integrate WaafiPay API into your application. WaafiPay is a payment gateway for Africa Specially East Africa and it supports mobile money, card payments and bank payments.'
+keywords: 'WaafiPay, Mobile Money, Somali Payment Gateway, API, Integration, East Africa, Somalia, DrX, Hormuud, EVC, EVC Plus'
+---
+
+👋 Hey there,
+
+## WaafiPay API Integration Guide
+
+<b>WaafiPay</b> API is an application programming interface that enables the client
+applications to communicate directly with WaafiPay servers in a secure environment.
+The data communication happens in a predefined message format. APIs are available
+in many different programming languages, allowing for easy integration into a merchant’s
+existing website or application. [For more information, see the WaafiPay API Integration
+Guide](https://developer.waafipay.net/reference)
+
+- [How WaafiPay API works behind the scene](#how-waafipay-api-works-behind-the-scene)
+- [How to integrate WaafiPay API](#how-to-use-the-evc-api)
+  - [PreAuthorize](#preauthorize)
+  - [PreAuthorize Response](#preauthorizeresponse)
+  - [PreAuthorizeCommit](#preauthorizecommit--preauthorizecommitcancel)
+
+### Requirements
+
+1. To integrate WaafiPay API, you need to have a WaafiPay account.
+2. You integrate your app to WaafiPay API by following the their docs or this document.
+3. You need to test customer payments using Hormuud Telecom subscriber number.
+
+### How WaafiPay API works behind the scene:
+
+1. Customer initiates a transaction by making a request to the API.
+2. WaafiPay API receives the request and validates the request.
+3. WaafiPay API returns a response to the customer as popup.
+4. Customer verifies the popup and enters the PIN.
+5. WaafiPay API receives the PIN and validates it.
+6. If the customer's balance is sufficient, and there is no any other error, WaafiPay API returns a Success response, and the payment amount is shadowed on the customer's account - Now the transaction is in PendingForPGVerification status.
+7. Now, your application can commit the transaction by making a request to the API with `COMMIT`.
+8. The customer account balance and the Merchant balance are updated accordingly, and the transaction status is changed to `COMPLETED`.
+9. if the customer loses the connection, you can cancel the transaction by making a request to the API with `CANCEL`.
+
+## How to use the WaafiPay API
+
+**Endpoint**: `https://api.waafipay.com/asm`.
+
+To integrate WaafiPay API into your application, you need to follow the steps below:
+
+### PreAuthorize
+
+Pre-authorization also known as an authorization hold is a practice by which the WaafiPay API allows you to place a hold on an amount approved as part of a transaction. The WaafiPay essentially holds that part of the customer's balance in reserve for a while until you clear the transaction.
+
+Here is an example of pre-authoriza transaction **Request** in JSON format:
+
+```json
+{
+  "schemaVersion": "1.0",
+  "requestId": "195306036", // you can pass generated requestId or any unique id you want.
+  "timestamp": "timestamp", // pass the current timestamp
+  "channelName": "WEB",
+  "serviceName": "API_PREAUTHORIZE", // API_PREAUTHORIZE
+  "serviceParams": {
+    "merchantUid": "xxxxxxx",
+    "apiUserId": "xxxxxxx",
+    "apiKey": "xxxxxxx",
+    "paymentMethod": "MWALLET_ACCOUNT",
+    "payerInfo": {
+      "accountNo": "25261xxxxxxx" // payer phone number
+    },
+    "transactionInfo": {
+      "referenceId": "113630898323",
+      "invoiceId": 70152,
+      "amount": "1.00",
+      "currency": "USD",
+      "description": "test"
+    }
+  }
+}
+```
+
+### PreAuthorizeResponse
+
+Here is an example of pre-authoriza transaction success **Response** in JSON format:
+
+```json
+{
+  "schemaVersion": "1.0",
+  "timestamp": "2022-07-31 10:52:56.19", // you will receive timestamp you passed in the request
+  "requestId": "132423495306036", // you will receive requestId you passed in the request
+  "sessionId": null,
+  "responseCode": "2001",
+  "errorCode": "0",
+  "responseMsg": "RCS_SUCCESS",
+  "params": {
+    "issuerApprovalCode": "",
+    "accountNo": "25261xxxxxxx",
+    "accountType": "mwallet_account",
+    "accountholder": "",
+    "state": "APPROVED", // or "forApproval"
+    "merchantCharges": "0.01",
+    "customerCharges": "0.0",
+    "referenceId": "12212",
+    "transactionId": "25420603",
+    "accountExpDate": "",
+    "issuerTransactionId": "13552358225",
+    "txAmount": "1.0"
+  }
+}
+```
+
+If the customer's account balance is not sufficient, the API will return an error response like the following:
+
+```json
+{
+  "schemaVersion": "1.0",
+  "timestamp": "2022-07-31 16:49:24.711", // get the timestamp you passed in the request
+  "requestId": "56272FF2-2AD5-4260-9EC8-D3A916A834EE", // generated requestId you passed in the request
+  "responseCode": "5206",
+  "errorCode": "E10205",
+  "responseMsg": "RCS_TRAN_FAILED_AT_ISSUER_SYSTEM (Your account balance is not sufficient, mobile No: {RECEIVER_MOBILE_NO}, TransactionId: 25425740",
+  "params": {
+    // Note: the params will be empty if the transaction is not successful.
+    "issuerApprovalCode": "",
+    "accountNo": "",
+    "accountType": "",
+    "accountholder": "",
+    "state": "",
+    "merchantCharges": "",
+    "customerCharges": "",
+    "referenceId": "",
+    "transactionId": "",
+    "accountExpDate": "",
+    "issuerTransactionId": "",
+    "txAmount": ""
+  }
+}
+```
+
+Here is an example of making payment using Swift language:
+
+```swift
+func makePayment(_ number: String, _ amount: Double) async throws {
+  do {
+      self.response = try await call.makePayment(number: number, amount: amount)
+      guard let response = response else {
+           return
+       }
+      print("Response: \(String(describing: response))")
+      if response.responseCode == "2001" {
+          if NetworkMonitor.shared.isConnected {
+              let res = try await call.makeCommit(requestId: response.requestId ?? "1",
+                                                  timestamp: response.timestamp ?? "1",
+                                                  services: "API_PREAUTHORIZE_COMMIT",
+                                                  transactionId: response.params?.transactionId ?? "1",
+                                                  referenceId: response.params?.transactionId ?? "1",
+                                                  description: "Commited")
+              print("$##the Response\(res)")
+          } else {
+              let res = try await call.makeCommit(requestId: response.requestId ?? "1",
+                                                  timestamp: response.timestamp ?? "1",
+                                                  services: "API_PREAUTHORIZE_CANCEL",
+                                                  transactionId: response.params?.transactionId ?? "1",
+                                                  referenceId: response.params?.transactionId ?? "1",
+                                                  description: "Cancel Transaction")
+              print("$$the response\(res)")
+          }
+      } else {
+          print("tres: \(response.responseMsg?.substring(from: 34, to: 71) ?? "empty")")
+      }
+      } catch {
+        throw MerchantErrors.unableTopComplete
+      }
+}
+```
+
+### PreAuthorize Commit
+
+If you sent your payment PreAuthorize and then commit it the payment is fully PreAuthorized and following things will heppen:
+
+1. Commits the original transaction done by PreAuthorize service.
+2. deducts funds from customer account including charges
+
+Here's PreAuthorize commit json format⬇️:
+
+```json
+{
+  "schemaVersion": "1.0",
+  "requestId": "2749007837",
+  "timestamp": "2022-07-31 Africa",
+  "channelName": "WEB",
+  "serviceName": "API_PREAUTHORIZE_COMMIT",
+  "serviceParams": {
+    "merchantUid": "xxxxxxx", //_______
+    "apiUserId": "xxxxxxxx", //      |____ // these are credentials you must have either will not work.
+    "apiKey": "xxxxxxxx", //______|
+    "transactionId": "1238336",
+    "description": "", // you will pass if transaction is successful as commit else you will pass the Cancel Transaction.
+    "referenceId": "11111"
+  }
+}
+```
+
+### A PreAuthorize Cancel transaction
+
+If you sent your payment PreAuthorize and then commit it and you want to cancel the payment this request would be cancel it and the following things happen:
+
+1. Cancels the original transaction done by PreAuthorize service
+2. returns the funds to customer account
+
+This scenario happens when:
+
+- the customer loses connection to the network
+  Here's PreAuthorize cancel json format⬇️:
+
+```json
+{
+  "schemaVersion": "1.0",
+  "requestId": "2749007837",
+  "timestamp": "2022-07-31 Africa",
+  "channelName": "WEB",
+  "serviceName": "API_PREAUTHORIZE_CANCEL",
+  "serviceParams": {
+    "merchantUid": "xxxxxxx", //_______
+    "apiUserId": "xxxxxxxx", //      |____ // these are credentials you must have either will not work.
+    "apiKey": "xxxxxxxx", //______|
+    "transactionId": "1238336",
+    "description": "", // you will pass if transaction is successful as commit else you will pass the Cancel Transaction.
+    "referenceId": "11111"
+  }
+}
+```
+
+Here's is an example of commit function⬇️:
+
+```swift
+func makeCommit(requestId: String, timestamp: String, transactionId: String, referenceId: String, description: String) async throws -> MerchantResponse {
+    guard let url = URL(string: Constants.endPoint) else {
+        throw MerchantErrors.invalidURL
+    }
+
+    let body = PreAuthorizeCommit(requestId: requestId, timestamp: timestamp, serviceParams: ServiceParamsCommit(merchantUid: "xxxxxxx", apiUserId: "xxxxxxx", apiKey: "API-xxxxxxxx", transactionId: transactionId, description: description, referenceId: referenceId))
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    let encoder = try? JSONEncoder().encode(body)
+    request.httpBody = encoder
+
+    let (data, response) = try await URLSession.shared.data(for: request)
+
+    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+        throw MerchantErrors.inValidResponse
+    }
+
+    do {
+        return try JSONDecoder().decode(MerchantResponse.self, from: data)
+    } catch {
+        throw MerchantErrors.inValidData
+    }
+}
+```
+
+### Author
+
+- [Abdorizak Abdalla ](https://www.github.com/abdorizak)
+- [Abdisamad Khalif](https://github.com/abwaanka)
+
+<p align="center">
+  copyright © 2022 SoftPrime Consulting Co. All rights reserved.
+</p>

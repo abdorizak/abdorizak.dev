@@ -1,0 +1,73 @@
+[
+  {
+    "image": "uses/apps/Xcode.png",
+    "name": "Xcode",
+    "link": "https://developer.apple.com/xcode/"
+  },
+  {
+    "image": "uses/apps/code.png",
+    "name": "VS Code",
+    "link": "https://code.visualstudio.com/"
+  },
+  {
+    "image": "uses/apps/intellij.png",
+    "name": "IntelliJ IDEA CE",
+    "link": "https://www.jetbrains.com/idea/"
+  },
+  {
+    "image": "uses/apps/notion.webp",
+    "name": "Notion",
+    "link": "https://www.notion.so/"
+  },
+  {
+    "image": "uses/apps/fig.png",
+    "name": "Fig",
+    "link": "https://fig.io/"
+  },
+  {
+    "image": "uses/apps/android-studio.png",
+    "name": "Android Studio",
+    "link": "https://developer.android.com/studio"
+  },
+  {
+    "image": "uses/apps/vysor.png",
+    "name": "Vysor",
+    "link": "https://www.vysor.io/"
+  },
+  {
+    "image": "uses/apps/good-notes.png",
+    "name": "Good Notes",
+    "link": "https://www.goodnotes.com/"
+  },
+  {
+    "image": "uses/apps/edge.png",
+    "name": "Microsoft Edge",
+    "link": "https://www.microsoft.com/en-us/edge"
+  },
+
+  {
+    "image": "uses/apps/pyCharm.png",
+    "name": "PyCharm",
+    "link": "https://www.jetbrains.com/pycharm/"
+  },
+  {
+    "image": "uses/apps/app-cleaner.webp",
+    "name": "App Cleaner",
+    "link": "https://freemacsoft.net/appcleaner/"
+  },
+  {
+    "image": "uses/apps/arc.png",
+    "name": "Arc",
+    "link": "https://arc.net/gift/19a9c1b6"
+  },
+  {
+    "image": "uses/apps/monolisa.png",
+    "name": "MonoLisa",
+    "link": "https://monolisa.dev/"
+  },
+  {
+    "image": "uses/apps/pace-theme.png",
+    "name": "Pace Theme",
+    "link": "https://github.com/fabian-hiller/vscode-pace-theme"
+  }
+]

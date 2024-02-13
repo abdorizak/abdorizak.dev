@@ -1,4 +1,4 @@
-import qamuusAcademy from '@/assets/images/experience/qaamus.jpg';
+// import qamuusAcademy from '@/assets/images/experience/qaamus.jpg';
 import spc from '@/assets/images/experience/spc.png';
 import { Icon } from '@/components/atoms/icon';
 import { LinkButton } from '@/components/atoms/link-button';

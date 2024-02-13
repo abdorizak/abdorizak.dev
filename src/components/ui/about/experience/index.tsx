@@ -18,17 +18,18 @@ const experience: Array<ExperienceRecord> = [
     link: 'https://softprimeconsulting.com/',
     image: spc,
     color: '#2E4C94',
-  },
-  {
-    company: 'Qaamuus Academy (Contract)',
-    position: 'Consultant & Mobile Developer(Flutter)',
-    from: 'October 2022',
-    until: 'Present',
-    link: 'https://qaamuus.academy/members',
-    image: qamuusAcademy,
-    color: '#8FD554',
     last: true,
   },
+  // {
+  //   company: 'Qaamuus Academy (Contract)',
+  //   position: 'Consultant & Mobile Developer(Flutter)',
+  //   from: 'October 2022',
+  //   until: 'Present',
+  //   link: 'https://qaamuus.academy/members',
+  //   image: qamuusAcademy,
+  //   color: '#8FD554',
+  //   last: true,
+  // },
 ];
 
 export const Experience = () => {

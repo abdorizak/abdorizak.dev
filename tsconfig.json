@@ -43,5 +43,5 @@
     "next.config.mjs",
     ".next/types/**/*.ts",
     "./.contentlayer/generated"
-  ]
+, "src/components/TabbedCodeSnippet.jsx"  ]
 }

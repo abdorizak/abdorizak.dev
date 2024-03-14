@@ -17,12 +17,6 @@ in many different programming languages, allowing for easy integration into a me
 existing website or application. [For more information, see the WaafiPay API Integration
 Guide](https://developer.waafipay.net/reference)
 
-- [How WaafiPay API works behind the scene](#how-waafipay-api-works-behind-the-scene)
-- [How to integrate WaafiPay API](#how-to-use-the-evc-api)
-  - [PreAuthorize](#preauthorize)
-  - [PreAuthorize Response](#preauthorizeresponse)
-  - [PreAuthorizeCommit](#preauthorizecommit--preauthorizecommitcancel)
-
 ### Requirements
 
 1. To integrate WaafiPay API, you need to have a WaafiPay account.
@@ -61,16 +55,16 @@ Here is an example of pre-authoriza transaction **Request** in JSON format:
   "channelName": "WEB",
   "serviceName": "API_PREAUTHORIZE", // API_PREAUTHORIZE
   "serviceParams": {
-    "merchantUid": "xxxxxxx",
-    "apiUserId": "xxxxxxx",
-    "apiKey": "xxxxxxx",
+    "merchantUid": "your_merchant_uid", // your merchant uid
+    "apiUserId": "your_api_user_id", // your api user id
+    "apiKey": "your_api_key", // your api key
     "paymentMethod": "MWALLET_ACCOUNT",
     "payerInfo": {
       "accountNo": "25261xxxxxxx" // payer phone number
     },
     "transactionInfo": {
-      "referenceId": "113630898323",
-      "invoiceId": 70152,
+      "referenceId": "generate_unique_id", // generate unique id
+      "invoiceId": 70152, // your invoice id
       "amount": "1.00",
       "currency": "USD",
       "description": "test"
@@ -79,6 +73,10 @@ Here is an example of pre-authoriza transaction **Request** in JSON format:
 }
 ```
 
+> **Note**:
+>
+> - There's Another `ServiceName` Which is 'API_PURCHASE' you can use but as per Waafi Pay API it's Recommended to use `API_PREAUTHORIZE` for better user experience.
+
 ### PreAuthorizeResponse
 
 Here is an example of pre-authoriza transaction success **Response** in JSON format:
@@ -86,8 +84,8 @@ Here is an example of pre-authoriza transaction success **Response** in JSON for
 ```json
 {
   "schemaVersion": "1.0",
-  "timestamp": "2022-07-31 10:52:56.19", // you will receive timestamp you passed in the request
-  "requestId": "132423495306036", // you will receive requestId you passed in the request
+  "timestamp": "generated_timestamp", // you need to generate timestamp
+  "requestId": "generated_request_id", // you need to generate requestId
   "sessionId": null,
   "responseCode": "2001",
   "errorCode": "0",
@@ -109,30 +107,19 @@ Here is an example of pre-authoriza transaction success **Response** in JSON for
 }
 ```
 
-If the customer's account balance is not sufficient, the API will return an error response like the following:
+If the customer's account balance is not sufficient Or Customer rejects the payment or even he loss the connection you get this response:
 
 ```json
 {
   "schemaVersion": "1.0",
-  "timestamp": "2022-07-31 16:49:24.711", // get the timestamp you passed in the request
-  "requestId": "56272FF2-2AD5-4260-9EC8-D3A916A834EE", // generated requestId you passed in the request
+  "timestamp": "2024-03-14 21:43:51.103",
+  "responseId": "195306036",
   "responseCode": "5206",
   "errorCode": "E10205",
-  "responseMsg": "RCS_TRAN_FAILED_AT_ISSUER_SYSTEM (Your account balance is not sufficient, mobile No: {RECEIVER_MOBILE_NO}, TransactionId: 25425740",
+  "responseMsg": "Payment Failed (error occurred, please try again later)", // this is the error message it can different based on the error.
   "params": {
-    // Note: the params will be empty if the transaction is not successful.
-    "issuerApprovalCode": "",
-    "accountNo": "",
-    "accountType": "",
-    "accountholder": "",
-    "state": "",
-    "merchantCharges": "",
-    "customerCharges": "",
-    "referenceId": "",
-    "transactionId": "",
-    "accountExpDate": "",
-    "issuerTransactionId": "",
-    "txAmount": ""
+    "orderId": "37296333",
+    "description": "error occurred, please try again later"
   }
 }
 ```
@@ -260,6 +247,14 @@ func makeCommit(requestId: String, timestamp: String, transactionId: String, ref
     }
 }
 ```
+
+## Future Work
+
+- I'm planning to add more more examples of how to use WaafiPay API in different programming languages.
+
+## Conclusion
+
+WaafiPay API is a payment gateway for Africa Specially East Africa and it supports mobile money, card payments and bank payments. It is a secure and reliable payment gateway that allows you to accept payments from your customers. This guide provides an overview of how to integrate WaafiPay API into your application. If you have any questions or need further assistance, please feel free to contact us.
 
 ### Author
 

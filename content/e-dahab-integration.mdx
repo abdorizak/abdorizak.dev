@@ -21,4 +21,191 @@ Before you start integrating E-Dahab mobile money API, you need to have the foll
 
 ## Integration steps
 
-Before we start integrating E-Dahab mobile money API, their's two ways to collect payment from the customer. The first way is to use the E-Dahab payment link, and the second way is to use the E-Dahab API. In this guide, we will focus on integrating the E-Dahab API.
+As we embark on the integration of the E-Dahab mobile money API, it's crucial to understand that there are two primary methods for processing customer payments. The first option is **via Web Payment**, which utilizes the E-Dahab payment link. The second option is through **Pop-Up Payment**, which directly leverages the E-Dahab API. This guide will concentrate on these two integration methods.
+
+### Step 1: Create a payment request link (Via Web Payment)
+
+To create a payment request link using this endpoint `https://edahab.net/api/api/IssueInvoice?hash={{hash}}` where `{{hash}}` was generated from `Pre-request Script` in Postman with the following code:
+
+```javascript
+var CryptoJS = require('crypto-js');
+var body = pm.request.body;
+var secret = 'your-secret-key';
+var hash = CryptoJS.SHA256(body + secret).toString(CryptoJS.enc.Hex);
+pm.environment.set('hash', hash);
+```
+
+> **Note:** You need to replace `your-secret-key` with your secret key.
+
+<br />
+![Pre-request Script](/media/blog/e-dahab-integration/pre-request_script.png)
+<br />
+use this json body to create a payment request link:
+
+```json
+{
+  "apiKey": "your-api-key", // replace with your api key
+  "EdahabNumber": "62xxx", // replace with your E-Dahab number
+  "Amount": 1000, // Somaliland Shilling if the currency is SLSH or USD if the currency is USD
+  "AgentCode": "your-agent-code", // replace with your agent code
+  "ReturnUrl": "your-return-url", // replace with your return url
+  "Currency": "SLSH" // USD or SLSH
+}
+```
+
+<br />
+![Create a payment request link](/media/blog/e-dahab-integration/request_json.png)
+<br />
+
+After sending the request, you will receive a response with a payment request link. You can use this link to request payment from the customer.
+
+```json
+{
+  "InvoiceStatus": "Unpaid",
+  "TransactionId": "xxxxx", // you will get this transaction id from the response Something like this MPxxx.xxx.A9xxx
+  "InvoiceId": "xxx", // you will get this invoice id from the response
+  "StatusCode": 0,
+  "RequestId": xxx, // you will get this request id from the response
+  "StatusDescription": "Success", // you will get this status description from the response
+  "ValidationErrors": null  // means their's no validation errors
+}
+```
+
+## Code Example
+
+I'll provide a different code examples for different programming languages to help you understand how to integrate E-Dahab mobile money API in your application.
+
+### python
+
+we're using via web payment method to create a payment request link using the following code:
+
+```python
+import asyncio
+import hashlib
+import json
+import requests
+
+
+def to_sha256(request_body_string):
+    sha256_hash = hashlib.sha256()
+    sha256_hash.update(request_body_string.encode("utf-8"))
+    return sha256_hash.hexdigest()
+
+
+async def create_invoice_async(edahab_number, amount):
+    base_url = "https://edahab.net/api/api/"
+    request_data = {
+        "apiKey": "xxxx",
+        "edahabNumber": edahab_number,
+        "amount": amount,
+        "agentCode": "xxxx",
+        "returnUrl": "your-return-url",
+    }
+
+    request_as_string = json.dumps(request_data)
+    hash_value = to_sha256(request_as_string + "xxxx")
+
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(
+        f"{base_url}issueinvoice?hash={hash_value}",
+        data=request_as_string,
+        headers=headers,
+    )
+
+    if response.status_code != 200:
+        return {"StatusCode": 6}
+
+    result = response.json()
+    return result or {"StatusCode": 6}
+
+
+result = asyncio.run(create_invoice_async("628125834", 100))
+print(result)
+```
+
+### Node.js
+
+we're using via web payment method to create a payment request link using the following code:
+
+```javascript
+import axios from 'axios';
+import crypto from 'crypto';
+
+function toSha256(requestBodyString) {
+  return crypto
+    .createHash('sha256')
+    .update(requestBodyString, 'utf8')
+    .digest('hex');
+}
+
+async function createInvoiceAsync(edahabNumber, amount) {
+  const baseUrl = 'https://edahab.net/api/api/';
+  const request = {
+    apiKey: 'xxx',
+    edahabNumber: edahabNumber,
+    amount: amount,
+    agentCode: 'xxxx',
+    returnUrl: 'your-return-url',
+    currency: 'SLSH',
+  };
+
+  const requestAsString = JSON.stringify(request);
+  const hash = toSha256(requestAsString + 'xxxx');
+
+  try {
+    const response = await axios.post(
+      `${baseUrl}issueinvoice?hash=${hash}`,
+      requestAsString,
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
+
+    return response.data || { StatusCode: 6 };
+  } catch (error) {
+    console.error(error);
+    return { StatusCode: 6 };
+  }
+}
+
+// Example usage
+console.log('Welcome to Edahab API');
+console.log('Creating invoice...');
+(async () => {
+  const result = await createInvoiceAsync('628125834', 100);
+  console.log(result);
+})();
+```
+
+> **Note:**
+> You'll need to replace `apiKey`, `agentCode`, and `secret` with your actual API key, agent code, and secret key.
+
+### Step 2: Create a payment request link (Via Pop-Up Payment)
+
+To create a payment request we will use the same endpoint `https://edahab.net/api/api/IssueInvoice?hash={{hash}}` and the same `Pre-request Script` in Postman to generate, and we will use the same json body to create a payment request link. but it will be different the phone number of the customer, if the phone number start 65,66 only 62 will not support pop-up payment.
+
+```json
+{
+  "apiKey": "your-api-key", // replace with your api key
+  "edahabNumber": "65xxxx",
+  "amount": 0.1,
+  "agentCode": "your-agent-code", // replace with your agent code
+  "currency": "USD"
+}
+```
+
+> **Note:**
+> the Pop-Up Payment will not work if the phone number start with 62.
+> you will need to do manual payment request for the customer if the phone number start with 62.
+
+## Conclusion
+
+This guide has provided you with the necessary steps to integrate E-Dahab mobile money API in your application. You have learned how to create a payment request link using the E-Dahab mobile money API and how to use the payment request link to request payment from the customer. You have also learned how to use the E-Dahab mobile money API to create a payment request link using the Pop-Up Payment method. Also it's very simple to understand and implement the E-Dahab mobile money API in your application.
+
+I hope this guide has been helpful to you. If you have any questions or need further assistance, feel free to reach out to me [on WhatsApp](https://wa.me/252618125834).
+
+Happy coding!
+
+## References
+
+- [E-Dahab website](https://edahab.net/sandbox/)

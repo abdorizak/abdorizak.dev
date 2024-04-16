@@ -1,4 +1,6 @@
 // import qamuusAcademy from '@/assets/images/experience/qaamus.jpg';
+import qamuusAcademy from '@/assets/images/experience/qaamus.jpg';
+import safariOne from '@/assets/images/experience/safariOne.jpeg';
 import spc from '@/assets/images/experience/spc.png';
 import { Icon } from '@/components/atoms/icon';
 import { LinkButton } from '@/components/atoms/link-button';
@@ -12,24 +14,36 @@ import {
 
 const experience: Array<ExperienceRecord> = [
   {
+    company: 'SafariOne',
+    position: 'iOS Developer',
+    from: 'April 2024',
+    until: 'Present',
+    link: 'https://safarione.ca/',
+    image: safariOne,
+    color: '#8FD554',
+    last: false,
+  },
+
+  {
     company: 'Softprime Consulting Pvt. Ltd.',
     position: 'Flutter Developer & Odoo Technical Consultant',
     from: 'Jan 2022',
+    until: 'April 2024',
     link: 'https://softprimeconsulting.com/',
     image: spc,
     color: '#2E4C94',
+    last: false,
+  },
+  {
+    company: 'Qaamuus Academy (Remote)',
+    position: 'Consultant & Mobile Developer(Flutter)',
+    from: 'October 2022',
+    until: 'December 2023',
+    link: 'https://qaamuus.academy/members',
+    image: qamuusAcademy,
+    color: '#8FD554',
     last: true,
   },
-  // {
-  //   company: 'Qaamuus Academy (Contract)',
-  //   position: 'Consultant & Mobile Developer(Flutter)',
-  //   from: 'October 2022',
-  //   until: 'Present',
-  //   link: 'https://qaamuus.academy/members',
-  //   image: qamuusAcademy,
-  //   color: '#8FD554',
-  //   last: true,
-  // },
 ];
 
 export const Experience = () => {

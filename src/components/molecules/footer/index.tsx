@@ -7,6 +7,7 @@ import cx from '@/utils/cx';
 import { SocialLinks } from '../social-links';
 
 // import { BackToTopLink } from './back-to-top-link';
+import { BackToTopLink } from './back-to-top-link';
 import { linksGroups } from './footer.data';
 import {
   Description,
@@ -16,7 +17,6 @@ import {
   StyledFooter,
 } from './footer.styles';
 import { Clock } from './time';
-import { BackToTopLink } from './back-to-top-link';
 
 export const Footer = () => {
   return (

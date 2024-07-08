@@ -74,6 +74,7 @@ module.exports = {
     },
     borderWidth: { ...extendedSpacing, DEFAULT: '0.0625rem' },
     colors: {
+      ...twColors,
       transparent: 'rgba(0,0,0,0)',
       current: 'currentColor',
       inherit: 'inherit',
@@ -99,6 +100,7 @@ module.exports = {
         5: '5',
       },
       colors: {
+        ...twColors,
         brand: {
           950: '#060A15',
           900: '#0B152B',

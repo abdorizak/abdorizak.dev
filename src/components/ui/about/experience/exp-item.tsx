@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-key */
 import type { Route } from 'next';
 import { type CSSProperties } from 'react';
 
 import type { ImgProps } from '@/components/atoms/img';
 import { Img } from '@/components/atoms/img';
+import Tag from '@/components/atoms/Tag';
 import { getReadableColor, hexToRgb } from '@/utils/color';
 import cx from '@/utils/cx';
 
@@ -13,6 +15,7 @@ export interface ExperienceItemProps {
   position: string;
   from: string;
   until?: string;
+  tags?: string[];
   link: string;
   color: string;
   image: ImgProps['src'];
@@ -54,6 +57,11 @@ export const ExpItem = (props: ExperienceItemProps) => {
         <p className={'line-clamp-1 text-2xs flex-1 text-secondary-txt'}>
           {props.position}
         </p>
+        <div className={'flex gap-x-1.5'}>
+          {props.tags?.map((tag, index) => (
+            <Tag key={`project-tag-${index}`}>{tag}</Tag>
+          ))}
+        </div>
       </div>
     </Component>
   );

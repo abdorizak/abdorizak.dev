@@ -18,6 +18,7 @@ const experience: Array<ExperienceRecord> = [
     position: 'iOS Developer',
     from: 'April 2024',
     until: 'Present',
+    tags: ['iOS', 'Swift', 'UIKit', 'MVVM'],
     link: 'https://safarione.ca/',
     image: safariOne,
     color: '#8FD554',
@@ -26,9 +27,18 @@ const experience: Array<ExperienceRecord> = [
 
   {
     company: 'Softprime Consulting Pvt. Ltd.',
-    position: 'Flutter Developer & Odoo Technical Consultant',
+    position:
+      'Flutter Developer & Odoo ERP Specialist: Functional & Technical Support',
     from: 'Jan 2022',
     until: 'April 2024',
+    tags: [
+      'Flutter',
+      'Dart',
+      'Odoo',
+      'Odoo Technical',
+      'Functional Support',
+      'Python',
+    ],
     link: 'https://softprimeconsulting.com/',
     image: spc,
     color: '#2E4C94',
@@ -39,6 +49,7 @@ const experience: Array<ExperienceRecord> = [
     position: 'Consultant & Mobile Developer(Flutter)',
     from: 'October 2022',
     until: 'December 2023',
+    tags: ['Flutter', 'Dart'],
     link: 'https://qaamuus.academy/members',
     image: qamuusAcademy,
     color: '#8FD554',

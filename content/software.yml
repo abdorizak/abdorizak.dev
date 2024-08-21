@@ -14,10 +14,6 @@
   name: IntelliJ IDEA CE
   url: https://www.jetbrains.com/idea/
 
-- image: uses/apps/notion.webp
-  name: Notion
-  url: https://www.notion.so/
-
 - mage: uses/apps/fig.png
   name: Fig
   url: https://fig.io/

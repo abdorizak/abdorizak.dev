@@ -2,15 +2,10 @@ import { Section } from '@/components/atoms/section';
 import { BlogPostItem } from '@/components/ui/blog/item';
 import { allReadableBlogs, sortBlogPostsByDate } from '@/utils/blog';
 import { getDate } from '@/utils/date';
-import { type Blog } from 'contentlayer/generated';
+import { groupBy } from '@/utils/group-by';
 
-const blogPostsByYear = allReadableBlogs.reduce<Record<number, Array<Blog>>>(
-  (acc, post) => {
-    const year = (getDate(post.date) || new Date()).getFullYear();
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    return { ...acc, [year]: [...(acc[year] || []), post] };
-  },
-  {},
+const blogPostsByYear = groupBy(allReadableBlogs, (post) =>
+  (getDate(post.date) || new Date()).getFullYear(),
 );
 
 export const GroupedBlogPosts = () => (

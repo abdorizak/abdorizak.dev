@@ -1,8 +1,11 @@
 import xml from 'xml';
 
-import { allReadableBlogs } from '@/utils/blog';
+import {
+  allReadableBlogs,
+  sortBlogPostsByDate,
+  type PartialBlog,
+} from '@/utils/blog';
 import { getDate } from '@/utils/date';
-import { type Blog } from 'contentlayer/generated';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-static';
@@ -13,7 +16,7 @@ const formatImageUrl = (url?: string) => {
   return url;
 };
 
-const buildDescriptionHtml = (post: Blog): string => {
+const buildDescriptionHtml = (post: PartialBlog): string => {
   let description = '';
   if (post.summary) description += `<p>${post.summary}</p><br/>`;
 
@@ -29,7 +32,7 @@ const buildDescriptionHtml = (post: Blog): string => {
   return description;
 };
 
-const getAllPostRssData = (post: Blog) => {
+const getAllPostRssData = (post: PartialBlog) => {
   const descriptionHtml = buildDescriptionHtml(post);
   return {
     title: post.title,
@@ -111,23 +114,21 @@ const defaultChannel = {
   lastBuildDate: new Date().toUTCString(),
   language: 'en-US',
   link: 'https://abdorizak.dev',
-  title: 'Abdorizak Abdalla',
+  title: 'Abdirizak Abdalla',
   description:
-    'Passionate and creative full-stack software engineer from Somalia',
+    'Passionate and creative full-stack software engineer from Colombia',
   image_url: 'https://abdorizak.dev/api/og',
   image: {
-    title: 'Abdorizak Abdalla',
+    title: 'Abdirizak Abdalla',
     link: 'https://abdorizak.dev',
     url: 'https://abdorizak.dev/api/og',
   },
-  copyright: `All rights reserved ${new Date().getFullYear()}, Abdorizak Abdalla`,
+  copyright: `All rights reserved ${new Date().getFullYear()}, Abdirizak Abdalla`,
 };
 
 export async function GET() {
   const feedItems = await Promise.all(
-    allReadableBlogs
-      .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
-      .map(getAllPostRssData),
+    allReadableBlogs.sort(sortBlogPostsByDate).map(getAllPostRssData),
   );
 
   const feedObject = {

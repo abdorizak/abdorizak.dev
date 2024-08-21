@@ -44,7 +44,7 @@ h4 {
 }
 
 h5 {
-  @apply text-sm;
+  font-size: 1rem;
 }
 
 h6 {
@@ -53,4 +53,9 @@ h6 {
 
 small {
   @apply text-3xs;
+}
+
+em,
+i {
+  @apply italic;
 }

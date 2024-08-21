@@ -1,25 +1,17 @@
+'use client';
+
 import Image, { type ImageProps, type StaticImageData } from 'next/image';
+import { useState } from 'react';
 
-import cx, { tw } from '@/utils/cx';
+import cx from '@/utils/cx';
 
-type SizeProps = Omit<ImageProps, 'width' | 'height'> & { size?: number };
-type WidthHeightProps = ImageProps & {
-  width?: number;
-  height?: number;
-};
-
-export type ImgProps = SizeProps | WidthHeightProps;
-
-const BaseImg = (baseProps: ImgProps) => {
-  const { size = 0, ...whProps } = baseProps as SizeProps;
-  const { width = size, height = size, ...props } = whProps as WidthHeightProps;
+export const Img = (props: ImageProps) => {
+  const [errored, setErrored] = useState<boolean>(false);
   return (
-    // Disabled warning. Alt props already is present in props
+    // Disabled warning. Alt prop already is present in props
     // eslint-disable-next-line jsx-a11y/alt-text
     <Image
       {...props}
-      width={width}
-      height={height}
       placeholder={
         typeof props.src !== 'string'
           ? (props.src as StaticImageData).blurDataURL
@@ -28,8 +20,12 @@ const BaseImg = (baseProps: ImgProps) => {
           : props.placeholder
       }
       className={cx('object-cover object-center', props.className)}
+      loading={!props.priority ? 'lazy' : undefined}
+      decoding={'async'}
+      onError={() => {
+        setErrored(true);
+      }}
+      unoptimized={errored || props.unoptimized}
     />
   );
 };
-
-export const Img = tw(BaseImg)<ImgProps>``;

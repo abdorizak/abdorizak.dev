@@ -1,0 +1,110 @@
+[
+  {
+    "name": "MacBook Air",
+    "description": "M1 Air 8-core CPU and 7-core GPU, 1TB SSD and 16GB RAM",
+    "url": "https://support.apple.com/mac/macbook-air",
+    "image": "uses/hardware/mbair.png",
+    "imageMeta": {
+      "width": 386,
+      "height": 386,
+      "blurDataURL": "data:image/webp;base64,UklGRogAAABXRUJQVlA4WAoAAAAQAAAABwAABwAAQUxQSEAAAAANYFJr25PnH2yJXS1IQhhioCAEbdD4KfdG0SEikl+STp/4vGrMYl5Vl63pXxgNQvIh5CtMDFDPmV8vZsBdDLABVlA4ICIAAABwAQCdASoIAAgADMDOJZwAAgZAAADMEQBJqXTNCOTAAAAA",
+      "placeholder": "blur"
+    }
+  },
+  {
+    "name": "HP Newest 27",
+    "description": "M1 Pro 10-core CPU and 16-core GPU, 1TB SSD and 16GB RAM",
+    "url": "https://support.apple.com/kb/SP854",
+    "image": "uses/hardware/monitor.png",
+    "imageMeta": {
+      "width": 386,
+      "height": 386,
+      "blurDataURL": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4WAoAAAAQAAAABwAABwAAQUxQSEEAAAAAZF4tDAEAAAC7//rpwZtmAqH//P/+//Ykjf/5/fv4/1J8//r//vv/hm3/9PXw3+iVG0EhmYEmFAIAAAFQU0sfAABWUDggMgAAALABAJ0BKggACAAMwM4lAABTmvv6WAAA8QDFdKN4yTUmOxlPZkxjugVdYIBsgbxCAAAA",
+      "placeholder": "blur"
+    }
+  },
+  {
+    "name": "HP Newest 27",
+    "description": "27\\ 4K Monitor",
+    "url": "https://www.amazon.com/dp/B08YJMMYBX",
+    "image": "uses/hardware/monitor.png",
+    "imageMeta": {
+      "width": 386,
+      "height": 386,
+      "blurDataURL": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4WAoAAAAQAAAABwAABwAAQUxQSEEAAAAAZF4tDAEAAAC7//rpwZtmAqH//P/+//Ykjf/5/fv4/1J8//r//vv/hm3/9PXw3+iVG0EhmYEmFAIAAAFQU0sfAABWUDggMgAAALABAJ0BKggACAAMwM4lAABTmvv6WAAA8QDFdKN4yTUmOxlPZkxjugVdYIBsgbxCAAAA",
+      "placeholder": "blur"
+    }
+  },
+  {
+    "name": "Logitech Brio",
+    "description": "4K WebCam",
+    "url": "https://www.amazon.com/dp/B01N5UOYC4",
+    "image": "uses/hardware/webcam.png",
+    "imageMeta": {
+      "width": 386,
+      "height": 386,
+      "blurDataURL": "data:image/webp;base64,UklGRowAAABXRUJQVlA4WAoAAAAQAAAABwAABwAAQUxQSEEAAAAAAwAv29cpAAQCAD/HxjoAAlbM0dnZ0c1Ufv/8///8/3oGEWT//18RBgMANv36MAADAwA0//swAAMCACbIxSEAAgBWUDggJAAAALABAJ0BKggACAAMwM4lpAAC51pOOAAA/p1SkWHYGM+PgAAAAA==",
+      "placeholder": "blur"
+    }
+  },
+  {
+    "name": "iPhone 13 Pro",
+    "description": "Deep Purple 256GB",
+    "url": "https://support.apple.com/kb/SP875",
+    "image": "uses/hardware/phone.png",
+    "imageMeta": {
+      "width": 430,
+      "height": 430,
+      "blurDataURL": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4WAoAAAAQAAAABwAABwAAQUxQSEAAAAAJYFTbtpKDWw2m7mmoRwpGMvsNyOEuJSIi1TqcRmOozNL1irh0pJvr4ryRkWUU6T65+S+ukxMUFAWFpRFdL9oJVlA4ICgAAADQAQCdASoIAAgADMDOJaACdAD6CA6NAADfTt+9/YvvdpKTxZyZlpgA",
+      "placeholder": "blur"
+    }
+  },
+  {
+    "name": "AirPods Pro",
+    "description": "2nd Gen",
+    "url": "https://www.apple.com/airpods-pro/",
+    "image": "uses/hardware/airpods.png",
+    "imageMeta": {
+      "width": 500,
+      "height": 500,
+      "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4WAoAAAAQAAAABwAABwAAQUxQSDQAAAABYBTJVqMBA6AGCWhIm3xEyZw3vhMeIiLpjfPeGchPa0+CRe+rGU5dl1YY9X0qYEOMwdIDVlA4IBgAAAAwAQCdASoIAAgADMDOJaQAA3AA/ukQAAA=",
+      "placeholder": "blur"
+    }
+  },
+  {
+    "name": "iPad Pro 12.9",
+    "description": "6th Gen, Space Gray",
+    "url": "https://support.apple.com/kb/SP828",
+    "image": "uses/hardware/ipad.png",
+    "imageMeta": {
+      "width": 500,
+      "height": 500,
+      "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4WAoAAAAQAAAABwAABwAAQUxQSDIAAAABUBsAIKImLuOBvL6+6OaEiFDYtg3SdgyHIGGltByw2GppgVDfcmqO0LCcP/FRIL49AlZQOCAmAAAAkAEAnQEqCAAIAAzAziWYAAJdeq7QAP11TGvfMwZHwYdLIJeAAAA=",
+      "placeholder": "blur"
+    }
+  },
+  {
+    "name": "Apple Watch",
+    "description": "Series 8, Midnight",
+    "url": "https://support.apple.com/kb/SP878",
+    "image": "uses/hardware/apple-watch.png",
+    "imageMeta": {
+      "width": 500,
+      "height": 500,
+      "blurDataURL": "data:image/webp;base64,UklGRogAAABXRUJQVlA4WAoAAAAQAAAABwAABwAAQUxQSEEAAAAAAQBFr8moJAAAbP/ecv/WEyr6//d26/onNvv+/1i8/ys2+///Q7H/Kif3//c0t/YOAFz64VX/mgABADiasosQAABWUDggIAAAADABAJ0BKggACAAMwM4lnAADcAD+4RC/6WkhmrslgAAA",
+      "placeholder": "blur"
+    }
+  },
+  {
+    "name": "The Brevitē Backpack",
+    "description": "Black",
+    "url": "https://brevite.co/collections/everyday-backpacks/products/the-brevite-backpack?variant=34952238858394",
+    "image": "uses/hardware/brevite-backpack.png",
+    "imageMeta": {
+      "width": 386,
+      "height": 386,
+      "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4WAoAAAAQAAAABwAABwAAQUxQSEEAAAAAAQA7dXY2AAEAIPH//+UUAABD//n7+zcAAFD//P79PgAAWv/7/f9GAABg//z//0MAAFf/+v32MwAACDI4OSwDAABWUDggHAAAADABAJ0BKggACAAMwM4lnAADcAD+6ERn3ZtE4AA=",
+      "placeholder": "blur"
+    }
+  }
+]

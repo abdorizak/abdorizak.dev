@@ -1,4 +1,4 @@
-const PROD_ENV = 'development';
+const PROD_ENV = 'production';
 
 const {
   NODE_ENV = 'development',

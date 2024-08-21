@@ -4,6 +4,7 @@ const pathEmojiMap = {
   '404': '👻',
   about: '😀',
   now: 'ℹ️',
+  donate: '🎁',
   projects: '💼',
   uses: '💻',
   blog: '📄',
@@ -15,6 +16,7 @@ const pathTitleMap = {
   '404': 'Page not found',
   about: 'About',
   now: 'Now',
+  donate: 'Donate',
   projects: 'Projects',
   uses: 'Uses',
   blog: 'Blog',
@@ -57,13 +59,12 @@ export const PageTitle = (props: {
         ...(path
           ? {}
           : {
-              backgroundImage: 'linear-gradient(to right, #88a4e6, #38bdf8)',
-              backgroundClip: 'text',
+              color: '#88a4e6',
               filter: 'saturate(1.5)',
             }),
       }}
     >
-      {title || pathTitle || 'Abdorizak Abdalla'}
+      {title || pathTitle || 'Abdirizak Abdalla'}
     </p>
   );
 };

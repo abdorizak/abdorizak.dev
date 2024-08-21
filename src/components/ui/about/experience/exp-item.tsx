@@ -1,11 +1,9 @@
-/* eslint-disable react/jsx-key */
-import type { Route } from 'next';
+import type { ImageProps } from 'next/image';
 import { type CSSProperties } from 'react';
 
-import type { ImgProps } from '@/components/atoms/img';
 import { Img } from '@/components/atoms/img';
-import Tag from '@/components/atoms/Tag';
-import { getReadableColor, hexToRgb } from '@/utils/color';
+import Tag from '@/components/atoms/tags';
+import { hexToRgb } from '@/utils/color';
 import cx from '@/utils/cx';
 
 import { ExperienceItem, ExperienceItemWithLine } from './exp.styles';
@@ -18,19 +16,19 @@ export interface ExperienceItemProps {
   tags?: string[];
   link: string;
   color: string;
-  image: ImgProps['src'];
+  image: ImageProps['src'];
   last?: boolean;
 }
 
 export const ExpItem = (props: ExperienceItemProps) => {
-  const color = hexToRgb(getReadableColor(props.color, true), 1, true);
+  const color = hexToRgb(props.color, 1, true);
   const Component = props.last ? ExperienceItem : ExperienceItemWithLine;
   return (
     <Component
       title={`${props.position} at ${props.company}`}
-      href={props.link as Route}
+      href={props.link}
       target={'_blank'}
-      style={{ '--exp-color': color } as CSSProperties}
+      style={{ '--tint': color } as CSSProperties}
       data-umami-event={'Experience'}
       data-umami-event-company={props.company}
     >

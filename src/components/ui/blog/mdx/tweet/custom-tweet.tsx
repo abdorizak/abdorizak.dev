@@ -5,10 +5,10 @@ import {
   TweetInReplyTo,
   TweetBody,
   TweetMedia,
-  TweetInfo,
   TweetActions,
   QuotedTweet,
   enrichTweet,
+  TweetInfo,
 } from 'react-tweet';
 import type { Tweet } from 'react-tweet/api';
 

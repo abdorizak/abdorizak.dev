@@ -1,13 +1,8 @@
-import type { Route } from 'next';
-
 import { Logo } from '@/components/atoms/logo';
-import { getColoredTextClasses } from '@/utils/colored-text';
 import cx from '@/utils/cx';
 
 import { SocialLinks } from '../social-links';
 
-// import { BackToTopLink } from './back-to-top-link';
-import { BackToTopLink } from './back-to-top-link';
 import { linksGroups } from './footer.data';
 import {
   Description,
@@ -23,7 +18,7 @@ export const Footer = () => {
     <StyledFooter>
       <Details>
         <FooterLink
-          title={'Abdorizak Abdalla - Home Page'}
+          title={'Abdirizak Abdalla - Home Page'}
           href={'/'}
           className={cx(
             'self-start',
@@ -34,17 +29,7 @@ export const Footer = () => {
           )}
         >
           <Logo />
-          <span
-            className={getColoredTextClasses(
-              'brand',
-              'brand',
-              'blue',
-              'dark:saturate-100',
-              true,
-            )}
-          >
-            Abdorizak Abdalla
-          </span>
+          <span className={'text-accent'}>Abdirizak Abdalla</span>
         </FooterLink>
         <Description>
           Passionate and creative full-stack software engineer from Somalia{' '}
@@ -71,20 +56,18 @@ export const Footer = () => {
               className={'flex flex-col gap-2'}
             >
               {group.links.map((link) => {
+                const className = `hocus:${link.className}`;
                 return (
                   <li key={link.title}>
-                    {link.href !== '#' ? (
-                      <FooterLink
-                        title={link.a11yTitle || link.title}
-                        href={link.href as Route}
-                        className={link.className}
-                        {...link.props}
-                      >
-                        {link.title}
-                      </FooterLink>
-                    ) : (
-                      <BackToTopLink {...link} />
-                    )}
+                    <FooterLink
+                      title={link.a11yTitle || link.title}
+                      href={link.href}
+                      className={className}
+                      {...link.props}
+                      prefetch={false}
+                    >
+                      {link.title}
+                    </FooterLink>
                   </li>
                 );
               })}

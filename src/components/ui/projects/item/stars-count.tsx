@@ -1,7 +1,7 @@
-'use client';
+import { Suspense } from 'react';
 
+import { getStars } from '@/actions/stars';
 import { Icon } from '@/components/atoms/icon';
-import { useImmutableRequest } from '@/hooks/use-request';
 import cx from '@/utils/cx';
 
 interface StarsCountProps {
@@ -9,17 +9,8 @@ interface StarsCountProps {
   owner?: string;
 }
 
-const useStarsRequest = (repo: string, owner?: string) => {
-  let url = `/api/stars/${repo}`;
-  if (owner) url += `?owner=${owner}`;
-  return useImmutableRequest<{
-    stars?: string;
-  }>(url);
-};
-
-export const StarsCount = (props: StarsCountProps) => {
-  const { data } = useStarsRequest(props.repo, props.owner);
-  const { stars } = data || {};
+const StarsCount = async (props: StarsCountProps) => {
+  const stars = await getStars(props.repo, props.owner);
   return (
     <>
       {Boolean(stars) ? (
@@ -28,17 +19,14 @@ export const StarsCount = (props: StarsCountProps) => {
           aria-label={`${stars} on GitHub`}
           className={cx(
             'flex flex-row items-center gap-1',
-            'text-tertiary-txt text-[0.75rem]',
+            'text-tertiary-txt',
             'px-1 rounded-1.5 transition-colors',
             'border border-transparent',
-            'bg-[rgba(var(--project-color)/0.075)] dark:bg-[rgba(var(--project-color)/0.15)]',
+            'bg-tint-bg',
             'group-hocus/project:text-secondary-txt',
-            'group-hocus/project:border-[rgba(var(--project-color)/0.24)]',
-            'group-hocus/project:dark:border-[rgba(var(--project-color)/0.36)]',
-            'group-hocus/project:bg-transparent',
-            'group-hocus/project:dark:bg-transparent',
-            'motion-safe:animate-fade-in',
+            'group-hocus/project:border-tint-border',
           )}
+          style={{ fontSize: '0.75rem' }}
         >
           <Icon
             className={'size-3'}
@@ -53,3 +41,9 @@ export const StarsCount = (props: StarsCountProps) => {
     </>
   );
 };
+
+export const StarsCounter = (props: StarsCountProps) => (
+  <Suspense fallback={<span className={'min-w-9 min-h-6'} />}>
+    <StarsCount {...props} />
+  </Suspense>
+);

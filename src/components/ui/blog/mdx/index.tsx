@@ -1,7 +1,8 @@
 import type { MDXComponents } from 'mdx/types';
-import { getMDXComponent } from 'next-contentlayer/hooks';
+import type { ImageProps } from 'next/image';
+import * as runtime from 'react/jsx-runtime';
 
-import { Img, type ImgProps } from '@/components/atoms/img';
+import { Img } from '@/components/atoms/img';
 import { Link } from '@/components/atoms/link';
 import { tw } from '@/utils/cx';
 
@@ -29,21 +30,27 @@ const components = {
   hr: tw.hr`border-divider`,
   a: Link,
   Link,
-  img: (props: ImgProps) => <Img {...props} suppressHydrationWarning />,
+  img: (props: ImageProps) => <Img {...props} suppressHydrationWarning />,
   Img,
   Tweet: ReactTweet,
   Bookmark,
 } as MDXComponents;
 
 interface MdxProps {
-  code: string;
+  code?: string;
 }
 
-export const Mdx = (props: MdxProps) => {
+const getMDXComponent = (code: string) => {
+  const fn = new Function(code);
+  return fn({ ...runtime }).default;
+};
+
+export const MDX = (props: MdxProps) => {
+  if (!props.code) return null;
   const MdxComponent = getMDXComponent(props.code);
   return (
     <article className={'mdx'}>
-      <MdxComponent components={components as MDXComponents} />
+      <MdxComponent components={components} />
     </article>
   );
 };

@@ -1,10 +1,13 @@
-import type { CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
 
+import { Icon } from '@/components/atoms/icon';
 import { Link } from '@/components/atoms/link';
-import { getReadableColor, hexToRgb } from '@/utils/color';
+import { ViewsCounter } from '@/components/ui/blog/views-counter';
+import type { Blog } from '@/content';
+import { hexToRgb } from '@/utils/color';
 import cx from '@/utils/cx';
 import { formatDate } from '@/utils/date';
-import type { Blog } from 'contentlayer/generated';
+import { getReadableColor } from '@/utils/readable-color';
 
 interface HeaderProps {
   post: Blog;
@@ -21,9 +24,21 @@ export const Header = ({ post }: HeaderProps) => {
       <Link
         title={'Go back to blog posts list'}
         href={'/blog'}
-        className={'self-start no-underline hocus:underline py-1 mb-2'}
+        className={cx(
+          'self-start no-underline hocus:underline',
+          'py-1 mb-2 flex flex-row gap-1.5 items-center',
+        )}
       >
-        ← Back to blog posts
+        <Icon
+          path={
+            'M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z'
+          }
+          className={'size-4'}
+          style={{
+            filter: 'drop-shadow(0 0.0625rem 0.125rem var(--tw-shadow-color))',
+          }}
+        />
+        <span>Back to blog posts</span>
       </Link>
       <h1
         className={cx(
@@ -68,9 +83,9 @@ export const Header = ({ post }: HeaderProps) => {
             </span>
           </>
         ) : null}
-        {/* {!post.link ? (
-          <ViewsCounter slug={post.slug} inProgress={post.inProgress} write />
-        ) : null} */}
+        {!post.link && !post.draft ? (
+          <ViewsCounter slug={post.slug} write />
+        ) : null}
       </p>
     </div>
   );

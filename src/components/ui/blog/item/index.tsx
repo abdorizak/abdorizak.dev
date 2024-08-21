@@ -1,23 +1,24 @@
-import type { Route } from 'next';
 import { type CSSProperties } from 'react';
 
 import { Img } from '@/components/atoms/img';
+import type { PartialBlog } from '@/utils/blog';
 import { hexToRgb } from '@/utils/color';
 import cx from '@/utils/cx';
 import { formatDate } from '@/utils/date';
 import { getUrlDomain } from '@/utils/domain';
-import type { Blog } from 'contentlayer/generated';
+
+import { ViewsCounter } from '../views-counter';
 
 import { BlogPostLink } from './item.styles';
 
 interface BlogPostItemProps {
-  post: Blog;
+  post: PartialBlog;
   fullDate?: boolean;
 }
 
 const MAX_WIDTH = 96;
 const MAX_HEIGHT = 72;
-const getHeroProps = (heroMeta: Blog['heroMeta']) => {
+const getHeroProps = (heroMeta: PartialBlog['heroMeta']) => {
   const { width = MAX_WIDTH, height = MAX_HEIGHT, ...rest } = heroMeta || {};
   return {
     width: Math.min(width, MAX_WIDTH),
@@ -41,24 +42,32 @@ export const BlogPostItem = (props: BlogPostItemProps) => {
   return (
     <BlogPostLink
       title={post.title}
-      href={(post.link || `/blog/${post.slug}`) as Route}
-      style={{ '--post-color': color } as CSSProperties}
+      href={post.link || `/blog/${post.slug}`}
+      style={{ '--tint': color } as CSSProperties}
+      prefetch={false}
     >
-      <Img
-        src={post.hero || ''}
-        alt={`Hero image for blog post "${post.title}"`}
-        {...getHeroProps(post.heroMeta)}
+      <div
         className={cx(
+          'overflow-hidden',
           'rounded-1 max-w-12',
           'mobile-md:max-w-18',
           'mobile-lg:max-w-24',
-          'aspect-[4/3]',
+          'transition',
           'border border-transparent',
-          'group-hocus/post:border-[rgba(var(--post-color)/.24)]',
-          'dark:group-hocus/post:border-[rgba(var(--post-color)/.36)]',
-          'mobile-md:row-span-2 mobile-md:mt-[0.1875rem]',
+          'group-hocus/post:border-tint-border',
+          'mobile-md:row-span-2 mobile-md:mt-0.75',
         )}
-      />
+        style={{ aspectRatio: '4/3' }}
+      >
+        <Img
+          src={post.hero || ''}
+          alt={`Hero image for blog post "${post.title}"`}
+          {...getHeroProps(post.heroMeta)}
+          className={
+            'h-full transition duration-200 group-hocus/post:scale-110'
+          }
+        />
+      </div>
       <p
         className={cx(
           'w-full tablet-md:self-end font-medium',
@@ -111,6 +120,7 @@ export const BlogPostItem = (props: BlogPostItemProps) => {
               </span>
             </>
           ) : null}
+          {!post.link && !post.draft ? <ViewsCounter slug={post.slug} /> : null}
         </p>
       </div>
     </BlogPostLink>

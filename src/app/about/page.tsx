@@ -1,5 +1,4 @@
 import { Link } from '@/components/atoms/link';
-import { Main } from '@/components/atoms/main';
 import { Section } from '@/components/atoms/section';
 import { SocialLinks } from '@/components/molecules/social-links';
 import { Experience } from '@/components/ui/about/experience';
@@ -17,44 +16,34 @@ const jsonLd = JSON.stringify({
   mainEntity: {
     '@id': '#main-author',
     '@type': 'Person',
-    name: 'Abdorizak Abdalla',
-    alternateName: ['abdorizak', 'abdorizakdev', 'XMan', 'DR ABDORIZAK X', 'X'],
+    name: 'Abdirizak Abdalla',
+    alternateName: ['abdorizak', 'abdorizakdotdev'],
     description:
       'Passionate and creative full-stack software engineer from Somalia 🇸🇴',
     image: 'https://abdorizak.dev/media/abdorizak/abdorizak-hd.jpg',
     sameAs: [
       'https://github.com/abdorizak',
       'https://linkedin.com/in/abdorizak',
-      'https://twitter.com/abdorizak',
-      'https://instagram.com/abdorizak',
+      'https://x.com/abdorizak3',
+      'https://instagram.com/abdorizak3',
     ],
   },
 });
 
 export default function AboutPage() {
   return (
-    <Main>
+    <>
       <Section id={'about'}>
-        <h1
-          className={getColoredTextClasses(
-            'blue',
-            'blue',
-            'green',
-            'self-start',
-          )}
-        >
-          About
-        </h1>
-        <Photo />
+        <h1 className={getColoredTextClasses('green')}>About</h1>
         <p className={'max-w-nice'}>
           <span role={'img'} aria-label={'waving hand'}>
             👋
           </span>{' '}
           Hey there! I&apos;m Abdorizak Abdalla, a software engineer from{' '}
           <Link
-            title={'Somalia'}
-            href={'https://www.google.com/maps/place/Somalia'}
-            data-umami-event={'Link to Somalia map'}
+            title={'Colombia'}
+            href={'https://www.google.com/maps/place/Colombia/@4,-72z/'}
+            data-umami-event={'Link to Colombia map'}
           >
             Somalia{' '}
             <span role={'img'} aria-label={'Somalia flag'}>
@@ -63,6 +52,11 @@ export default function AboutPage() {
           </Link>{' '}
           with over two (2) years of professional experience.
         </p>
+        <p className={'max-w-nice'}>
+          I focus on details and I&apos;m passionate about crafting software
+          products that look great and are both accessible and easy to maintain.
+        </p>
+        <Photo />
         <p className={'max-w-nice'}>
           I&apos;m a skilled software developer and an experienced trainer,
           specializing in iOS app development, Swift programming language,
@@ -78,13 +72,6 @@ export default function AboutPage() {
           and expertise to help you achieve your goals.
         </p>
         <p className={'max-w-nice'}>
-          I first discovered my passion for software development while doing
-          some programming for a couple of robotics projects during pre-college.
-          I started by exploring iOS development, gaining a deeper understanding
-          of programming principles. Later, I became interested in building
-          Mobile applications, honing my skills in Mobile development.
-        </p>
-        <p className={'max-w-nice'}>
           If you&apos;re curious about the hardware and software tools I use
           every day, feel free to check out the{' '}
           <Link title={'Uses page'} href={'/uses'}>
@@ -93,8 +80,10 @@ export default function AboutPage() {
           page.
         </p>
       </Section>
-      <Section id={'contact'} className={'-mt-6 gap-2.5'}>
-        <h2 className={'text-sm mb-2'}>Let&apos;s connect!</h2>
+      <Section id={'contact'} className={'-mt-5 gap-2.5'}>
+        <h2 className={'mb-1'} style={{ fontSize: '1rem' }}>
+          Let&apos;s connect!
+        </h2>
         <p>
           Feel free to reach out to me at{' '}
           <Link
@@ -112,13 +101,13 @@ export default function AboutPage() {
       <script type={'application/ld+json'} suppressHydrationWarning>
         {jsonLd}
       </script>
-    </Main>
+    </>
   );
 }
 
 export const metadata = createMetadata({
-  title: 'About – Abdorizak Abdalla',
-  description: 'Learn more about me (Abdorizak Abdalla), my career and more',
+  title: 'About – Abdirizak Abdalla',
+  description: 'Learn more about me (Abdirizak Abdalla), my career and more',
   exactUrl: 'https://abdorizak.dev/about',
   keywords: ['bio', 'biography', 'information', 'about', 'career'],
 });

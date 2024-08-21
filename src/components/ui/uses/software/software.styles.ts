@@ -1,18 +1,24 @@
-import type { ImgProps } from '@/components/atoms/img';
 import { Img } from '@/components/atoms/img';
 import { Link } from '@/components/atoms/link';
 import { tw } from '@/utils/cx';
 
 export const GridContainer = tw.div`
+  relative
   tablet-md:rounded-4
   -mx-3 tablet-md:-mx-4
   border-none
   overflow-hidden
-  bg-cover
-  bg-no-repeat
-  bg-center
-  bg-[url('/media/uses/wallpaper.jpg')]
-  dark:bg-[url('/media/uses/wallpaper-dark.jpg')]
+  before:absolute
+  before:top-0
+  before:left-0
+  before:w-full
+  before:h-full
+  before:bg-cover
+  before:bg-no-repeat
+  before:bg-center
+  before:bg-[url('/media/uses/wallpaper.jpg')]
+  before:dark:bg-[url('/media/uses/wallpaper-dark.jpg')]
+  before:opacity-85
 `;
 
 export const SoftwareGrid = tw.ol`
@@ -27,14 +33,11 @@ export const SoftwareGrid = tw.ol`
   list-none
   backdrop-blur
   backdrop-saturate-125
-  bg-light/15
-  dark:bg-dark/10
   mobile-md:grid-cols-[repeat(3,minmax(0,108px))]
   mobile-lg:grid-cols-[repeat(4,minmax(0,108px))]
   tablet-sm:grid-cols-[repeat(5,minmax(0,108px))]
-  tablet-sm:py-8
+  tablet-sm:py-12
   tablet-sm:px-6
-  tablet-lg:py-12
 `;
 
 export const SoftwareItem = tw(Link)`
@@ -58,17 +61,17 @@ export const SoftwareItem = tw(Link)`
   group/software
 `;
 
-export const AppIcon = tw(Img)<ImgProps>`
+export const AppIcon = tw(Img)`
   transition
   border-none
   shadow-brand-950/30
   drop-shadow-[0_1px_3px_var(--tw-shadow-color)]
   dark:shadow-brand-50/25
   dark:drop-shadow-[0_2px_5px_var(--tw-shadow-color)]
-  max-w-[3rem]
-  mobile-md:max-w-[3.5rem]
-  mobile-lg:max-w-[4rem]
-  tablet-sm:max-w-[4.5rem]
+  max-w-12
+  mobile-md:max-w-14
+  mobile-lg:max-w-16
+  tablet-sm:max-w-18
   scale-95
   group-hocus/software:scale-100
 `;

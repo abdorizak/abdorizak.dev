@@ -1,12 +1,11 @@
-import { Main } from '@/components/atoms/main';
 import { ProjectsList } from '@/components/ui/projects';
 import { createMetadata } from '@/utils/metadata';
 
 export const metadata = createMetadata({
-  title: 'Projects – Abdorizak Abdalla',
+  title: 'Projects – Abdirizak Abdalla',
   description:
     // eslint-disable-next-line max-len
-    "Projects by Abdorizak Abdalla. Get to know the projects I'm most proud of. Many of them are open-source.",
+    "Projects by Abdirizak Abdalla. Get to know the projects I'm most proud of. Many of them are open-source.",
   exactUrl: 'https://abdorizak.dev/projects',
   keywords: [
     'tech',
@@ -21,9 +20,5 @@ export const metadata = createMetadata({
 });
 
 export default function ProjectsPage() {
-  return (
-    <Main>
-      <ProjectsList title={'Projects'} />
-    </Main>
-  );
+  return <ProjectsList title={'Projects'} />;
 }

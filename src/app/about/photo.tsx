@@ -6,14 +6,14 @@ import { getAboutImage } from './images';
 export default async function Photo() {
   const photo = await getAboutImage();
   return (
-    <figure className={'my-4'}>
+    <figure className={'mt-3'}>
       <div
         className={cx(
-          'aspect-[21/9]',
           'tablet-md:rounded-4',
           'overflow-hidden',
           '-mx-3 tablet-md:-mx-4',
         )}
+        style={{ aspectRatio: '21/9' }}
       >
         <Img
           src={photo.src}

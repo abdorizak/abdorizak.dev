@@ -1,4 +1,4 @@
-import { unstable_noStore as noStore } from 'next/cache';
+// import { unstable_noStore as noStore } from 'next/cache';
 
 const { GITHUB_API_TOKEN: githubApiToken = '' } = process.env;
 const authHeaders =
@@ -10,7 +10,7 @@ export const fetchCache = 'force-no-store';
 
 export const getRepoReleaseData = async (name?: string) => {
   if (!name || !name.length) return null;
-  noStore();
+  // noStore();
   try {
     const dataRequest = await fetch(
       `https://api.github.com/repos/abdorizak/${name}/releases/latest`,

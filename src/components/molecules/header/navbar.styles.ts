@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 import { Link } from '@/components/atoms/link';
+import { MAX_SITE_WIDTH } from '@/constants';
 import { tw } from '@/utils/cx';
 
-export const Nav = tw.nav`
+export const Nav = tw.nav.attrs({ style: { maxWidth: MAX_SITE_WIDTH } })`
   relative
   mx-auto
   h-full
   w-full
-  max-w-site
   z-4 bg-toolbar
   p-1.5 tablet-sm:p-2
   backdrop-saturate-125
@@ -15,10 +15,10 @@ export const Nav = tw.nav`
   transform-gpu
   ring-1
   ring-inset
-  ring-brand-600/[0.12]
-  dark:ring-brand-200/[0.18]
-  hover:ring-brand-600/[0.18]
-  hover:dark:ring-brand-200/[0.24]
+  ring-brand-600/10
+  dark:ring-brand-200/15
+  hover:ring-brand-600/20
+  hover:dark:ring-brand-200/25
   rounded-3.5
   grid
   grid-cols-[auto_1fr]
@@ -28,13 +28,12 @@ export const Nav = tw.nav`
   bg-[linear-gradient(to_bottom,_var(--color-background)_0%,_var(--color-background)_100%),_var(--color-toolbar)]
   shadow-none
   hover:shadow-toolbar-hover
-  shadow-brand-600/[0.18]
-  dark:shadow-brand-200/[0.18]
+  shadow-brand-600/15
+  dark:shadow-brand-200/15
   tablet-sm:items-center
   tablet-sm:grid-cols-[auto_1fr_auto]
   tablet-sm:grid-rows-1
   tablet-sm:gap-2
-  [[data-expanded="true"]>&]:max-tablet-sm:shadow-toolbar-elevated
 
   before:pointer-events-none
   before:select-none
@@ -47,13 +46,8 @@ export const Nav = tw.nav`
   before:m-px
   before:border-px
   before:border-accent-dark
-  before:opacity-[0.06]
-  dark:before:opacity-[0.12]
-  before:bg-gradient-to-b
-  before:from-brand-600/0
-  before:to-brand-600/80
-  dark:before:from-brand-200/0
-  dark:before:to-brand-200/60
+  before:opacity-5
+  dark:before:opacity-10
   before:[mask:linear-gradient(to_bottom,_rgba(0,_0,_0,_0)_0%,_rgba(0,_0,_0,_1)_100%)]
   dark:before:[mask:linear-gradient(to_bottom,_rgba(0,_0,_0,_1)_0%,_rgba(0,_0,_0,_0)_100%)]
 `;
@@ -73,11 +67,6 @@ export const LinksList = tw.ol`
   duration-200
   delay-150
   will-change-[max-height,opacity,visibility]
-  [[data-expanded="true"]_&]:max-h-full
-  [[data-expanded="true"]_&]:opacity-100
-  [[data-expanded="true"]_&]:select-auto
-  [[data-expanded="true"]_&]:pointer-events-auto
-  [[data-expanded="true"]_&]:visible
   tablet-sm:max-h-full
   tablet-sm:p-0
   tablet-sm:opacity-100
@@ -112,20 +101,17 @@ export const NavItem = tw.li`
   before:duration-150
   before:bg-transparent
   hocus:before:bg-toolbar-highlight
-  has-[[aria-current="page"]]:before:bg-toolbar-highlight
 `;
 
 export const NavPageLink = tw(NavLink)`
-  text-transparent
-  from-secondary-txt
-  to-secondary-txt
-  bg-gradient-to-r
-  bg-clip-text
-  hocus:text-transparent
+  text-secondary-txt
+  transition-colors
   hocus:saturate-125
   hocus:dark:saturate-150
-  [&[aria-current="page"]]:saturate-125
-  [&[aria-current="page"]]:dark:saturate-150
+`;
+
+export const NavPageLinkText = tw.span`
+  max-tablet-sm:ml-7
 `;
 
 export const ButtonsGroup = tw.ul`
@@ -138,4 +124,12 @@ export const ButtonsGroup = tw.ul`
   tablet-sm:gap-0
   tablet-sm:justify-start
   tablet-sm:[grid-column:3/4]
+`;
+
+export const ExtraNavLinks = tw.li`
+  min-h-11
+  tablet-sm:hidden
+  tablet-sm:invisible
+  tablet-sm:select-none
+  tablet-sm:pointer-events-none
 `;

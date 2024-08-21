@@ -1,4 +1,4 @@
-import { THEME_COLOR_LIGHT, THEME_COLOR_DARK } from '@/utils/color';
+import { THEME_COLOR_LIGHT, THEME_COLOR_DARK } from '@/constants';
 import { colorMetaTags } from '@/utils/metadata';
 
 export const Meta = () => {
@@ -32,7 +32,7 @@ export const Meta = () => {
         rel={'alternate'}
         href={'/feed.xml'}
         type={'application/rss+xml'}
-        title={'Abdorizak Abdalla (RSS)'}
+        title={'Abdirizak Abdalla (RSS)'}
       />
 
       {colorMetaTags.map((tag) => (
@@ -49,6 +49,7 @@ export const Meta = () => {
         media={'(prefers-color-scheme: dark)'}
         content={THEME_COLOR_DARK}
       />
+      <meta name={'view-transition'} content={'same-origin'} />
     </>
   );
 };

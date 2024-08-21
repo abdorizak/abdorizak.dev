@@ -1,4 +1,3 @@
-// import qamuusAcademy from '@/assets/images/experience/qaamus.jpg';
 import qamuusAcademy from '@/assets/images/experience/qaamus.jpg';
 import safariOne from '@/assets/images/experience/safariOne.jpeg';
 import spc from '@/assets/images/experience/spc.png';
@@ -27,18 +26,10 @@ const experience: Array<ExperienceRecord> = [
 
   {
     company: 'Softprime Consulting Pvt. Ltd.',
-    position:
-      'Flutter Developer & Odoo ERP Specialist: Functional & Technical Support',
+    position: 'Flutter Developer & Odoo Technical Consultant',
     from: 'Jan 2022',
     until: 'April 2024',
-    tags: [
-      'Flutter',
-      'Dart',
-      'Odoo',
-      'Odoo Technical',
-      'Functional Support',
-      'Python',
-    ],
+    tags: ['Flutter', 'Dart', 'Odoo', 'Consulting', 'Team Lead'],
     link: 'https://softprimeconsulting.com/',
     image: spc,
     color: '#2E4C94',
@@ -61,12 +52,10 @@ export const Experience = () => {
   return (
     <Section id={'experience'} className={'gap-6'}>
       <div className={'flex flex-row gap-4 items-center justify-between'}>
-        <h2 className={getColoredTextClasses('blue', 'blue', 'brand')}>
-          Experience
-        </h2>
+        <h2 className={getColoredTextClasses('brand')}>Experience</h2>
         <LinkButton
           title={'Resume'}
-          href={'https://abdorizak.dev/resume'}
+          href={'/resume'}
           openInNewTab
           className={'self-start pr-3.5'}
           data-umami-event={'Resume'}

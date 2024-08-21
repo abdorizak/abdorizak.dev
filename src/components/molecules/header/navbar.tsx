@@ -1,11 +1,8 @@
-import type { Route } from 'next';
-
 import { Logo } from '@/components/atoms/logo';
-import {
-  buildColoredLinkClasses,
-  getColoredTextClasses,
-} from '@/utils/colored-text';
 import type { TWComponentProps } from '@/utils/cx';
+import cx from '@/utils/cx';
+
+import { SocialLinks } from '../social-links';
 
 import { NavToggle } from './nav-toggle';
 import {
@@ -14,7 +11,9 @@ import {
   Nav,
   NavItem,
   NavLink,
+  ExtraNavLinks,
   NavPageLink,
+  NavPageLinkText,
 } from './navbar.styles';
 import { ThemeToggle } from './theme-toggle';
 
@@ -22,71 +21,80 @@ const toolbarLinksList = [
   {
     title: 'About',
     href: '/about',
-    className: buildColoredLinkClasses('blue', 'green'),
+    className: 'text-green',
   },
   {
     title: 'Blog',
     href: '/blog',
-    className: buildColoredLinkClasses('yellow', 'orange'),
+    className: 'text-orange',
   },
   {
     title: 'Projects',
     href: '/projects',
-    className: buildColoredLinkClasses('red', 'purple'),
+    className: 'text-purple',
   },
   {
     title: 'Uses',
     href: '/uses',
-    className: buildColoredLinkClasses('brand', 'blue'),
+    className: 'text-blue',
   },
 ];
 
 interface NavbarProps extends TWComponentProps<typeof Nav> {
   path?: string;
-  isExpanded?: boolean;
+  expanded?: boolean;
   onNavToggleClick?: () => void;
 }
 
 export const Navbar = (props: NavbarProps) => {
-  const { isExpanded, className } = props;
+  const { expanded, className } = props;
   return (
     <Nav id={'navigation'} className={className}>
       <NavLink
-        title={'Abdorizak Abdalla - Home Page'}
+        title={'Abdirizak Abdalla - Home Page'}
         href={'/'}
         className={'gap-2 hocus:bg-toolbar-highlight'}
         aria-current={props.path === '/' ? 'page' : undefined}
       >
         <Logo className={'saturate-125 dark:saturate-150'} />
-        <span
-          className={getColoredTextClasses(
-            'brand',
-            'brand',
-            'blue',
-            'saturate-125',
-            true,
-          )}
-        >
-          Abdorizak Abdalla
+        <span className={'text-accent saturate-125 dark:saturate-150'}>
+          Abdirizak Abdalla
         </span>
       </NavLink>
-      <LinksList>
+      <LinksList
+        className={
+          expanded
+            ? 'max-h-full opacity-100 select-auto pointer-events-auto visible'
+            : ''
+        }
+      >
         {toolbarLinksList.map((link) => {
+          const isActive = props.path?.startsWith(link.href) || false;
           return (
-            <NavItem key={link.href}>
+            <NavItem
+              key={link.href}
+              className={isActive ? 'before:bg-toolbar-highlight' : ''}
+            >
               <NavPageLink
                 title={`${link.title} page`}
-                href={link.href as Route}
-                aria-current={
-                  props.path?.startsWith(link.href) ? 'page' : undefined
-                }
-                className={link.className}
+                href={link.href}
+                aria-current={isActive ? 'page' : undefined}
+                className={cx(
+                  `hocus:${link.className}`,
+                  isActive ? link.className : '',
+                  isActive ? 'saturate-125 dark:saturate-150' : '',
+                )}
+                prefetch={!isActive}
               >
-                <span>{link.title}</span>
+                <NavPageLinkText>{link.title}</NavPageLinkText>
               </NavPageLink>
             </NavItem>
           );
         })}
+        <ExtraNavLinks aria-hidden={'true'} />
+        <ExtraNavLinks className={'mx-auto'}>
+          <SocialLinks />
+        </ExtraNavLinks>
       </LinksList>
       <ButtonsGroup>
         <li>
@@ -94,9 +102,9 @@ export const Navbar = (props: NavbarProps) => {
         </li>
         <li>
           <NavToggle
-            title={`${isExpanded ? 'Collapse' : 'Expand'} menu`}
-            aria-label={`${isExpanded ? 'Collapse' : 'Expand'} menu`}
-            aria-expanded={isExpanded}
+            title={`${expanded ? 'Collapse' : 'Expand'} menu`}
+            aria-label={`${expanded ? 'Collapse' : 'Expand'} menu`}
+            aria-expanded={expanded}
             aria-controls={'header'}
             onClick={props.onNavToggleClick}
           />

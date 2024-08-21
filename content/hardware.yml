@@ -1,0 +1,44 @@
+- image: uses/hardware/mbair.png
+  name: MacBook Air
+  description: M1 Air 8-core CPU and 7-core GPU, 1TB SSD and 16GB RAM
+  url: https://support.apple.com/mac/macbook-air
+
+- image: uses/hardware/monitor.png
+  name: HP Newest 27
+  description: M1 Pro 10-core CPU and 16-core GPU, 1TB SSD and 16GB RAM
+  url: https://support.apple.com/kb/SP854
+
+- image: uses/hardware/monitor.png
+  name: HP Newest 27
+  description: 27\ 4K Monitor
+  url: https://www.amazon.com/dp/B08YJMMYBX
+
+- image: uses/hardware/webcam.png
+  name: Logitech Brio
+  description: 4K WebCam
+  url: https://www.amazon.com/dp/B01N5UOYC4
+
+- image: uses/hardware/phone.png
+  name: iPhone 13 Pro
+  description: Deep Purple 256GB
+  url: https://support.apple.com/kb/SP875
+
+- image: uses/hardware/airpods.png
+  name: AirPods Pro
+  description: 2nd Gen
+  url: https://www.apple.com/airpods-pro/
+
+- image: uses/hardware/ipad.png
+  name: iPad Pro 12.9
+  description: 6th Gen, Space Gray
+  url: https://support.apple.com/kb/SP828
+
+- image: uses/hardware/apple-watch.png
+  name: Apple Watch
+  description: Series 8, Midnight
+  url: https://support.apple.com/kb/SP878
+
+- image: uses/hardware/brevite-backpack.png
+  name: The Brevitē Backpack
+  description: Black
+  url: https://brevite.co/collections/everyday-backpacks/products/the-brevite-backpack?variant=34952238858394

@@ -1,9 +1,11 @@
 import { Link } from '@/components/atoms/link';
+import { MAX_SITE_WIDTH } from '@/constants';
 import { tw } from '@/utils/cx';
 
-export const StyledFooter = tw.footer`
+export const StyledFooter = tw.footer.attrs({
+  style: { maxWidth: MAX_SITE_WIDTH },
+})`
   w-full
-  max-w-site
   mx-auto
   grid
   grid-cols-2
@@ -28,10 +30,9 @@ export const Details = tw.div`
   gap-3
 `;
 
-export const Description = tw.p`
+export const Description = tw.p.attrs({ style: { maxWidth: '32ch' } })`
   text-2xs
   text-pretty
-  max-w-[32ch]
 `;
 
 export const LinksList = tw.div`
@@ -46,15 +47,9 @@ export const FooterLink = tw(Link)`
   font-manrope
   font-semibold
   transition-colors
-  text-transparent
-  bg-clip-text
-  bg-gradient-to-r
-  from-tertiary-txt
-  to-tertiary-txt
-  hocus:text-transparent
-  hocus:from-secondary-txt
-  hocus:to-secondary-txt
+  text-tertiary-txt
+  hocus:text-secondary-txt
   hocus:saturate-125
   hocus:dark:saturate-150
-  hocus:decoration-[var(--tw-gradient-from)]
+  hocus:decoration-current
 `;

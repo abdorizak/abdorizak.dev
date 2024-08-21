@@ -4,7 +4,7 @@ import { fontFamily, spacing } from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 import hocus from 'tailwindcss-hocus';
 
-import { THEME_COLOR_LIGHT, THEME_COLOR_DARK } from './src/utils/color';
+import { THEME_COLOR_LIGHT, THEME_COLOR_DARK } from './src/constants';
 
 const reduceObjArray = <T>(objs: Array<T>) =>
   objs.reduce((r, c) => Object.assign(r, c), {});
@@ -16,7 +16,7 @@ const fontSize = {
   xl: '1.375rem', // h2
   lg: '1.25rem', // h3
   md: '1.125rem', // h4
-  sm: '1rem', // h5
+  // h5: 1rem (defined in css)
   xs: '0.9375rem', // h6, body, p
   '2xs': '0.875rem', // small
   '3xs': '0.8125rem', // (?)
@@ -27,7 +27,6 @@ const breakpoints = {
   'mobile-lg': '425px',
   'tablet-sm': '596px',
   'tablet-md': '768px',
-  'tablet-lg': '792px',
   desktop: '960px',
 };
 
@@ -51,12 +50,15 @@ const mappedColors = colors.map((color) => ({
 const extendedSpacing = {
   ...spacing,
   px: '0.0625rem',
+  '0.75': '0.1875rem',
+  '5.5': '1.375rem',
   18: '4.5rem',
   21: '5.25rem',
   22: '5.5rem',
+  30: '7.5rem',
 };
 
-module.exports = {
+const config: Config = {
   darkMode: 'class',
   content: [
     './src/components/**/*.{js,ts,jsx,tsx}',
@@ -74,22 +76,24 @@ module.exports = {
     },
     borderWidth: { ...extendedSpacing, DEFAULT: '0.0625rem' },
     colors: {
-      ...twColors,
       transparent: 'rgba(0,0,0,0)',
       current: 'currentColor',
       inherit: 'inherit',
       black: twColors.black,
       white: twColors.white,
       blue: twColors.sky,
-      green: twColors.green,
+      green: twColors.emerald,
       yellow: twColors.yellow,
       orange: twColors.orange,
       red: twColors.rose,
       purple: twColors.violet,
+      tint: {
+        bg: 'rgba(var(--tint)/var(--opacity-tint-bg))',
+        border: 'rgba(var(--tint)/var(--opacity-tint-border))',
+      },
     },
     extend: {
       spacing: {
-        site: '666px',
         nice: '69ch',
       },
       zIndex: {
@@ -100,8 +104,8 @@ module.exports = {
         5: '5',
       },
       colors: {
-        ...twColors,
         brand: {
+          DEFAULT: '#3867D6',
           950: '#060A15',
           900: '#0B152B',
           800: '#162956',
@@ -188,10 +192,6 @@ module.exports = {
         DEFAULT: 'ease-in-out',
       },
       keyframes: {
-        'fade-in': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: 'var(--end-opacity, 1)' },
-        },
         scroll: {
           '0%': { transform: 'translate3d(1.5rem, 0, 0)' },
           '100%': { transform: 'translate3d(-100%, 0, 0)' },
@@ -221,7 +221,6 @@ module.exports = {
         },
       },
       animation: {
-        'fade-in': 'fade-in 200ms ease-in-out 50ms both',
         scroll: 'scroll 15s linear infinite',
         wave: 'wave 2.5s infinite',
         'music-bars': 'music-bars 2.2s ease infinite alternate',
@@ -245,24 +244,11 @@ module.exports = {
     hocus,
   ],
   safelist: [
-    {
-      pattern: /^(from|to)-brand-500$/,
-      variants: ['hocus', '[&[aria-current="page"]]'],
-    },
-    {
-      pattern: /^(from|to)-brand-300$/,
-      variants: ['dark', 'hocus:dark', '[&[aria-current="page"]]:dark'],
-    },
-    {
-      pattern: /^(from|to)-(blue|green|yellow|orange|red|purple)-600$/,
-      variants: ['hocus', '[&[aria-current="page"]]'],
-    },
-    {
-      pattern: /^(from|to)-(blue|green|yellow|orange|red|purple)-400$/,
-      variants: ['dark', 'hocus:dark', '[&[aria-current="page"]]:dark'],
-    },
+    'max-tablet-sm:overflow-hidden',
     {
       pattern: /^shadow-(brand|blue|green|yellow|orange|red|purple)-300$/,
     },
   ],
-} satisfies Config;
+};
+
+module.exports = config;

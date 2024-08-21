@@ -1,4 +1,4 @@
-import { Img, type ImgProps } from '@/components/atoms/img';
+import { Img } from '@/components/atoms/img';
 import { Link } from '@/components/atoms/link';
 import { tw } from '@/utils/cx';
 
@@ -12,8 +12,7 @@ export const ProjectLink = tw(Link)`
   w-[calc(100%_+_1.5rem)]
   bg-transparent
   transition-colors
-  hocus:bg-[rgba(var(--project-color)/0.1)]
-  hocus:dark:bg-[rgba(var(--project-color)/0.2)]
+  hocus:bg-tint-bg
   flex
   flex-row
   items-center
@@ -24,16 +23,14 @@ export const ProjectLink = tw(Link)`
   tablet-md:gap-3.5
 `;
 
-export const ProjectIcon = tw(Img)<ImgProps>`
+export const ProjectIcon = tw(Img)`
   rounded-2 p-1.5
   transition-all
   aspect-square object-contain
-  bg-[rgba(var(--project-color)/0.1)]
-  dark:bg-[rgba(var(--project-color)/0.2)]
+  bg-tint-bg
   drop-shadow-none
   group-hocus/project:p-1
   group-hocus/project:saturate-125
-  group-hocus/project:bg-transparent
-  group-hocus/project:dark:bg-transparent
-  group-hocus/project:drop-shadow-[0_1px_2px_rgba(var(--project-color)/0.5)]
+  group-hocus/project:!bg-transparent
+  group-hocus/project:drop-shadow-[0_1px_2px_rgba(var(--tint)/0.5)]
 `;

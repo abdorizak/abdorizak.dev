@@ -20,7 +20,7 @@ export const Intro = () => {
         <Img
           src={photo}
           alt={'Photo of Abdorizak Abdalla'}
-          size={160}
+          sizes={'160'}
           quality={100}
           priority
           className={cx(

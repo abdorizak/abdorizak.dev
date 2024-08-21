@@ -14,8 +14,8 @@ const StyledSocialLink = tw(Link)`
   transition-colors
   text-secondary-txt
   bg-transparent
-  hocus:bg-brand-600/[0.08]
-  dark:hocus:bg-brand-300/[0.16]
+  hocus:bg-brand-600/10
+  dark:hocus:bg-brand-300/15
 `;
 
 interface SocialLinkProps extends TWComponentProps<typeof StyledSocialLink> {
@@ -31,7 +31,7 @@ export const SocialLink = ({ iconPath, ...props }: SocialLinkProps) => (
   >
     {props.children || (
       <Icon
-        className={'transition-colors delay-[-100ms]'}
+        className={'transition-colors delay-[-100ms] size-5.5'}
         path={iconPath || ''}
       />
     )}

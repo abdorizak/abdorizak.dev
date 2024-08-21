@@ -1,5 +1,3 @@
-import { buildColoredLinkClasses } from '@/utils/colored-text';
-
 export const linksGroups = [
   {
     title: 'Navigate',
@@ -8,49 +6,60 @@ export const linksGroups = [
       {
         title: 'Home',
         href: '/',
-        className: buildColoredLinkClasses('brand', 'blue', true),
+        className: 'text-brand',
       },
       {
         title: 'About',
         href: '/about',
-        className: buildColoredLinkClasses('blue', 'green', true),
+        className: 'text-green',
       },
-
+      {
+        title: 'Blog',
+        href: '/blog',
+        className: 'text-orange',
+      },
       {
         title: 'Projects',
         href: '/projects',
-        className: buildColoredLinkClasses('red', 'purple', true),
+        className: 'text-purple',
+      },
+      {
+        title: 'Uses',
+        href: '/uses',
+        className: 'text-blue',
       },
     ],
   },
   {
-    title: '🚀',
+    title: 'Misc',
     a11yTitle: 'Miscellaneous links',
     links: [
       {
-        title: 'Blog',
-        href: '/blog',
-        className: buildColoredLinkClasses('yellow', 'orange', true),
-      },
-      {
         title: 'Contact',
         href: '/contact',
-        className: buildColoredLinkClasses('blue', 'green', true),
+        className: 'text-green',
         props: {
           ignoreNextLink: true,
         },
       },
       {
-        title: 'Uses',
-        href: '/uses',
-        className: buildColoredLinkClasses('brand', 'blue', true),
+        title: 'RSS Feed',
+        href: '/feed.xml',
+        className: 'text-orange',
+        props: {
+          'data-umami-event': 'RSS feed',
+        },
       },
       {
-        title: '🔝',
+        title: 'Colophon',
+        href: '/colophon',
+        className: 'text-purple',
+      },
+      {
+        title: 'Back to Top',
         a11yTitle: 'Scroll back to top',
-        href: '#',
-        className: buildColoredLinkClasses('brand', 'blue', true),
-        prefetch: false,
+        href: '#page',
+        className: 'text-brand',
       },
     ],
   },

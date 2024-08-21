@@ -5,7 +5,7 @@ import { getDate } from '@/utils/date';
 
 const today = ((): Date => {
   const d = new Date();
-  // Somalia TimeZone (UTC-5)
+  // Colombia TimeZone (UTC-5)
   d.setUTCHours(-5);
   return d;
 })();
@@ -20,13 +20,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }));
 
-  const routes = ['', 'about', 'blog', 'projects', 'uses', 'colophon'].map(
-    (route) => ({
-      url: `https://abdorizak.dev/${route}`,
-      lastModified: today.toISOString().split('T')[0],
-      priority: route ? 0.8 : 1,
-    }),
-  );
+  const routes = [
+    '',
+    'about',
+    'blog',
+    'donate',
+    'projects',
+    'uses',
+    'colophon',
+  ].map((route) => ({
+    url: `https://abdorizak.dev/${route}`,
+    lastModified: today.toISOString().split('T')[0],
+    priority: route ? 0.8 : 1,
+  }));
 
   return [...routes, ...blogs].sort(
     (a, b) => (b.priority || 0) - (a.priority || 0),

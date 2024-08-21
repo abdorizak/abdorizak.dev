@@ -4,11 +4,33 @@
 // https://github.com/contentlayerdev/contentlayer/issues/313#issuecomment-1305424923
 const path = require('path');
 
+const bundleAnalyzer = require('@next/bundle-analyzer');
 const million = require('million/compiler');
-const { withContentlayer } = require('next-contentlayer');
 
 const appHeaders = require('./config/next/headers');
 const redirects = require('./config/next/redirects');
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+  openAnalyzer: false,
+});
+
+/*
+class VeliteWebpackPlugin {
+  static started = false;
+  apply(/** @type {import('webpack').Compiler} compiler) {
+    // executed three times in nextjs
+    // twice for the server (nodejs / edge runtime) and once for the client
+    compiler.hooks.beforeCompile.tapPromise('VeliteWebpackPlugin', async () => {
+      if (VeliteWebpackPlugin.started) return;
+      VeliteWebpackPlugin.started = true;
+      const dev = compiler.options.mode === 'development';
+      const { build } = await import('velite');
+      await build({ watch: dev, clean: !dev });
+    });
+  }
+}
+*/
 
 /**
  * @type {import('next').NextConfig}
@@ -19,10 +41,9 @@ const defaultNextConfig = {
   compress: true,
   crossOrigin: 'anonymous',
   experimental: {
-    typedRoutes: true,
-    // ppr: true,
+    ppr: true,
     // useLightningcss: true,
-    optimizePackageImports: ['framer-motion', 'react-tweet'],
+    // optimizePackageImports: ['react-tweet'],
   },
   compiler: {
     removeConsole: {
@@ -34,19 +55,16 @@ const defaultNextConfig = {
   },
   images: {
     remotePatterns: [
-      { hostname: 'images.unsplash.com' },
       { hostname: 'i.scdn.co' },
       { hostname: 'spotify.com' },
       { hostname: 'abdorizak.dev' },
       { hostname: 'unavatar.io' },
       { hostname: 'source.boringavatars.com' },
-      { hostname: 'lh3.googleusercontent.com' },
-      { hostname: 'cdn.discordapp.com' },
       { hostname: 'raw.githubusercontent.com' },
       { hostname: 'avatars.githubusercontent.com' },
-      { hostname: '**.cdninstagram.com' },
+      { hostname: 'assets.literal.club' },
+      { hostname: 'books.google.com' },
       { hostname: '**.pixpa.com' },
-      { hostname: '**.fbcdn.net' },
     ],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
@@ -54,12 +72,19 @@ const defaultNextConfig = {
   },
   headers: () => appHeaders,
   redirects: () => redirects,
+  // webpack: (config) => {
+  //   config.plugins.push(new VeliteWebpackPlugin());
+  //   return config;
+  // },
 };
 
 const millionConfig = {
   mute: true,
   auto: { rsc: true },
+  rsc: true,
 };
 
-const config = million.next(withContentlayer(defaultNextConfig), millionConfig);
+const config = withBundleAnalyzer(
+  million.next(defaultNextConfig, millionConfig),
+);
 module.exports = config;

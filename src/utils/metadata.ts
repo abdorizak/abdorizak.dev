@@ -14,7 +14,7 @@ export const createMetadata = (data: {
     title,
     description,
     keywords,
-    authors: [{ name: 'Abdorizak Abdalla', url: 'https://abdorizak.dev' }],
+    authors: [{ name: 'Abdirizak Abdalla', url: 'https://abdorizak.dev' }],
     openGraph: {
       title,
       description,

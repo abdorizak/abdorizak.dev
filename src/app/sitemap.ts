@@ -5,8 +5,8 @@ import { getDate } from '@/utils/date';
 
 const today = ((): Date => {
   const d = new Date();
-  // Colombia TimeZone (UTC-5)
-  d.setUTCHours(-5);
+  // Somalia TimeZone (UTC+3)
+  d.setUTCHours(d.getUTCHours() + 3);
   return d;
 })();
 

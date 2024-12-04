@@ -27,8 +27,8 @@ export const createMetadata = (data: {
       title,
       description,
       card: 'summary_large_image',
-      creator: '@abdorizak',
-      site: '@abdorizak',
+      creator: '@abdorizak3',
+      site: '@abdorizak3',
     },
     verification: {
       google: 'lJwL3cKpjX_Eqp6yEY4hsydJazQl85xv29ZUmEg4oEE',

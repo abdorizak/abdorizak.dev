@@ -41,9 +41,9 @@ export default function AboutPage() {
           </span>{' '}
           Hey there! I&apos;m Abdorizak Abdalla, a software engineer from{' '}
           <Link
-            title={'Colombia'}
-            href={'https://www.google.com/maps/place/Colombia/@4,-72z/'}
-            data-umami-event={'Link to Colombia map'}
+            title={'Somalia'}
+            href={'https://www.google.com/maps/place/Somalia/@4,-72z/'}
+            data-umami-event={'Link to Somalia map'}
           >
             Somalia{' '}
             <span role={'img'} aria-label={'Somalia flag'}>

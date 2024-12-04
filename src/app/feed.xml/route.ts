@@ -116,8 +116,9 @@ const defaultChannel = {
   link: 'https://abdorizak.dev',
   title: 'Abdirizak Abdalla',
   description:
-    'Passionate and creative full-stack software engineer from Colombia',
-  image_url: 'https://abdorizak.dev/api/og',
+    // eslint-disable-next-line max-len
+    'iOS Engineer | Flutter Dev | Odoo Technical & Functional. Passionate Open Source Projects from Somalia 🇸🇴',
+  image_url: 'https://jahir.dev/api/og',
   image: {
     title: 'Abdirizak Abdalla',
     link: 'https://abdorizak.dev',

@@ -12,8 +12,9 @@ const jsonLd = JSON.stringify({
   logo: 'https://abdorizak.dev/media/brand/logo-full.png',
   name: 'Abdirizak Abdalla',
   description:
-    'Passionate and creative full-stack software engineer from Colombia 🇨🇴',
-  email: 'hola@abdorizak.dev',
+    // eslint-disable-next-line max-len
+    'iOS Engineer | Flutter Dev | Odoo Technical & Functional. Passionate Open Source Projects from Somalia 🇸🇴',
+  email: 'info@abdorizak.dev',
   foundingDate: new Date('1997-01-28T18:30:00-05:00').toISOString(),
 });
 

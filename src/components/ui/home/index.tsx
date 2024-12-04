@@ -9,6 +9,7 @@ import { SocialLinks } from '@/components/molecules/social-links';
 import cx from '@/utils/cx';
 
 import { Name, SubHeader, WavingSpan } from './intro.styles';
+import { Verified } from './verified';
 import { WavingHello } from './waving-hello';
 
 export const Intro = () => {
@@ -47,6 +48,7 @@ export const Intro = () => {
             <span>
               I am <Name>Abdorizak Abdalla</Name>
             </span>
+            <Verified />
           </SubHeader>
         </h1>
 

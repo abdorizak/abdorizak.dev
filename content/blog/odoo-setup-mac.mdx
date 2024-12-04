@@ -1,0 +1,93 @@
+---
+title: Setup Odoo on MacOS with Apple Silicon (M1, M1 Pro, M1 Max, M2)
+date: '2024-12-03'
+color: '#547FA7'
+hero: odoo-setup-mac/odoo.png # devToId: 123456
+summary: In this guide, we will walk you through the steps to set up Odoo on MacOS with Apple Silicon (M1, M1 Pro, M1 Max, M2) processors.
+keywords: 'Odoo, Odoo Setup, Odoo on MacOS, Odoo on Apple Silicon, Odoo on M1, Odoo on M1 Pro, Odoo on M1 Max, Odoo on M2'
+---
+
+## Introduction
+
+Odoo is an open-source business management software that includes a range of business applications for various needs, such as CRM, e-commerce, accounting, inventory, project management, and more. In this guide, we will walk you through the steps to set up Odoo on MacOS with Apple Silicon (M1, M1 Pro, M1 Max, M2) processors.
+
+## Prerequisites
+
+Before you start setting up Odoo on MacOS with Apple Silicon, ensure you have the following:
+
+- MacOS with Apple Silicon (M\*) processor
+- Homebrew installed on your MacOS [Homebrew](https://brew.sh/)
+- Python 3.8 or higher installed on your MacOS
+- Node.js installed on your MacOS
+- PostgreSQL installed on your MacOS (Tip: you can use DBngin to install PostgreSQL) [DBngin](https://dbngin.com/)
+
+## Installation Steps
+
+### 🐍 Step 1: Install Python
+
+To install Python on your MacOS with Apple Silicon, use Homebrew. Open your terminal and run the following command:
+
+```bash
+brew install python@3.8
+```
+
+### 🌐 Step 2: Install Node.js
+
+To install Node.js on your MacOS with Apple Silicon, use Homebrew. Open your terminal and run the following command:
+
+```bash
+brew install node
+```
+
+### 🐍 Step 3: Set Up a Python Virtual Environment
+
+Setting up a virtual environment helps to manage dependencies and avoid conflicts. Run the following commands to create and activate a virtual environment:
+
+```bash
+python3 -m venv odoo-env
+source odoo-env/bin/activate
+```
+
+### 📦 Step 4: Install Required Python Packages
+
+After activating the virtual environment, install the required Python packages. Since the `psycopg2` package is not supported on Apple Silicon, replace it with `psycopg2-binary` and comment out the `psycopg2` package in the `requirements.txt` file. Then run:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 📝 Step 5: Create a Configuration File
+
+Create a configuration file for Odoo with extension `.conf` and add the following configuration:
+
+```bash
+[options]
+; Server Settings
+addons_path = *path_to_your_addons*
+data_dir = *path_to_your_data_dir*
+
+; HTTP Service
+http_port = 8069 ; Port for HTTP service
+longpolling_port = 8072 ; Port for longpolling service
+
+; Database Configuration
+db_host = 127.0.0.1 ; Database host
+db_port = 5432 ; Database port
+db_user = *your_db_user*
+db_password = *your_db_password*
+db_name = *your_db_name*
+```
+
+### 🚀 Step 6: Start Odoo Server
+
+If you're using PyCharm, you can create a new configuration and add the following script to start the Odoo server:
+
+<br />
+![pycharm_config](/media/blog/odoo-setup-mac/pycharm_config.png)
+<br />
+
+or you can run the following command in your terminal:
+
+```bash
+python odoo-bin -c /path/to/your/configuration/file.conf
+```

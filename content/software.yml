@@ -14,10 +14,6 @@
   name: IntelliJ IDEA CE
   url: https://www.jetbrains.com/idea/
 
-- mage: uses/apps/fig.png
-  name: Fig
-  url: https://fig.io/
-
 - image: uses/apps/android-studio.png
   name: Android Studio
   url: https://developer.android.com/studio

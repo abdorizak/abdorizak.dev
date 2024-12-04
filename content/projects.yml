@@ -2,7 +2,7 @@
   name: Expense Tracker App
   description: Expense Tracker 🫰 is a financial app that used to track daily Expense from you Income
   icon: other/expenses-Tracker.jpeg
-  # preview: android/blueprint-preview.png
+  preview: other/expenses-Tracker.jpeg
   url: https://github.com/abdorizak/Expense-Tracker-App,
   color: '#4d8af0'
   repo: Expense-Tracker-App
@@ -11,7 +11,7 @@
   name: Hisnul Muslim
   description: Hisnul Muslim App. is Supplication of Muslims. from holy quran and hadith of prophet Muhammad Salallahu Alaihi Wasallam
   icon: apps/hisnul-muslim.png
-  # preview: other/boyaconf-preview.png
+  preview: apps/hisnul-muslim.png
   url: https://github.com/abdorizak/Hisnul-Muslim
   color: '#00202b'
   darkColor: '#4dcc89'
@@ -22,7 +22,7 @@
   name: Doctor Appointment App
   description: This is simple app It also connects patients with doctors by requesting there Favorite doctor, It also allow the users to make favorite.
   icon: other/doctor-appointment.png
-  # preview: android/chipview-preview.png
+  preview: other/doctor-appointment.png
   url: https://github.com/abdorizak/Doctor_Appointment_App
   color: '#3E95FB'
   hide: true
@@ -30,9 +30,9 @@
 
 - order: 3
   name: Github Followers
-  description: Get to know upcoming Colombian holidays
+  description: Github Followers is a UIkit project with programmatic UI written in Swift
   icon: other/github-followers.png
-  # preview: web/col-holidays-preview.png
+  preview: other/github-followers.png
   url: https://github.com/abdorizak/Github_Followers
   color: '#003893'
   darkColor: '#fcd116'
@@ -42,7 +42,7 @@
   name: Expense Tracker Backend
   description: Expense Tracker Backend is a simple backend that used to store the data from the Expense Tracker App it was built using Node.js and MongoDB.
   icon: other/backends.png
-  # preview: android/fabsmenu-preview.png
+  preview: other/backends.png
   url: https://github.com/abdorizak/expense_managerBackEnd
   color: '#eb3b75'
   hide: true
@@ -52,7 +52,7 @@
   name: Doctor Appointment Backend
   description: Doctor Appointment Backend is a simple backend for Doctor Appointment App that allows you to get all doctors and book an appointment.
   icon: other/backends.png
-  # preview: android/fabsmenu-preview.png
+  preview: other/backends.png
   url: https://github.com/abdorizak/expense_managerBackEnd
   color: '#eb3b75'
   hide: true

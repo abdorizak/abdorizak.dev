@@ -15,10 +15,11 @@ import { Meta } from './meta';
 
 export const metadata = {
   ...createMetadata({
-    title: 'Abdirizak Abdalla – Full-stack Software Engineer',
+    title:
+      'Abdirizak Abdalla – iOS Engineer | Flutter Dev | Odoo Technical & Functional',
     description:
       // eslint-disable-next-line max-len
-      "I'm a passionate and creative full-stack software engineer from Colombia 🇨🇴. Visit my website to learn more about me and my projects",
+      "I'm an iOS Engineer | Swift Engineer | Flutter Dev Odoo Technical & Functional. Passionate Open Source Projects from Somalia 🇸🇴. Visit my website to learn more about me and my projects",
     keywords: [
       'Abdirizak Abdalla',
       'abdorizak',
@@ -27,7 +28,7 @@ export const metadata = {
       'open-source',
       'full-stack',
       'software engineer',
-      'colombia',
+      'Somalia',
       'bio',
       'developer',
       'portfolio',
@@ -35,11 +36,14 @@ export const metadata = {
       'android',
       'web',
     ],
+    image: 'https://abdorizak.dev/media/abdorizak/abdorizak-hd.jpg',
   }),
 };
 
-const { UMAMI_WEBSITE_ID: umamiWebsiteId = '', IS_TEMPLATE = 'true' } =
-  process.env;
+const {
+  UMAMI_WEBSITE_ID: umamiWebsiteId = '73ce0264-4dc0-4bee-b79d-27ecf6d8b6ea',
+  IS_TEMPLATE = 'true',
+} = process.env;
 export default function RootLayout(props: PropsWithChildren) {
   return (
     <html
@@ -55,7 +59,7 @@ export default function RootLayout(props: PropsWithChildren) {
       <head>
         <Meta />
         <Script
-          src={'https://umami.abdorizak.dev/script.js'}
+          src={'https://cloud.umami.is/script.js'}
           data-website-id={umamiWebsiteId}
           data-domains={'abdorizak.dev'}
           strategy={'lazyOnload'}

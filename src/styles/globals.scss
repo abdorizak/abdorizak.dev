@@ -19,18 +19,4 @@
   }
 }
 
-/* 
-  TODO: If you're using my website source code as a template,
-  you might want to remove these styles but also
-  please change the styling and colors to match your own style or brand
-*/
-html.template {
-  &,
-  & * {
-    @apply pointer-events-none select-none saturate-125 invert;
-    &::before {
-      z-index: 9999;
-      content: '–';
-    }
-  }
-}
+/* Removed template mode disabling styles (html.template) to ensure normal interactive UI. */

@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
-import { canRunAction as isProd } from '@/actions/utils';
-
+// Always show the verified icon; previously hidden behind canRunAction env checks.
 export const Verified = () => {
-  if (!isProd) return null;
   return (
     <svg
       viewBox={'0 0 24 24'}

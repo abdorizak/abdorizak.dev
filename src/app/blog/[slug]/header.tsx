@@ -2,7 +2,6 @@ import { type CSSProperties } from 'react';
 
 import { Icon } from '@/components/atoms/icon';
 import { Link } from '@/components/atoms/link';
-import { ViewsCounter } from '@/components/ui/blog/views-counter';
 import type { Blog } from '@/content';
 import { hexToRgb } from '@/utils/color';
 import cx from '@/utils/cx';
@@ -82,9 +81,6 @@ export const Header = ({ post }: HeaderProps) => {
               {Math.ceil(readingTime)} minutes read
             </span>
           </>
-        ) : null}
-        {!post.link && !post.draft ? (
-          <ViewsCounter slug={post.slug} write />
         ) : null}
       </p>
     </div>

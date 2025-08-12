@@ -1,7 +1,6 @@
 import { unstable_cache as cache } from 'next/cache';
 import { Suspense } from 'react';
 
-import { getTopThreeBlogPosts } from '@/actions/counters';
 import { Icon } from '@/components/atoms/icon';
 import { LinkButton } from '@/components/atoms/link-button';
 import { Section } from '@/components/atoms/section';
@@ -19,24 +18,35 @@ import cx from '@/utils/cx';
 const getFeaturedPosts = cache(
   async (): Promise<Array<PartialBlog>> => {
     try {
-      const [latestPost, ...sortedPosts] =
-        allReadableBlogs.sort(sortBlogPostsByDate);
-      const topThree = await getTopThreeBlogPosts(latestPost.slug);
-      if (!topThree.length) return [latestPost];
-      const mostViewedPost =
-        topThree[Math.floor(Math.random() * topThree.length)];
-      const otherPosts = sortedPosts.filter(
-        (it) => mostViewedPost.slug !== it.slug,
-      );
-      const randomPost =
-        otherPosts[Math.floor(Math.random() * otherPosts.length)];
-      return [
-        latestPost,
-        sortedPosts.find((it) => mostViewedPost.slug === it.slug),
-        randomPost,
-      ].filter(Boolean) as Array<PartialBlog>;
-    } catch (e) {
-      return [];
+      const sortedPosts = [...allReadableBlogs].sort(sortBlogPostsByDate);
+      const latestPost = sortedPosts[0];
+
+      // Build result while avoiding duplicates
+      const result: PartialBlog[] = [];
+      const seen = new Set<string>();
+      const add = (p?: PartialBlog) => {
+        if (p && !seen.has(p.slug)) {
+          result.push(p);
+          seen.add(p.slug);
+        }
+      };
+
+      add(latestPost);
+
+      // Random from remaining
+      const remaining = sortedPosts.filter((p) => !seen.has(p.slug));
+      add(remaining[Math.floor(Math.random() * Math.max(1, remaining.length))]);
+
+      // Fill until we have exactly 3
+      for (const p of sortedPosts) {
+        if (result.length >= 3) break;
+        add(p);
+      }
+
+      return result.slice(0, 3);
+    } catch {
+      // Safe fallback: latest 3 posts
+      return [...allReadableBlogs].sort(sortBlogPostsByDate).slice(0, 3);
     }
   },
   ['featured-posts'],

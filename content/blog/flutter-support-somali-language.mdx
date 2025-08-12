@@ -1,0 +1,379 @@
+---
+title: Add Somali (`so`) Localization to a Flutter App (Vendor `so.dart`)
+date: '2025-08-10'
+color: '#12B981'
+hero: flutter-support-somali/flImg.png # devToId: 123456
+summary: 'How to enable Somali language in Flutter today by vendoring a custom Material localization (`so.dart`), wiring delegates, and avoiding common build pitfalls.'
+keywords: 'Flutter, Localization, Somali, so.dart, MaterialLocalizations, CupertinoLocalizations, WidgetsLocalizations, intl, Masjid AbuHureyra'
+---
+
+## Overview
+
+Flutter doesn’t (yet) ship Somali (`so`) in the official `flutter_localizations` bundle. Until it lands upstream, you can **vendor a single file** (`so.dart`) that provides Somali strings for **Material** widgets and forwards **Cupertino/Widgets** to global fallbacks. This guide shows the exact setup used in the _Masjid Abu Hureyra_ app.
+
+---
+
+## Prerequisites
+
+- Flutter with `flutter_localizations` enabled.
+- (Optional) `intl` if you format dates/times in Somali.
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any # optional, recommended for date/time formatting
+```
+
+---
+
+## 1) Add the Somali file
+
+Create `lib/l10n/so.dart` and paste the **final** version below.
+
+> ✅ Important: The `delegate` must be a **static const** inside `SoMaterialLocalizations`.
+> ❌ Do **not** use an `extension` to add a static `delegate` (Dart doesn’t allow static members in extensions).
+
+```dart
+// lib/l10n/so.dart
+//
+// One-stop Somali localization wiring for your app.
+// - Material: Somali strings via SoMaterialLocalizations (your overrides)
+// - Cupertino: temporarily forwards to GlobalCupertinoLocalizations (English/fallback)
+// - Widgets:   forwards to GlobalWidgetsLocalizations (text direction etc.)
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+/// ------------------------------
+///  MATERIAL (Somali overrides)
+/// ------------------------------
+class SoMaterialLocalizations extends MaterialLocalizations {
+  // ✅ Public delegate to register in MaterialApp
+  static const LocalizationsDelegate<MaterialLocalizations> delegate =
+      _SoMaterialLocalizationsDelegate();
+
+  // REQUIRED by Flutter
+  @override
+  String get localeName => 'so';
+
+  // --- BEGIN: your overrides (trimmed for brevity; keep ALL you added) ---
+  @override
+  String get okButtonLabel => "HAYE";
+  @override
+  String get cancelButtonLabel => "Jooji";
+  @override
+  String get openAppDrawerTooltip => "Menu navigation Open";
+  @override
+  String get backButtonTooltip => "Hore";
+  @override
+  String get closeButtonTooltip => "Kuuma";
+  @override
+  String get deleteButtonTooltip => "delete";
+  @override
+  String get nextMonthTooltip => "Bisha soo socota";
+  @override
+  String get previousMonthTooltip => "Bisha hore";
+  @override
+  String get firstPageTooltip => "First sida";
+  @override
+  String get lastPageTooltip => "Last sida";
+  @override
+  String get showMenuTooltip => "Muuji menu";
+  @override
+  String get licensesPageTitle => "Licenses";
+  @override
+  String get rowsPerPageTitle => "Rows per sida:";
+  @override
+  String get closeButtonLabel => "Kuuma";
+  @override
+  String get continueButtonLabel => "Sii wad";
+  @override
+  String get copyButtonLabel => "Nuqul";
+  @override
+  String get cutButtonLabel => "Cut";
+  @override
+  String get pasteButtonLabel => "Paste";
+  @override
+  String get selectAllButtonLabel => "Dalbo dhamaantood";
+  @override
+  String get viewLicensesButtonLabel => "Eeg shatiga";
+  @override
+  String get anteMeridiemAbbreviation => "AM";
+  @override
+  String get postMeridiemAbbreviation => "PM";
+  @override
+  String get timePickerHourModeAnnouncement => "saacadood Select";
+  @override
+  String get timePickerMinuteModeAnnouncement => "Dooro daqiiqado";
+  @override
+  String get modalBarrierDismissLabel => "Eryid";
+  @override
+  String get drawerLabel => "Liisamarka navigation";
+  @override
+  String get popupMenuLabel => "Liisamarka Popup";
+  @override
+  String get dialogLabel => "Wada hadal";
+  @override
+  String get alertDialogLabel => "Alert";
+  @override
+  String get searchFieldLabel => "Haku";
+  @override
+  String get dateHelpText => 'dd/mm/yyyy'; // match your format
+  @override
+  String get dateInputLabel => "Taariikhda gala";
+  @override
+  String get dateRangeStartLabel => "Taariikhda Bilowga";
+  @override
+  String get dateRangeEndLabel => "End Date";
+  @override
+  String get dateRangePickerHelpText => "DOORO RANGE";
+  @override
+  String get bottomSheetLabel => "Sheet hoose";
+  @override
+  String get calendarModeButtonLabel => "Ku biir si aad u hesho mode calendar";
+  @override
+  String get clearButtonTooltip => "Clear";
+  @override
+  String get currentDateLabel => "Taariikhda hadda la joogo";
+  @override
+  String get dateOutOfRangeLabel => "Taariikhda oo ka baxsan firirka";
+  @override
+  String get datePickerHelpText => "Dooro taariikh";
+  @override
+  String get dialModeButtonLabel => "Switch si aad u dial mode";
+  @override
+  String get hideAccountsLabel => "Qari accounts";
+  @override
+  String get inputDateModeButtonLabel => "Ku biir si aad u hab taariikhda aqbasho";
+  @override
+  String get inputTimeModeButtonLabel => "Ku biir si aad u hesho hab waqti";
+  @override
+  String get invalidDateFormatLabel => "Qaabka taariikhda aan saxnayn";
+  @override
+  String get invalidDateRangeLabel => "Taariikhda aan saxneyn";
+  @override
+  String get invalidTimeLabel => "Waqti aan firqada ahayn";
+
+  @override
+  String get dateSeparator => '/';
+
+  // 0=Sunday, 1=Monday. Choose what you prefer (Somalia commonly Monday).
+  @override
+  int get firstDayOfWeekIndex => 1;
+
+  // Must always be Sunday-first per Flutter expectation.
+  @override
+  List<String> get narrowWeekdays => ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+  @override
+  String formatShortDate(DateTime date) => '${date.day}/${date.month}/${date.year}';
+  @override
+  String formatCompactDate(DateTime date) => '${date.day}/${date.month}/${date.year}';
+  @override
+  String formatMediumDate(DateTime date) => '${date.day}/${date.month}/${date.year}';
+  @override
+  String formatFullDate(DateTime date) => '${date.day}/${date.month}/${date.year}';
+  @override
+  String formatShortMonthDay(DateTime date) => '${date.day}/${date.month}';
+  @override
+  String formatMonthYear(DateTime date) => '${date.month}/${date.year}';
+  @override
+  String formatDecimal(int number) => number.toString();
+  @override
+  String formatYear(DateTime date) => date.year.toString();
+
+  @override
+  String formatHour(TimeOfDay tod, {bool alwaysUse24HourFormat = false}) {
+    final h = alwaysUse24HourFormat ? tod.hour : (tod.hour % 12 == 0 ? 12 : tod.hour % 12);
+    return h.toString();
+  }
+  @override
+  String formatMinute(TimeOfDay tod) => tod.minute.toString().padLeft(2, '0');
+  @override
+  String formatTimeOfDay(TimeOfDay tod, {bool alwaysUse24HourFormat = false}) {
+    final h = alwaysUse24HourFormat ? tod.hour : (tod.hour % 12 == 0 ? 12 : tod.hour % 12);
+    final m = tod.minute.toString().padLeft(2, '0');
+    final p = alwaysUse24HourFormat ? '' : (tod.period == DayPeriod.am ? ' AM' : ' PM');
+    return '$h:$m$p';
+  }
+
+  @override
+  TimeOfDayFormat timeOfDayFormat({bool alwaysUse24HourFormat = false}) =>
+      alwaysUse24HourFormat ? TimeOfDayFormat.HH_colon_mm : TimeOfDayFormat.H_colon_mm;
+
+  @override
+  DateTime? parseCompactDate(String? input) {
+    if (input == null || input.isEmpty) return null;
+    final parts = input.split('/');
+    if (parts.length != 3) return null;
+    final day = int.tryParse(parts[0]);
+    final month = int.tryParse(parts[1]);
+    final year = int.tryParse(parts[2]);
+    if (day == null || month == null || year == null) return null;
+    return DateTime(year, month, day);
+  }
+
+  @override
+  ScriptCategory get scriptCategory => ScriptCategory.englishLike;
+
+  // ...keep the rest of your keyboard labels, tooltips, etc.
+}
+
+/// Delegate to load Somali Material localizations.
+class _SoMaterialLocalizationsDelegate
+    extends LocalizationsDelegate<MaterialLocalizations> {
+  const _SoMaterialLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => locale.languageCode == 'so';
+
+  @override
+  Future<MaterialLocalizations> load(Locale locale) =>
+      SynchronousFuture<MaterialLocalizations>(SoMaterialLocalizations());
+
+  @override
+  bool shouldReload(_SoMaterialLocalizationsDelegate old) => false;
+}
+
+/// ------------------------------
+///  CUPERTINO (temporary forward)
+/// ------------------------------
+/// Uses Flutter’s global Cupertino strings until a proper Somali set is added.
+class SoCupertinoLocalizations {
+  static const LocalizationsDelegate<CupertinoLocalizations> delegate =
+      GlobalCupertinoLocalizations.delegate;
+}
+
+/// ------------------------------
+///  WIDGETS (forward)
+/// ------------------------------
+/// Widgets localizations mostly provide textDirection, etc.
+class SoWidgetsLocalizations {
+  static const LocalizationsDelegate<WidgetsLocalizations> delegate =
+      GlobalWidgetsLocalizations.delegate;
+}
+```
+
+> If your Flutter channel adds new abstract getters to `MaterialLocalizations`, the compiler will tell you which ones are missing — implement them in `SoMaterialLocalizations` with Somali (or temporary English).
+
+---
+
+## 2) Wire the delegates in `MaterialApp`
+
+Make sure **Somali delegates are listed before the global ones** so they override.
+
+```dart
+import 'package:masjidabiihurayra/l10n/so.dart';
+
+MaterialApp.router(
+  // ...
+  localizationsDelegates: const [
+    AppLocalizations.delegate,          // your ARB-generated app strings
+
+    SoMaterialLocalizations.delegate,   // ✅ Somali Material
+    SoCupertinoLocalizations.delegate,  // ✅ forwarder (global)
+    SoWidgetsLocalizations.delegate,    // ✅ forwarder (global)
+
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+  ],
+  supportedLocales: const [
+    Locale('en'),
+    Locale('ar'),
+    Locale('fr'),
+    Locale('so'),
+  ],
+  // locale: const Locale('so'), // uncomment to force Somali during testing
+);
+```
+
+---
+
+## 3) (Optional) Initialize dates in Somali
+
+If you format dates/times:
+
+```dart
+import 'package:intl/date_symbol_data_local.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('so');
+  runApp(const ProviderScope(child: MyApp()));
+}
+```
+
+---
+
+## 4) Validate
+
+- Change device language to **Somali** (or set `locale: const Locale('so')`) and verify:
+
+  - Alert dialogs (OK/Cancel), menus, date/time pickers, tooltips.
+  - Week start day (Monday if you set `firstDayOfWeekIndex = 1`).
+  - Date formats match your `dd/mm/yyyy`.
+
+- Your **app strings** (not provided by Material) should live in `lib/l10n/app_*.arb` (e.g., `app_so.arb`) and be accessed via `AppLocalizations`.
+
+---
+
+## 5) Troubleshooting
+
+- **“The values in a const list literal must be constants.”**
+  Remove `const` from `localizationsDelegates`, **or** ensure your custom delegates are `static const` and their delegate classes have `const` constructors (as above).
+
+- **“The getter ‘delegate’ isn’t defined for the type ‘SoMaterialLocalizations’.”**
+  Ensure `delegate` is declared **inside the class**:
+  `static const LocalizationsDelegate<MaterialLocalizations> delegate = _SoMaterialLocalizationsDelegate();`
+  (Do not put it in an extension.)
+
+- **“A MaterialLocalizations delegate that supports the ‘so’ locale was not found.”**
+  Make sure `SoMaterialLocalizations.delegate` is in `localizationsDelegates` **before** the global ones, and `supportedLocales` includes `Locale('so')`.
+
+- **Weird weekday order**
+  Keep `narrowWeekdays` **Sunday-first**; choose week start with `firstDayOfWeekIndex`.
+
+---
+
+## 6) Notes on Quality & Future Upstreaming
+
+- Several strings in the sample are placeholders or need refinement. You can iterate on translations anytime; they’re just getters.
+- When an official Somali implementation lands in Flutter, you can remove the vendored file and rely on the stock `Global*` delegates.
+
+---
+
+## 7) Minimal Example Snippet
+
+```dart
+final flutterSupportedLocales = const [
+  Locale('en'),
+  Locale('ar'),
+  Locale('fr'),
+  Locale('so'),
+];
+
+Locale? effectiveLocale(Locale? selected) {
+  if (selected == null) return null;
+  return flutterSupportedLocales.any((l) => l.languageCode == selected.languageCode)
+      ? selected
+      : const Locale('en');
+}
+```
+
+---
+
+## 8) License & Attribution
+
+If you adapted strings from a public repo, check and keep the original **LICENSE** and add attribution in your repository. This blog post reflects a vendored approach for compatibility until official support ships.
+
+---
+
+### Finish
+
+With `lib/l10n/so.dart` in place and delegates registered, your Flutter app will show Somali UI for Material widgets today. If you hit a specific compile error after a Flutter upgrade, drop the error message in an issue and update `SoMaterialLocalizations` with any new required getters.

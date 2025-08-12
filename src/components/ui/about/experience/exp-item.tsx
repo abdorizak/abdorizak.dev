@@ -57,7 +57,7 @@ export const ExpItem = (props: ExperienceItemProps) => {
         </p>
         <div className={'flex gap-x-1.5'}>
           {props.tags?.map((tag, index) => (
-            <Tag key={`project-tag-${index}`}>{tag}</Tag>
+            <Tag key={`exp-tag-${index}`}>{tag}</Tag>
           ))}
         </div>
       </div>

@@ -70,10 +70,7 @@ input[type='checkbox'] {
   border: 3px solid var(--color-accent);
 }
 
-*:focus {
-  outline: 2px dashed var(--color-secondary-txt);
-  outline-offset: 0.25rem;
-}
+
 
 /* Fix image border in Safari for lazy loading images. See https://nextjs.org/docs/api-reference/next/future/image#known-browser-bugs */
 @media not all and (min-resolution: 0.001dpcm) {

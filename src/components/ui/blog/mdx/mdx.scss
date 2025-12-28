@@ -177,7 +177,7 @@ article.mdx {
 
   & > video,
   & > img,
-  & > [class*="grid"] img,
+  & > [class*='grid'] img,
   & > figure > p > img {
     @apply my-1.5 rounded-1.5;
   }

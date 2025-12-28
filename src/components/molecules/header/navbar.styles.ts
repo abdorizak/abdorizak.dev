@@ -8,48 +8,21 @@ export const Nav = tw.nav.attrs({ style: { maxWidth: MAX_SITE_WIDTH } })`
   mx-auto
   h-full
   w-full
-  z-4 bg-toolbar
+  z-4
   p-1.5 tablet-sm:p-2
-  backdrop-saturate-125
-  backdrop-blur-sm
+  backdrop-blur-md
+  bg-background/20
   transform-gpu
-  ring-1
-  ring-inset
-  ring-brand-600/10
-  dark:ring-brand-200/15
-  hover:ring-brand-600/20
-  hover:dark:ring-brand-200/25
-  rounded-3.5
   grid
   grid-cols-[auto_1fr]
   grid-rows-[auto_1fr]
   transition
   duration-200
-  bg-[linear-gradient(to_bottom,_var(--color-background)_0%,_var(--color-background)_100%),_var(--color-toolbar)]
-  shadow-none
-  hover:shadow-toolbar-hover
-  shadow-brand-600/15
-  dark:shadow-brand-200/15
   tablet-sm:items-center
   tablet-sm:grid-cols-[auto_1fr_auto]
   tablet-sm:grid-rows-1
   tablet-sm:gap-2
-
-  before:pointer-events-none
-  before:select-none
-  before:absolute
-  before:top-0
-  before:right-0
-  before:bottom-0
-  before:left-0
-  before:rounded-[calc(0.875rem_-_0.0625rem)]
-  before:m-px
-  before:border-px
-  before:border-accent-dark
-  before:opacity-5
-  dark:before:opacity-10
-  before:[mask:linear-gradient(to_bottom,_rgba(0,_0,_0,_0)_0%,_rgba(0,_0,_0,_1)_100%)]
-  dark:before:[mask:linear-gradient(to_bottom,_rgba(0,_0,_0,_1)_0%,_rgba(0,_0,_0,_0)_100%)]
+  rounded-1
 `;
 
 export const LinksList = tw.ol`

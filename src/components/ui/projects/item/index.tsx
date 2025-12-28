@@ -24,7 +24,11 @@ export const ProjectItem = ({ project }: ProjectItemProps) => {
       data-umami-event-project={project.name}
     >
       <ProjectIcon
-        src={`/media/projects/${project.icon || ''}`}
+        src={
+          project.icon && project.icon.startsWith('http')
+            ? project.icon
+            : `/media/projects/${project.icon || ''}`
+        }
         alt={`Icon for project "${project.name}"`}
         width={56}
         height={56}

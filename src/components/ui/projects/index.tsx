@@ -1,5 +1,3 @@
-import { Icon } from '@/components/atoms/icon';
-import { LinkButton } from '@/components/atoms/link-button';
 import { Section } from '@/components/atoms/section';
 import { projects as allProjects } from '@/content';
 import { getColoredTextClasses } from '@/utils/colored-text';
@@ -30,24 +28,21 @@ export const ProjectsList = (props: ProjectsListProps) => {
           {props.title}
         </Heading>
         {props.featuredOnly ? (
-          <LinkButton
-            title={'View all'}
-            href={'/projects'}
-            className={cx(
-              'pr-3.5',
-              'justify-center max-mobile-md:flex-1',
-              'mobile-md:self-start mobile-md:justify-start',
-            )}
-            data-umami-event={'View all projects'}
-          >
-            <Icon
-              className={'size-5'}
-              path={
-                'M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z'
-              }
-            />
-            <span>View all</span>
-          </LinkButton>
+          <div className={'flex flex-row justify-end'}>
+            <a
+              title={'View all projects'}
+              href={'/projects'}
+              className={cx(
+                'flex flex-row items-center gap-2',
+                'text-secondary-txt font-medium',
+                'transition-colors hocus:text-primary-txt',
+              )}
+              data-umami-event={'View all projects'}
+            >
+              <span className={'underline underline-offset-4'}>View all</span>
+              <span aria-hidden>→</span>
+            </a>
+          </div>
         ) : null}
       </div>
       <ul>

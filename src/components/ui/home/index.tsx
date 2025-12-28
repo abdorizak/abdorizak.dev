@@ -1,9 +1,8 @@
 /* eslint-disable max-len */
+import safariOne from '@/assets/images/experience/safariOne.jpeg';
 import photo from '@/assets/images/photo.jpg';
-import { Icon } from '@/components/atoms/icon';
 import { Img } from '@/components/atoms/img';
 import { Link } from '@/components/atoms/link';
-import { LinkButton } from '@/components/atoms/link-button';
 import { Section } from '@/components/atoms/section';
 import { SocialLinks } from '@/components/molecules/social-links';
 import cx from '@/utils/cx';
@@ -14,29 +13,26 @@ import { WavingHello } from './waving-hello';
 
 export const Intro = () => {
   return (
-    <Section id={'intro'} className={'gap-6'}>
-      <div
-        className={'flex flex-col gap-5 tablet-sm:block tablet-sm:space-y-4'}
-      >
+    <Section id={'intro'} className={'gap-4'}>
+      {/* Row: Image LEFT + Greeting/Name Column RIGHT */}
+      <div className={'flex flex-row items-start gap-4'}>
         <Img
           src={photo}
           alt={'Photo of Abdorizak Abdalla'}
-          sizes={'160'}
+          sizes={'128'}
           quality={100}
           priority
           className={cx(
-            'rounded-full aspect-square tablet-sm:float-right',
-            'max-w-24 mobile-lg:max-w-28 tablet-sm:max-w-36 tablet-md:max-w-40',
+            'rounded-full aspect-square shrink-0',
+            'size-28 tablet-sm:size-28',
             'bg-brand-700 overflow-hidden saturate-125',
-            'hover:bg-blue-500 transition duration-200',
-            'hover:mix-blend-hard-light hover:opacity-75 hover:rounded-half',
-            'focus:filter-none focus:mix-blend-normal focus:opacity-100',
+            'border-1 border-white/12 dark:border-white/5',
           )}
         />
-        <h1 className={'flex flex-col gap-1 tablet-sm:!-mt-2'}>
+        <div className={'flex flex-col gap-1'}>
           <p
             className={
-              'flex flex-row items-center gap-1 text-shadow shadow-yellow-300 dark:text-shadow-none min-h-8'
+              'flex flex-row items-center gap-1 text-shadow shadow-yellow-300 dark:text-shadow-none'
             }
           >
             <WavingSpan role={'img'} aria-label={'waving hand'}>
@@ -44,59 +40,77 @@ export const Intro = () => {
             </WavingSpan>
             <WavingHello />
           </p>
-          <SubHeader>
-            <span>
-              I am <Name>Abdorizak Abdalla</Name>
-            </span>
-            <Verified />
-          </SubHeader>
-        </h1>
-
-        <p className={'text-pretty flex flex-col gap-2 text-sm'}>
-          <span className={'max-w-[42ch]'}>
-            Passionate and creative full-stack software engineer from{' '}
-            <Link
-              title={'Somalia'}
-              href={'https://www.google.com/maps/place/Somalia/@4,-72z/'}
-              data-umami-event={'Link to Somalia map'}
+          <h1>
+            <SubHeader
+              className={'text-2xl tablet-sm:text-3xl font-bold font-manrope'}
             >
-              Somalia{' '}
-              <span role={'img'} aria-label={'Somalia flag'}>
-                🇸🇴
+              <span className={'flex flex-row items-center gap-2 flex-wrap'}>
+                <span>I&apos;m</span>
+                <span className={'flex items-center gap-2 text-accent'}>
+                  <Name>Abdorizak Abdalla</Name>
+                  <Verified />
+                </span>
               </span>
-            </Link>
-          </span>
-          <span className={'max-w-[48ch]'}>
-            Detail-driven, I strive to build great-looking, user-friendly
-            software while enhancing my skills along the way
-          </span>
-        </p>
+            </SubHeader>
+          </h1>
+        </div>
       </div>
 
-      <div
-        className={cx(
-          'flex flex-col gap-3 items-center',
-          'mobile-lg:flex-row mobile-lg:flex-wrap',
-        )}
+      {/* Bio Paragraph */}
+      <p
+        className={
+          'text-pretty flex flex-col gap-4 text-base text-secondary-txt'
+        }
       >
-        <LinkButton
+        <span className={'max-w-[65ch]'}>
+          Software engineer focused on Flutter, Dart, and backend systems.
+          Building scalable, production-ready packages with clean architecture
+          and real-world reliability. Passionate Open Source Projects. Creator
+          of{' '}
+          <Link
+            title={'Wacyi'}
+            href={'https://wacyi.net/'}
+            data-umami-event={'Link to Wacyi'}
+          >
+            <span className={'underline'}>Wacyi</span>
+          </Link>
+          . Working as iOS Developer at{' '}
+          <Link
+            title={'SafariOne'}
+            href={'https://safarione.ca/'}
+            data-umami-event={'Link to SafariOne'}
+            className={'inline-flex items-center gap-1'}
+          >
+            <Img
+              src={safariOne}
+              alt={'SafariOne logo'}
+              sizes={'20'}
+              className={'inline-block size-4 rounded-full align-middle'}
+            />
+            <span className={'underline'}>SafariOne</span>
+          </Link>
+        </span>
+      </p>
+
+      {/* More about me - RIGHT aligned */}
+      <div className={'flex flex-row justify-end pt-2'}>
+        <Link
           title={'More about me'}
           href={'/about'}
           className={cx(
-            'pr-3.5',
-            'justify-center max-mobile-lg:w-full',
-            'mobile-lg:self-start mobile-lg:justify-start',
+            'flex flex-row items-center gap-2 font-medium',
+            'transition-colors hocus:text-accent',
           )}
           data-umami-event={'More about me'}
         >
-          <Icon
-            className={'size-5'}
-            path={
-              'M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z'
-            }
-          />
-          <span>More about me</span>
-        </LinkButton>
+          <span className={'underline underline-offset-4'}>More about me</span>
+          <span aria-hidden>→</span>
+        </Link>
+      </div>
+
+      {/* Connect Section */}
+      <div className={'flex flex-col gap-3 pt-4'}>
+        <p className={'text-pretty'}>Connect with me</p>
         <SocialLinks />
       </div>
     </Section>

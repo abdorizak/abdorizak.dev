@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 import { Logo } from '@/components/atoms/logo';
 import type { TWComponentProps } from '@/utils/cx';
 import cx from '@/utils/cx';
@@ -15,7 +17,6 @@ import {
   NavPageLink,
   NavPageLinkText,
 } from './navbar.styles';
-import { ThemeToggle } from './theme-toggle';
 
 const toolbarLinksList = [
   {
@@ -68,27 +69,36 @@ export const Navbar = (props: NavbarProps) => {
             : ''
         }
       >
-        {toolbarLinksList.map((link) => {
+        {toolbarLinksList.map((link, index) => {
           const isActive = props.path?.startsWith(link.href) || false;
           return (
-            <NavItem
-              key={link.href}
-              className={isActive ? 'before:bg-toolbar-highlight' : ''}
-            >
-              <NavPageLink
-                title={`${link.title} page`}
-                href={link.href}
-                aria-current={isActive ? 'page' : undefined}
-                className={cx(
-                  `hocus:${link.className}`,
-                  isActive ? link.className : '',
-                  isActive ? 'saturate-125 dark:saturate-150' : '',
-                )}
-                prefetch={!isActive}
+            <Fragment key={link.href}>
+              {index > 0 && (
+                <li
+                  className={'text-xs text-divider hidden tablet-sm:block'}
+                  aria-hidden={'true'}
+                >
+                  <span className={'select-none font-bold'}>•</span>
+                </li>
+              )}
+              <NavItem
+                className={isActive ? 'before:bg-toolbar-highlight' : ''}
               >
-                <NavPageLinkText>{link.title}</NavPageLinkText>
-              </NavPageLink>
-            </NavItem>
+                <NavPageLink
+                  title={`${link.title} page`}
+                  href={link.href}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={cx(
+                    `hocus:${link.className}`,
+                    isActive ? link.className : '',
+                    isActive ? 'saturate-125 dark:saturate-150' : '',
+                  )}
+                  prefetch={!isActive}
+                >
+                  <NavPageLinkText>{link.title}</NavPageLinkText>
+                </NavPageLink>
+              </NavItem>
+            </Fragment>
           );
         })}
         <ExtraNavLinks aria-hidden={'true'} />
@@ -97,9 +107,6 @@ export const Navbar = (props: NavbarProps) => {
         </ExtraNavLinks>
       </LinksList>
       <ButtonsGroup>
-        <li>
-          <ThemeToggle />
-        </li>
         <li>
           <NavToggle
             title={`${expanded ? 'Collapse' : 'Expand'} menu`}

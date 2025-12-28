@@ -1,4 +1,21 @@
 - order: 0
+  name: Wacyi
+  description: Wacyi is a comprehensive Islamic learning platform designed to serve the community by providing easy access to religious education and resources. Our goal is to enhance the learning experience through interactive tools, diverse content, and community engagement.
+  icon: https://avatars.githubusercontent.com/u/122404788?s=200&v=4
+  preview: https://avatars.githubusercontent.com/u/122404788?s=200&v=4
+  url: https://wacyi.net/
+  color: '#00897b'
+
+- order: 1
+  name: Max Player
+  description: Max Player is a powerful and flexible video player package for Flutter. It supports playing videos from various sources including network URLs, local files, assets, YouTube, and Vimeo. Built on top of video_player and flutter_riverpod, it offers a customizable UI and a robust controller.
+  icon: https://raw.githubusercontent.com/abdorizak/max_player/refs/heads/main/mx_logo.png
+  preview: https://raw.githubusercontent.com/abdorizak/max_player/refs/heads/main/mx_logo.png
+  url: https://github.com/abdorizak/max_player
+  color: '#6366f1'
+  repo: max_player
+
+- order: 2
   name: Expense Tracker App
   description: Expense Tracker 🫰 is a financial app that used to track daily Expense from you Income
   icon: other/expenses-Tracker.jpeg
@@ -7,7 +24,7 @@
   color: '#4d8af0'
   repo: Expense-Tracker-App
 
-- order: 1
+- order: 3
   name: Hisnul Muslim
   description: Hisnul Muslim App. is Supplication of Muslims. from holy quran and hadith of prophet Muhammad Salallahu Alaihi Wasallam
   icon: apps/hisnul-muslim.png
@@ -18,7 +35,7 @@
   repo: Hisnul-Muslim
   owner: abdorizak
 
-- order: 2
+- order: 4
   name: Doctor Appointment App
   description: This is simple app It also connects patients with doctors by requesting there Favorite doctor, It also allow the users to make favorite.
   icon: other/doctor-appointment.png
@@ -28,7 +45,7 @@
   hide: true
   repo: chipview
 
-- order: 3
+- order: 5  
   name: Github Followers
   description: Github Followers is a UIkit project with programmatic UI written in Swift
   icon: other/github-followers.png
@@ -38,7 +55,7 @@
   darkColor: '#fcd116'
   repo: Github_Followers
 
-- order: 4
+- order: 6
   name: Expense Tracker Backend
   description: Expense Tracker Backend is a simple backend that used to store the data from the Expense Tracker App it was built using Node.js and MongoDB.
   icon: other/backends.png
@@ -48,7 +65,7 @@
   hide: true
   repo: expense_managerBackEnd
 
-- order: 5
+- order: 7
   name: Doctor Appointment Backend
   description: Doctor Appointment Backend is a simple backend for Doctor Appointment App that allows you to get all doctors and book an appointment.
   icon: other/backends.png

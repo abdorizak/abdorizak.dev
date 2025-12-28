@@ -8,7 +8,7 @@ import { SocialLink } from './social-link';
 
 export const SocialLinks = (props: ComponentProps<'ul'>) => {
   return (
-    <ul className={cx('flex flex-row items-center gap-1.5', props.className)}>
+    <ul className={cx('flex flex-row items-center gap-1', props.className)}>
       <li>
         <SocialLink
           title={'GitHub'}
@@ -44,7 +44,6 @@ export const SocialLinks = (props: ComponentProps<'ul'>) => {
           <span
             className={cx(
               'font-manrope font-semibold',
-              'size-5.5 select-none',
               'flex items-center justify-center',
               'leading-none text-xl text-center',
             )}

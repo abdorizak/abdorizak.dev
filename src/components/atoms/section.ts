@@ -1,3 +1,3 @@
 import { tw } from '@/utils/cx';
 
-export const Section = tw.section`flex flex-col gap-5`;
+export const Section = tw.section`flex flex-col gap-2`;

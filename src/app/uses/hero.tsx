@@ -1,6 +1,7 @@
-import setupImage from '@/assets/images/setup.jpg';
 import { Img } from '@/components/atoms/img';
 import cx from '@/utils/cx';
+
+import setupImage from '@/assets/images/setup.jpg';
 
 export const UsesHero = () => (
   <figure className={'my-2'}>

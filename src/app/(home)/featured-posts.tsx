@@ -1,12 +1,9 @@
 import { unstable_cache as cache } from 'next/cache';
 import { Suspense } from 'react';
 
-import { Icon } from '@/components/atoms/icon';
-import { LinkButton } from '@/components/atoms/link-button';
 import { Section } from '@/components/atoms/section';
 import { BlogPostItem } from '@/components/ui/blog/item';
 import { BlogPostItemSkeleton } from '@/components/ui/blog/item/skeleton';
-import { RSSFeedButton } from '@/components/ui/blog/rss-feed-button';
 import {
   allReadableBlogs,
   sortBlogPostsByDate,
@@ -84,45 +81,36 @@ const FeaturedBlogPostsList = async () => {
 
 export const FeaturedBlogPosts = () => (
   <Section id={'blog'} className={'gap-6'}>
-    <div
-      className={cx(
-        'w-full flex flex-col items-start gap-4',
-        'tablet-sm:flex-row tablet-sm:items-center tablet-sm:justify-between',
-      )}
-    >
-      <h2 className={getColoredTextClasses('orange')}>From the blog</h2>
-      <div
-        className={cx(
-          'flex flex-row flex-1 items-center gap-4 self-end w-full',
-          'tablet-sm:w-auto tablet-sm:justify-end',
-        )}
-      >
-        <RSSFeedButton
-          className={'max-mobile-lg:justify-center max-mobile-lg:flex-1'}
-        />
-
-        <LinkButton
-          title={'View all'}
-          href={'/blog'}
-          className={cx(
-            'pr-3.5',
-            'justify-center max-mobile-lg:flex-1',
-            'mobile-lg:self-start mobile-lg:justify-start',
-          )}
-          data-umami-event={'View all blog posts'}
+    {/* Header: Latest + Blog Posts with View all link */}
+    <div className={'flex flex-row items-start justify-between w-full'}>
+      <div className={'flex flex-col gap-1'}>
+        <span className={'text-2xs text-secondary-txt font-medium'}>
+          Latest
+        </span>
+        <h2
+          className={cx(getColoredTextClasses('orange'), 'text-xl font-bold')}
         >
-          <Icon
-            className={'size-5'}
-            path={
-              'M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z'
-            }
-          />
-          <span>View all</span>
-        </LinkButton>
+          Blog Posts
+        </h2>
       </div>
+      {/* View all link - right aligned */}
+      <a
+        title={'View all blog posts'}
+        href={'/blog'}
+        className={cx(
+          'flex flex-row items-center gap-2 self-center',
+          'text-secondary-txt font-medium',
+          'transition-colors hocus:text-primary-txt',
+        )}
+        data-umami-event={'View all blog posts'}
+      >
+        <span className={'underline underline-offset-4'}>View all</span>
+        <span aria-hidden>→</span>
+      </a>
     </div>
 
-    <ol className={'flex flex-col gap-2'}>
+    {/* Blog Posts List */}
+    <ol className={'flex flex-col gap-4'}>
       <Suspense fallback={<BlogPostsListFallback />}>
         <FeaturedBlogPostsList />
       </Suspense>

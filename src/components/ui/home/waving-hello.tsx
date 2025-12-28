@@ -19,5 +19,5 @@ export const WavingHello = () => {
     }, 2500);
     return () => clearInterval(changeHello);
   }, []);
-  return <>&nbsp;&nbsp;{greetings[hello]}!</>;
+  return <>&nbsp;{greetings[hello]}!</>;
 };

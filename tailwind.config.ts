@@ -140,6 +140,9 @@ const config: Config = {
       lineHeight: {
         relaxed: '1.75',
       },
+      transformOrigin: {
+        waving: '70% 70%',
+      },
       saturate: {
         125: '1.25',
       },

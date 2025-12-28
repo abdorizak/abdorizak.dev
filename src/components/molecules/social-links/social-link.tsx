@@ -29,11 +29,9 @@ export const SocialLink = ({ iconPath, ...props }: SocialLinkProps) => (
     data-umami-event={'Social link'}
     data-umami-event-site={props.title}
   >
-    {props.children || (
-      <Icon
-        className={'transition-colors delay-[-100ms] size-5.5'}
-        path={iconPath || ''}
-      />
+    {iconPath && (
+      <Icon className={'transition-colors size-5.5'} path={iconPath} />
     )}
+    {props.children}
   </StyledSocialLink>
 );

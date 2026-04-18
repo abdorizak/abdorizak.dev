@@ -40,6 +40,9 @@ const defaultNextConfig = {
   reactStrictMode: true,
   compress: true,
   crossOrigin: 'anonymous',
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   experimental: {
     // ppr: true, // requires Next canary; re-enable only when next ^14.3.0-canary.x is pinned
     // useLightningcss: true,

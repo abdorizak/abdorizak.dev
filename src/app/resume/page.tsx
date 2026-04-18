@@ -182,8 +182,7 @@ export default function ResumePage() {
             </li>
             <li>
               Collaborated with clients to tailor Odoo solutions to specific
-              business needs and conducted on-site and remote training
-              sessions.
+              business needs and conducted on-site and remote training sessions.
             </li>
             <li>
               Provided ongoing support and troubleshooting, promptly resolving

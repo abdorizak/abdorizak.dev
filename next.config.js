@@ -41,7 +41,7 @@ const defaultNextConfig = {
   compress: true,
   crossOrigin: 'anonymous',
   experimental: {
-    ppr: true,
+    // ppr: true, // requires Next canary; re-enable only when next ^14.3.0-canary.x is pinned
     // useLightningcss: true,
     // optimizePackageImports: ['react-tweet'],
   },

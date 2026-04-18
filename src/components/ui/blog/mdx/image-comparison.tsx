@@ -13,7 +13,10 @@ import cx from '@/utils/cx';
 
 interface ImageComparisonProps
   extends PropsWithChildren,
-    Omit<ComponentProps<typeof ReactCompareSlider>, 'itemOne' | 'itemTwo'> {
+    Omit<
+      ComponentProps<typeof ReactCompareSlider>,
+      'itemOne' | 'itemTwo'
+    > {
   description?: string;
 }
 

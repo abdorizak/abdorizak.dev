@@ -1,8 +1,8 @@
 import { type CSSProperties } from 'react';
 
 import { Icon } from '@/components/atoms/icon';
-import type { Project } from '@/content';
 import { findSkill } from '@/components/ui/about/skills/data';
+import type { Project } from '@/content';
 import { hexToRgb } from '@/utils/color';
 import cx from '@/utils/cx';
 
@@ -39,9 +39,7 @@ export const ProjectItem = ({ project }: ProjectItemProps) => {
         height={56}
         blurDataURL={project.iconMeta?.blurDataURL}
         placeholder={project.iconMeta?.placeholder}
-        className={cx(
-          project.invertOnDark && 'dark:invert dark:!bg-white/90',
-        )}
+        className={cx(project.invertOnDark && 'dark:invert dark:!bg-white/90')}
       />
       <div className={'flex flex-col gap-0.5 flex-1 min-w-0'}>
         <div className={'flex flex-row gap-3 items-center'}>

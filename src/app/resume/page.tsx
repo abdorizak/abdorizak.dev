@@ -93,8 +93,8 @@ export default function ResumePage() {
           technical customization, training delivery
         </p>
         <p>
-          <strong>Tools &amp; Practices:</strong> Git, Bitbucket, GitHub,
-          REST APIs, Agile, code review, CI/CD, technical documentation
+          <strong>Tools &amp; Practices:</strong> Git, Bitbucket, GitHub, REST
+          APIs, Agile, code review, CI/CD, technical documentation
         </p>
         <p>
           <strong>Languages Spoken:</strong> English (fluent), Somali (native),
@@ -145,9 +145,8 @@ export default function ResumePage() {
               iOS and Android using Flutter and Dart.
             </li>
             <li>
-              Designed and implemented intuitive user interfaces and
-              interactive features, ensuring optimal user experience across
-              devices.
+              Designed and implemented intuitive user interfaces and interactive
+              features, ensuring optimal user experience across devices.
             </li>
             <li>
               Integrated REST APIs to enable seamless data exchange between
@@ -179,8 +178,7 @@ export default function ResumePage() {
             </li>
             <li>
               Configured Odoo modules — Accounting, Inventory, Sales, Purchase,
-              and Project Management — to align with client business
-              processes.
+              and Project Management — to align with client business processes.
             </li>
             <li>
               Collaborated with clients to tailor Odoo solutions to specific
@@ -214,9 +212,8 @@ export default function ResumePage() {
               experience and feature parity across iOS and Android.
             </li>
             <li>
-              Oversaw the publication process for mobile applications,
-              including store submission, review response, and release
-              management.
+              Oversaw the publication process for mobile applications, including
+              store submission, review response, and release management.
             </li>
             <li>
               Worked remotely across time zones, coordinating with team members

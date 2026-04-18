@@ -17,34 +17,9 @@ export const ProjectsList = (props: ProjectsListProps) => {
     : projects;
   const Heading = props.featuredOnly ? 'h2' : 'h1';
   return (
-    <Section id={'projects'} className={'gap-6'}>
-      <div
-        className={cx(
-          'w-full flex flex-col items-start gap-4',
-          'mobile-md:flex-row mobile-md:items-center mobile-md:justify-between',
-        )}
-      >
-        <Heading className={getColoredTextClasses('purple')}>
-          {props.title}
-        </Heading>
-        {props.featuredOnly ? (
-          <div className={'flex flex-row justify-end'}>
-            <a
-              title={'View all projects'}
-              href={'/projects'}
-              className={cx(
-                'flex flex-row items-center gap-2',
-                'text-secondary-txt font-medium',
-                'transition-colors hocus:text-primary-txt',
-              )}
-              data-umami-event={'View all projects'}
-            >
-              <span className={'underline underline-offset-4'}>View all</span>
-              <span aria-hidden>→</span>
-            </a>
-          </div>
-        ) : null}
-      </div>
+    <Section id={'projects'} className={'gap-5'}>
+      <Heading className={getColoredTextClasses('blue')}>{props.title}</Heading>
+
       <ul>
         {filteredProjects.map((project) => (
           <li key={project.name}>
@@ -52,6 +27,34 @@ export const ProjectsList = (props: ProjectsListProps) => {
           </li>
         ))}
       </ul>
+
+      {props.featuredOnly ? (
+        <div className={'flex flex-row items-center justify-end mt-1'}>
+          <a
+            title={'View all projects'}
+            href={'/projects'}
+            className={cx(
+              'group/view inline-flex items-center gap-1.5',
+              'text-2xs font-semibold text-secondary-txt',
+              'transition-colors hocus:text-primary-txt',
+            )}
+            data-umami-event={'View all projects'}
+          >
+            <span className={'underline underline-offset-4 decoration-divider'}>
+              View all
+            </span>
+            <span
+              aria-hidden
+              className={cx(
+                'transition-transform',
+                'group-hocus/view:translate-x-0.5',
+              )}
+            >
+              →
+            </span>
+          </a>
+        </div>
+      ) : null}
     </Section>
   );
 };

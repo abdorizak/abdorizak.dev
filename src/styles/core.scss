@@ -1,7 +1,81 @@
-html,
-body {
+html {
   @apply motion-safe:scroll-smooth bg-background accent-accent;
 }
+
+body {
+  @apply motion-safe:scroll-smooth accent-accent;
+}
+
+// Dots on body — full viewport width
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  user-select: none;
+  background-color: var(--color-background);
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.18) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  background-attachment: fixed;
+}
+
+// Solid dark band sized to --max-bg-width, fading softly into the dotted gutters
+// on both sides. Multi-stop + color-mix gives a shadow-like easing so dots
+// appear gradually, not along a hard seam.
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+  --bg-edge: calc((100vw - var(--max-bg-width)) / 2);
+  --bg-fade: 160px;
+  --bg-fade-start: max(0px, var(--bg-edge) - var(--bg-fade));
+  --bg-fade-mid: max(0px, var(--bg-edge) - (var(--bg-fade) * 0.55));
+  --bg-fade-soft: max(0px, var(--bg-edge) - (var(--bg-fade) * 0.2));
+  --bg-dim-1: color-mix(in srgb, var(--color-background) 18%, transparent);
+  --bg-dim-2: color-mix(in srgb, var(--color-background) 55%, transparent);
+  --bg-dim-3: color-mix(in srgb, var(--color-background) 85%, transparent);
+  background: linear-gradient(
+    to right,
+    transparent 0,
+    transparent var(--bg-fade-start),
+    var(--bg-dim-1) var(--bg-fade-start),
+    var(--bg-dim-2) var(--bg-fade-mid),
+    var(--bg-dim-3) var(--bg-fade-soft),
+    var(--color-background) max(0px, var(--bg-edge)),
+    var(--color-background) calc(100% - max(0px, var(--bg-edge))),
+    var(--bg-dim-3) calc(100% - var(--bg-fade-soft)),
+    var(--bg-dim-2) calc(100% - var(--bg-fade-mid)),
+    var(--bg-dim-1) calc(100% - var(--bg-fade-start)),
+    transparent calc(100% - var(--bg-fade-start)),
+    transparent 100%
+  );
+}
+
+// body::before,
+// .dotted-bg::before {
+//   content: '';
+//   position: fixed;
+//   inset: 0;
+//   z-index: -1;
+//   pointer-events: none;
+//   user-select: none;
+//   background-color: var(--color-background);
+//   background-image: radial-gradient(
+//     circle,
+//     rgba(255, 255, 255, 0.18) 1px,
+//     transparent 1px
+//   );
+//   background-size: 24px 24px;
+//   background-attachment: fixed;
+// }
 
 html {
   margin-left: calc(100vw - 100%);
@@ -69,8 +143,6 @@ input[type='checkbox'] {
   border-radius: 20px;
   border: 3px solid var(--color-accent);
 }
-
-
 
 /* Fix image border in Safari for lazy loading images. See https://nextjs.org/docs/api-reference/next/future/image#known-browser-bugs */
 @media not all and (min-resolution: 0.001dpcm) {

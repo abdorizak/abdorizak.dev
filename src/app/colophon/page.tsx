@@ -8,7 +8,7 @@ import { getColoredTextClasses } from '@/utils/colored-text';
 export default function Colophon() {
   return (
     <Section id={'colophon'} className={'gap-10'}>
-      <h1 className={getColoredTextClasses('purple', '-mb-4')}>Colophon</h1>
+      <h1 className={getColoredTextClasses('blue', '-mb-4')}>Colophon</h1>
       <TechStack />
       {/* <Typography /> */}
       {/* <DesignAndColors /> */}

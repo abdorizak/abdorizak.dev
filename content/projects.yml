@@ -5,6 +5,12 @@
   preview: https://avatars.githubusercontent.com/u/122404788?s=200&v=4
   url: https://wacyi.net/
   color: '#00897b'
+  stack:
+    - Go
+    - Next.js
+    - Flutter
+    - TypeScript
+    - Dart
 
 - order: 1
   name: Max Player
@@ -14,6 +20,11 @@
   url: https://github.com/abdorizak/max_player
   color: '#6366f1'
   repo: max_player
+  stack:
+    - Flutter
+    - Dart
+    - Riverpod
+    - video_player
 
 - order: 2
   name: Expense Tracker App
@@ -23,6 +34,9 @@
   url: https://github.com/abdorizak/Expense-Tracker-App
   color: '#4d8af0'
   repo: Expense-Tracker-App
+  stack:
+    - Flutter
+    - Dart
 
 - order: 3
   name: Hisnul Muslim
@@ -34,6 +48,9 @@
   darkColor: '#4dcc89'
   repo: Hisnul-Muslim
   owner: abdorizak
+  stack:
+    - Flutter
+    - Dart
 
 - order: 4
   name: Doctor Appointment App
@@ -44,8 +61,12 @@
   color: '#3E95FB'
   hide: true
   repo: chipview
+  stack:
+    - Flutter
+    - Dart
+    - REST API
 
-- order: 5  
+- order: 5
   name: Github Followers
   description: Github Followers is a UIkit project with programmatic UI written in Swift
   icon: other/github-followers.png
@@ -54,6 +75,11 @@
   color: '#003893'
   darkColor: '#fcd116'
   repo: Github_Followers
+  invertOnDark: true
+  stack:
+    - Swift
+    - UIKit
+    - iOS
 
 - order: 6
   name: Expense Tracker Backend
@@ -64,6 +90,11 @@
   color: '#eb3b75'
   hide: true
   repo: expense_managerBackEnd
+  invertOnDark: true
+  stack:
+    - Node.js
+    - MongoDB
+    - Express
 
 - order: 7
   name: Doctor Appointment Backend
@@ -74,3 +105,8 @@
   color: '#eb3b75'
   hide: true
   repo: expense_managerBackEnd
+  invertOnDark: true
+  stack:
+    - Node.js
+    - MongoDB
+    - Express

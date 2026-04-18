@@ -19,26 +19,10 @@ import {
 } from './navbar.styles';
 
 const toolbarLinksList = [
-  {
-    title: 'About',
-    href: '/about',
-    className: 'text-green',
-  },
-  {
-    title: 'Blog',
-    href: '/blog',
-    className: 'text-orange',
-  },
-  {
-    title: 'Projects',
-    href: '/projects',
-    className: 'text-purple',
-  },
-  {
-    title: 'Uses',
-    href: '/uses',
-    className: 'text-blue',
-  },
+  { title: 'About', href: '/about' },
+  { title: 'Blog', href: '/blog' },
+  { title: 'Projects', href: '/projects' },
+  { title: 'Uses', href: '/uses' },
 ];
 
 interface NavbarProps extends TWComponentProps<typeof Nav> {
@@ -54,11 +38,19 @@ export const Navbar = (props: NavbarProps) => {
       <NavLink
         title={'Abdirizak Abdalla - Home Page'}
         href={'/'}
-        className={'gap-2 hocus:bg-toolbar-highlight'}
+        className={cx(
+          'gap-2 shrink-0',
+          'max-tablet-sm:min-w-0 max-tablet-sm:px-1.5',
+        )}
         aria-current={props.path === '/' ? 'page' : undefined}
       >
         <Logo className={'saturate-125 dark:saturate-150'} />
-        <span className={'text-accent saturate-125 dark:saturate-150'}>
+        <span
+          className={cx(
+            'text-accent saturate-125 dark:saturate-150',
+            'hidden tablet-sm:inline',
+          )}
+        >
           Abdirizak Abdalla
         </span>
       </NavLink>
@@ -69,33 +61,38 @@ export const Navbar = (props: NavbarProps) => {
             : ''
         }
       >
-        {toolbarLinksList.map((link, index) => {
+        {toolbarLinksList.map((link) => {
           const isActive = props.path?.startsWith(link.href) || false;
           return (
             <Fragment key={link.href}>
-              {index > 0 && (
-                <li
-                  className={'text-xs text-divider hidden tablet-sm:block'}
-                  aria-hidden={'true'}
-                >
-                  <span className={'select-none font-bold'}>•</span>
-                </li>
-              )}
-              <NavItem
-                className={isActive ? 'before:bg-toolbar-highlight' : ''}
+              <li
+                className={cx(
+                  'block leading-none',
+                  'text-base tablet-sm:text-lg',
+                  isActive ? 'text-green-400' : 'text-divider',
+                )}
+                aria-hidden={'true'}
               >
+                <span className={'select-none font-bold'}>•</span>
+              </li>
+              <NavItem>
                 <NavPageLink
                   title={`${link.title} page`}
                   href={link.href}
                   aria-current={isActive ? 'page' : undefined}
-                  className={cx(
-                    `hocus:${link.className}`,
-                    isActive ? link.className : '',
-                    isActive ? 'saturate-125 dark:saturate-150' : '',
-                  )}
+                  className={cx('hocus:text-primary-txt')}
                   prefetch={!isActive}
                 >
-                  <NavPageLinkText>{link.title}</NavPageLinkText>
+                  <NavPageLinkText
+                    className={cx(
+                      isActive
+                        ? // eslint-disable-next-line max-len
+                          'text-primary-txt underline underline-offset-4 decoration-2 decoration-dashed decoration-accent'
+                        : '',
+                    )}
+                  >
+                    {link.title}
+                  </NavPageLinkText>
                 </NavPageLink>
               </NavItem>
             </Fragment>

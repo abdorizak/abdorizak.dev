@@ -14,8 +14,8 @@ interface BlogPostItemProps {
   fullDate?: boolean;
 }
 
-const MAX_WIDTH = 96;
-const MAX_HEIGHT = 72;
+const MAX_WIDTH = 240;
+const MAX_HEIGHT = 160;
 const getHeroProps = (heroMeta: PartialBlog['heroMeta']) => {
   const { width = MAX_WIDTH, height = MAX_HEIGHT, ...rest } = heroMeta || {};
   return {
@@ -31,9 +31,7 @@ export const BlogPostItem = (props: BlogPostItemProps) => {
   const a11yDate = formatDate(post.date);
   const readableDate = fullDate
     ? a11yDate
-    : formatDate(post.date, false, {
-        year: undefined,
-      });
+    : formatDate(post.date, false, { year: undefined });
 
   const color = hexToRgb(post.color, 1, true) || 'var(--color-accent-dark)';
 
@@ -46,80 +44,69 @@ export const BlogPostItem = (props: BlogPostItemProps) => {
     >
       <div
         className={cx(
-          'overflow-hidden',
-          'rounded-1 max-w-12',
-          'mobile-md:max-w-18',
-          'mobile-lg:max-w-24',
-          'transition',
-          'border border-transparent',
-          'group-hocus/post:border-tint-border',
-          'mobile-md:row-span-2 mobile-md:mt-0.75',
+          'relative shrink-0 overflow-hidden',
+          'size-14 mobile-lg:size-16',
+          'rounded-1.5',
         )}
-        style={{ aspectRatio: '4/3' }}
       >
         <Img
           src={post.hero || ''}
           alt={`Hero image for blog post "${post.title}"`}
           {...getHeroProps(post.heroMeta)}
-          className={
-            'h-full transition duration-200 group-hocus/post:scale-110'
-          }
+          className={'h-full w-full object-cover'}
         />
       </div>
-      <p
-        className={cx(
-          'w-full tablet-md:self-end font-medium',
-          'text-xs text-primary-txt line-clamp-2 text-pretty',
-          'group-hocus/post:underline group-hocus/post:decoration-primary-txt',
-        )}
-      >
-        {post.title}
-      </p>
-      <div
-        className={cx(
-          'flex flex-col',
-          'gap-1 col-span-2',
-          'mobile-lg:gap-0.5',
-          'mobile-md:col-span-1 mobile-md:col-start-2',
-        )}
-      >
-        <p className={'text-2xs text-secondary-txt line-clamp-2 text-pretty'}>
-          {post.summary}
-        </p>
-        {post.link ? (
-          <p className={'text-3xs text-tertiary-txt line-clamp-1'}>
-            Published on{' '}
-            <span className={'underline'}>{getUrlDomain(post.link)}</span>
-          </p>
-        ) : null}
-        <p
-          className={cx(
-            'flex flex-row items-center w-full',
-            'gap-1.5 text-3xs text-tertiary-txt',
-            'tabular-nums overflow-x-auto',
-          )}
-        >
+
+      <div className={'flex flex-col gap-0.5 flex-1 min-w-0'}>
+        <p className={cx('text-2xs text-tertiary-txt tabular-nums')}>
           <span
-            title={`This blog post was published on ${a11yDate}`}
-            aria-label={`This blog post was published on ${a11yDate}`}
+            title={`Published on ${a11yDate}`}
+            aria-label={`Published on ${a11yDate}`}
           >
             {readableDate}
           </span>
           {Boolean(post.readingTime) ? (
             <>
-              <span aria-hidden={'true'} className={'font-bold'}>
-                ·
-              </span>
+              {' · '}
               <span
-                title={`It takes ${post.readingTime} minutes to read this blog post`}
-                aria-label={`It takes ${post.readingTime} minutes to read this blog post`}
+                title={`It takes ${post.readingTime} minutes to read`}
+                aria-label={`It takes ${post.readingTime} minutes to read`}
               >
-                {Math.ceil(post.readingTime)} min read
+                {Math.ceil(post.readingTime as number)} min read
               </span>
             </>
           ) : null}
-          {/* Views counter removed */}
+          {post.link ? (
+            <>
+              {' · '}
+              <span className={'underline'}>{getUrlDomain(post.link)}</span>
+            </>
+          ) : null}
         </p>
+
+        <p
+          className={cx(
+            'font-medium text-pretty',
+            'text-sm mobile-lg:text-[0.9375rem]',
+            'text-primary-txt',
+            'underline underline-offset-4 decoration-dashed decoration-divider',
+            'transition-colors',
+            'group-hocus/post:decoration-primary-txt',
+          )}
+        >
+          {post.title}
+        </p>
+
+        {post.summary ? (
+          <p
+            className={cx(
+              'text-2xs text-secondary-txt text-pretty',
+              'line-clamp-2',
+            )}
+          >
+            {post.summary}
+          </p>
+        ) : null}
       </div>
     </BlogPostLink>
   );

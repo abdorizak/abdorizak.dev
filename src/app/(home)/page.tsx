@@ -23,7 +23,7 @@ export default function HomePage() {
     <>
       <Intro />
       <FeaturedBlogPosts />
-      <ProjectsList title={'Featured projects'} featuredOnly />
+      <ProjectsList title={'Projects'} featuredOnly />
       <script type={'application/ld+json'} suppressHydrationWarning>
         {jsonLd}
       </script>

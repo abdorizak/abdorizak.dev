@@ -2,55 +2,26 @@ import cx from '@/utils/cx';
 
 import { BlogPostLink } from './item.styles';
 
-const elementsBackground = 'bg-brand-50 dark:bg-brand-800/50';
+const pulseBg = 'bg-brand-100/20 dark:bg-brand-800/40';
+
 export const BlogPostItemSkeleton = () => (
   <BlogPostLink
     title={''}
     href={'#'}
     className={'motion-safe:animate-pulse pointer-events-none'}
-    aria-disabled={true}
+    aria-disabled
   >
     <div
       className={cx(
-        elementsBackground,
-        'min-w-24 h-full',
-        'rounded-1 max-w-12',
-        'mobile-lg:max-w-24',
-        'mobile-lg:row-span-2',
+        pulseBg,
+        'shrink-0 rounded-1.5',
+        'size-14 mobile-lg:size-16',
       )}
-      style={{ aspectRatio: '4/3' }}
     />
-    <p
-      className={cx(
-        elementsBackground,
-        'w-full tablet-md:self-end font-medium',
-        'text-xs text-primary-txt line-clamp-2 text-pretty',
-        'group-hocus/post:underline group-hocus/post:decoration-primary-txt',
-      )}
-    >
-       
-    </p>
-    <div
-      className={cx(
-        elementsBackground,
-        'flex flex-col',
-        'gap-1 col-span-2',
-        'mobile-lg:gap-0.5',
-        'mobile-lg:col-span-1 mobile-lg:col-start-2',
-      )}
-    >
-      <p className={'text-2xs text-secondary-txt line-clamp-2 text-pretty'}>
-         
-      </p>
-      <p
-        className={cx(
-          'flex flex-row items-center w-full',
-          'gap-1.5 text-3xs text-tertiary-txt',
-          'tabular-nums overflow-x-auto',
-        )}
-      >
-        <span> </span>
-      </p>
+    <div className={'flex flex-col gap-1.5 flex-1 min-w-0 py-1'}>
+      <div className={cx(pulseBg, 'h-2 w-28 rounded-full')} />
+      <div className={cx(pulseBg, 'h-3 w-5/6 rounded-full')} />
+      <div className={cx(pulseBg, 'h-2 w-2/3 rounded-full')} />
     </div>
   </BlogPostLink>
 );

@@ -10,17 +10,18 @@ export const StyledFooter = tw.footer.attrs({
   grid
   grid-cols-2
   gap-6
-  px-3
+  px-4
   pt-6 pb-8
   border-t
   border-t-divider
+  bg-background
   mobile-lg:pt-7
   tablet-sm:pt-8
   tablet-sm:pb-12
   tablet-sm:grid-cols-4
   tablet-sm:grid-rows-[1fr_auto]
   tablet-sm:gap-y-4
-  tablet-md:px-0
+  tablet-md:px-5
 `;
 
 export const Details = tw.div`

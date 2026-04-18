@@ -3,9 +3,9 @@ import '@/styles/globals.scss';
 import { type PropsWithChildren } from 'react';
 
 import { Main } from '@/components/atoms/main';
-import { DotPattern } from '@/components/magicui/dot-pattern';
 import { Footer } from '@/components/molecules/footer';
 import { Header } from '@/components/molecules/header';
+import { MAX_BG_WIDTH } from '@/constants';
 import { Providers } from '@/providers';
 import { Inter, Manrope } from '@/styles/fonts';
 import cx from '@/utils/cx';
@@ -46,6 +46,7 @@ export default function RootLayout(props: PropsWithChildren) {
       id={'page'}
       lang={'en'}
       className={cx('dark', Inter.variable, Manrope.variable)}
+      style={{ ['--max-bg-width' as string]: `${MAX_BG_WIDTH}px` }}
       suppressHydrationWarning
     >
       <head>
@@ -60,20 +61,6 @@ export default function RootLayout(props: PropsWithChildren) {
           <Header />
           <Main>{props.children}</Main>
           <Footer />
-          <DotPattern
-            width={40}
-            height={40}
-            cx={1}
-            cy={1}
-            cr={1}
-            className={cx(
-              // eslint-disable-next-line max-len
-              '[mask-image:linear-gradient(to_bottom,black,transparent_30%,transparent_70%,black),linear-gradient(to_right,black,transparent_30%,transparent_70%,black)]',
-              'fixed inset-x-0 inset-y-[-30%] h-[200%] w-full skew-y-12 fill-white/10',
-              'stroke-white/10',
-              '-z-10',
-            )}
-          />
         </Providers>
       </body>
     </html>

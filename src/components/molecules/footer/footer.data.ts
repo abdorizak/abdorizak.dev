@@ -21,7 +21,7 @@ export const linksGroups = [
       {
         title: 'Projects',
         href: '/projects',
-        className: 'text-purple',
+        className: 'text-blue',
       },
       {
         title: 'Uses',
@@ -53,7 +53,7 @@ export const linksGroups = [
       {
         title: 'Colophon',
         href: '/colophon',
-        className: 'text-purple',
+        className: 'text-blue',
       },
       {
         title: 'Back to Top',

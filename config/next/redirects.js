@@ -48,7 +48,8 @@ const redirects = [
   buildRedirect('/releases/:path*', '/gh-releases/:path*'),
   buildRedirect('/feed', '/feed.xml'),
   buildRedirect('/sitemap', '/sitemap.xml'),
-  buildRedirect('/resume', '/share/abdorizak--Resume.pdf'),
+  /* Legacy resume PDF → new HTML resume */
+  buildRedirect('/share/abdorizak--Resume.pdf', '/resume'),
   buildRedirect('/shop', 'https://www.shop.abdorizak.dev/nuestros-productos'),
   buildRedirect(
     '/analytics',

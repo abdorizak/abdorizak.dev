@@ -6,8 +6,8 @@
   --color-toolbar: theme(colors.brand.500 / 5%);
   --color-toolbar-highlight: theme(colors.brand.600 / 8%);
 
-  --color-accent: theme('colors.purple.600');
-  --color-accent-dark: theme('colors.purple.600');
+  --color-accent: theme('colors.blue.600');
+  --color-accent-dark: theme('colors.blue.700');
   --color-on-accent: theme('colors.background');
 
   --color-primary-txt: theme('colors.dark');
@@ -23,8 +23,8 @@ html.dark-inverted {
   --color-toolbar: theme(colors.brand.300 / 8%);
   --color-toolbar-highlight: theme(colors.brand.200 / 12%);
 
-  --color-accent: theme('colors.purple.300');
-  --color-accent-dark: theme('colors.purple.200');
+  --color-accent: theme('colors.blue.300');
+  --color-accent-dark: theme('colors.blue.200');
   --color-on-accent: theme('colors.background');
 
   --color-primary-txt: theme('colors.light');

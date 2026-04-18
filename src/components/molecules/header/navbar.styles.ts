@@ -13,42 +13,25 @@ export const Nav = tw.nav.attrs({ style: { maxWidth: MAX_SITE_WIDTH } })`
   backdrop-blur-md
   bg-background/20
   transform-gpu
-  grid
-  grid-cols-[auto_1fr]
-  grid-rows-[auto_1fr]
+  flex
+  flex-row
+  items-center
+  gap-1 tablet-sm:gap-2
   transition
   duration-200
-  tablet-sm:items-center
-  tablet-sm:grid-cols-[auto_1fr_auto]
-  tablet-sm:grid-rows-1
-  tablet-sm:gap-2
   rounded-1
 `;
 
 export const LinksList = tw.ol`
+  flex flex-row
+  items-center
+  justify-end
+  flex-1
+  gap-0 tablet-sm:gap-1
   h-full
-  max-h-0
-  opacity-0
-  select-none
-  pointer-events-none
-  invisible
-  flex flex-col
-  justify-center
-  gap-2
-  px-0.5
+  p-0
   transition
   duration-200
-  delay-150
-  will-change-[max-height,opacity,visibility]
-  tablet-sm:max-h-full
-  tablet-sm:p-0
-  tablet-sm:opacity-100
-  tablet-sm:select-auto
-  tablet-sm:pointer-events-auto
-  tablet-sm:visible
-  tablet-sm:flex-row
-  tablet-sm:justify-end
-  max-tablet-sm:col-span-2
 `;
 
 export const NavLink = tw(Link)`
@@ -64,16 +47,6 @@ export const NavLink = tw(Link)`
 
 export const NavItem = tw.li`
   relative
-  before:absolute
-  before:top-0
-  before:right-0
-  before:bottom-0
-  before:left-0
-  before:rounded-1.5
-  before:transition-colors
-  before:duration-150
-  before:bg-transparent
-  hocus:before:bg-toolbar-highlight
 `;
 
 export const NavPageLink = tw(NavLink)`
@@ -81,28 +54,20 @@ export const NavPageLink = tw(NavLink)`
   transition-colors
   hocus:saturate-125
   hocus:dark:saturate-150
+  max-tablet-sm:min-w-0
+  max-tablet-sm:px-1
+  max-tablet-sm:py-1
+  max-tablet-sm:text-3xs
+  max-tablet-sm:min-h-9
+  max-tablet-sm:max-h-9
 `;
 
-export const NavPageLinkText = tw.span`
-  max-tablet-sm:ml-7
-`;
+export const NavPageLinkText = tw.span``;
 
 export const ButtonsGroup = tw.ul`
-  flex flex-row
-  items-center
-  justify-end
-  gap-2
-  [grid-row:1]
-  [grid-column:2]
-  tablet-sm:gap-0
-  tablet-sm:justify-start
-  tablet-sm:[grid-column:3/4]
+  hidden
 `;
 
 export const ExtraNavLinks = tw.li`
-  min-h-11
-  tablet-sm:hidden
-  tablet-sm:invisible
-  tablet-sm:select-none
-  tablet-sm:pointer-events-none
+  hidden
 `;

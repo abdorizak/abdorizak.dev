@@ -20,6 +20,8 @@ export const projects = defineCollection({
         .optional(),
       repo: s.string().optional(),
       owner: s.string().optional(),
+      stack: s.array(s.string()).optional(),
+      invertOnDark: s.boolean().optional().default(false),
       hide: s.boolean().optional().default(false),
     })
     .transform(async (data) => {

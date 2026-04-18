@@ -4,6 +4,7 @@ import { SocialLinks } from '@/components/molecules/social-links';
 import { Experience } from '@/components/ui/about/experience';
 import { Skills } from '@/components/ui/about/skills';
 import { getColoredTextClasses } from '@/utils/colored-text';
+import cx from '@/utils/cx';
 import { createMetadata } from '@/utils/metadata';
 
 import Photo from './photo';
@@ -80,12 +81,27 @@ export default function AboutPage() {
           page.
         </p>
       </Section>
-      <Section id={'contact'} className={'-mt-5 gap-2.5'}>
-        <h2 className={'mb-1'} style={{ fontSize: '1rem' }}>
-          Let&apos;s connect!
-        </h2>
-        <p>
-          Feel free to reach out to me at{' '}
+      <Section id={'contact'} className={'gap-3'}>
+        <h2 className={getColoredTextClasses('blue')}>Let&apos;s connect</h2>
+        <p
+          className={
+            // eslint-disable-next-line max-len
+            'inline-flex items-center gap-2 text-2xs text-secondary-txt'
+          }
+        >
+          <span
+            aria-hidden
+            className={cx(
+              'inline-block size-2 rounded-full',
+              'bg-green-400 animate-pulse',
+            )}
+          />
+          <span>
+            Open to iOS &amp; Flutter work — usually reply within 24 hours.
+          </span>
+        </p>
+        <p className={'max-w-nice'}>
+          Email me at{' '}
           <Link
             title={'Email'}
             href={'mailto:info@abdorizak.dev?subject=Hi%20abdorizak!'}

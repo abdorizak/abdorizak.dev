@@ -1,0 +1,199 @@
+.resume {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  color: var(--color-primary-txt);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+
+  h1,
+  h2,
+  h3 {
+    color: var(--color-primary-txt);
+    font-family: var(--font-manrope), system-ui, sans-serif;
+  }
+
+  h1 {
+    font-size: 1.875rem;
+    font-weight: 800;
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.375rem;
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  p {
+    margin: 0 0 0.5rem;
+    color: var(--color-secondary-txt);
+  }
+
+  ul {
+    list-style: disc outside;
+    padding-left: 1.25rem;
+    margin: 0.25rem 0 0;
+    color: var(--color-secondary-txt);
+  }
+
+  li {
+    margin-bottom: 0.25rem;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  &__header {
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-secondary-txt);
+    margin-bottom: 0.5rem;
+  }
+
+  &__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--color-tertiary-txt);
+
+    li {
+      margin: 0;
+    }
+  }
+
+  &__section {
+    margin-top: 1.5rem;
+  }
+
+  &__job {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__job-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    margin-bottom: 0.125rem;
+  }
+
+  &__dates {
+    font-size: 0.8125rem;
+    color: var(--color-tertiary-txt);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  &__meta {
+    font-size: 0.8125rem;
+    color: var(--color-tertiary-txt);
+    margin-bottom: 0.375rem;
+  }
+
+  &__placeholder {
+    color: var(--color-tertiary-txt);
+    font-style: italic;
+  }
+}
+
+@media print {
+  // Reset page chrome: hide header/footer/navigation from the portfolio
+  header,
+  footer,
+  nav,
+  .hide-on-print,
+  body::before,
+  body::after {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    overflow: visible !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 0.6in;
+  }
+
+  .resume {
+    max-width: 100%;
+    padding: 0;
+    color: #000;
+    font-size: 10.5pt;
+    line-height: 1.4;
+
+    h1,
+    h2,
+    h3 {
+      color: #000;
+    }
+
+    h1 {
+      font-size: 20pt;
+    }
+
+    h2 {
+      font-size: 12pt;
+      border-bottom: 1px solid #000;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      font-size: 11pt;
+    }
+
+    p,
+    li,
+    &__meta,
+    &__dates,
+    &__contact {
+      color: #000;
+    }
+
+    a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    &__section {
+      page-break-inside: avoid;
+      margin-top: 14pt;
+    }
+
+    &__job {
+      page-break-inside: avoid;
+    }
+  }
+}

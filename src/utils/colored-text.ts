@@ -1,13 +1,6 @@
 import cx from './cx';
 
-type Color =
-  | 'brand'
-  | 'blue'
-  | 'green'
-  | 'yellow'
-  | 'orange'
-  | 'red'
-  | 'purple';
+type Color = 'brand' | 'blue' | 'green' | 'yellow' | 'orange' | 'red';
 
 export const getColoredTextClasses = (
   color?: Color,

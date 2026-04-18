@@ -3,15 +3,16 @@ import type { CSSProperties } from 'react';
 import { Icon } from '@/components/atoms/icon';
 import { Section } from '@/components/atoms/section';
 import { hexToRgb } from '@/utils/color';
+import { getColoredTextClasses } from '@/utils/colored-text';
 import cx from '@/utils/cx';
 
 import { skills } from './data';
 
 export const Skills = () => {
   return (
-    <Section id={'skills'}>
-      <h2>Skills</h2>
-      <ul className={'flex items-center gap-2.5 flex-wrap'}>
+    <Section id={'skills'} className={'gap-4'}>
+      <h2 className={getColoredTextClasses('yellow')}>Skills</h2>
+      <ul className={'flex items-center gap-2 flex-wrap'}>
         {skills
           .filter((skill) => !skill.hide)
           .map((skill) => {
@@ -21,17 +22,23 @@ export const Skills = () => {
                 <span
                   className={cx(
                     'flex items-center gap-1.5',
-                    'rounded-2 pl-3 pr-3.5 py-1.5 min-h-9',
-                    'border border-divider',
+                    'rounded-full pl-2.5 pr-3 py-1.5 min-h-8',
                     'text-3xs font-medium cursor-default',
-                    'transition-colors',
-                    'bg-brand-200/5 dark:bg-brand-700/10',
-                    'hocus:!bg-tint-bg',
-                    'hocus:border-tint-border',
+                    'bg-toolbar text-secondary-txt',
+                    'transition-colors duration-200',
+                    'hocus:bg-tint-bg hocus:text-primary-txt',
                   )}
                   style={{ '--tint': color } as CSSProperties}
                 >
-                  <Icon path={skill.icon} className={'size-4'} />
+                  <span
+                    aria-hidden
+                    className={cx(
+                      'flex items-center',
+                      'text-[color:rgb(var(--tint))]',
+                    )}
+                  >
+                    <Icon path={skill.icon} className={'size-4'} />
+                  </span>
                   <span>{skill.name}</span>
                 </span>
               </li>

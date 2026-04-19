@@ -21,6 +21,11 @@ import type { BlogPostPageContext } from './types';
 const blogPostStructuredData = (post?: PartialBlog): string => {
   if (!post) return '';
   const date = getDate(post.date) || new Date(post.date);
+  const heroUrl = post.hero
+    ? post.hero.startsWith('http')
+      ? post.hero
+      : `https://abdorizak.dev${post.hero.startsWith('/') ? post.hero : `/${post.hero}`}`
+    : 'https://abdorizak.dev/media/abdorizak/abdorizak-hd.jpg';
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -28,7 +33,7 @@ const blogPostStructuredData = (post?: PartialBlog): string => {
     datePublished: date.toISOString(),
     dateModified: date.toISOString(),
     description: post.summary,
-    image: `https://abdorizak.dev/blog/${post.slug}/opengraph-image`,
+    image: heroUrl,
     url: `https://abdorizak.dev/blog/${post.slug}`,
     author: {
       '@type': 'Person',

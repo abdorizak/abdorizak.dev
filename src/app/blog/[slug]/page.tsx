@@ -110,12 +110,18 @@ export function generateMetadata(
   const post = allReadableBlogsWithContent.find((b) => b.slug === slug);
   if (!post) return undefined;
 
-  const { title, date, summary } = post;
+  const { title, date, summary, hero } = post;
+  const heroUrl = hero
+    ? hero.startsWith('http')
+      ? hero
+      : `https://abdorizak.dev${hero.startsWith('/') ? hero : `/${hero}`}`
+    : undefined;
   const metadata = createMetadata({
     title: `${title} | Blog – Abdirizak Abdalla`,
     description: summary || 'Blog post by Abdirizak Abdalla',
     exactUrl: `https://abdorizak.dev/blog/${slug}`,
     keywords: post.keywords,
+    image: heroUrl,
   });
   return {
     ...metadata,

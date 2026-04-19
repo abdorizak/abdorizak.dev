@@ -5,6 +5,7 @@ import { Img } from '@/components/atoms/img';
 import { Link } from '@/components/atoms/link';
 import { Section } from '@/components/atoms/section';
 import { SocialLinks } from '@/components/molecules/social-links';
+import { getColoredTextClasses } from '@/utils/colored-text';
 import cx from '@/utils/cx';
 
 import { Name, WavingSpan } from './intro.styles';
@@ -69,7 +70,7 @@ export const Intro = () => {
         </h1>
       </div>
 
-      <p className={'text-pretty text-base text-secondary-txt max-w-[65ch]'}>
+      <p className={'text-pretty text-lg text-secondary-txt max-w-[65ch]'}>
         Software engineer focused on Flutter, Dart, and backend systems.
         Building scalable, production-ready packages with clean architecture and
         real-world reliability. Passionate Open Source Projects. Creator of{' '}
@@ -119,14 +120,7 @@ export const Intro = () => {
       </Link>
 
       <section className={'flex flex-col gap-3 mt-2'} id={'connect'}>
-        <h2
-          className={cx(
-            'font-manrope font-semibold tracking-wide',
-            'text-md text-primary-txt',
-          )}
-        >
-          Connect
-        </h2>
+        <h2 className={getColoredTextClasses('brand')}>Connect</h2>
         <SocialLinks />
       </section>
     </Section>

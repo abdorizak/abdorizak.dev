@@ -2,6 +2,11 @@ import type { Metadata } from 'next';
 
 import { config } from './og';
 
+const SITE_URL = 'https://abdorizak.dev';
+const SITE_NAME = 'Abdirizak Abdalla';
+const DEFAULT_OG_IMAGE = `${SITE_URL}/media/abdorizak/abdorizak-hd.jpg`;
+const TWITTER_HANDLE = '@abdorizak3';
+
 export const createMetadata = (data: {
   title: string;
   description: string;
@@ -9,43 +14,60 @@ export const createMetadata = (data: {
   exactUrl?: string;
   image?: string;
 }): Metadata => {
-  const { title, description, keywords, exactUrl, image: imageURL } = data;
-  const metadata: Metadata = {
+  const { title, description, keywords, exactUrl, image } = data;
+  const url = exactUrl || SITE_URL;
+  const imageUrl = image || DEFAULT_OG_IMAGE;
+
+  const ogImage = {
+    url: imageUrl,
+    secureUrl: imageUrl,
+    type: config.contentType,
+    width: config.size.width,
+    height: config.size.height,
+    alt: title,
+  };
+
+  return {
+    metadataBase: new URL(SITE_URL),
     title,
     description,
     keywords,
-    authors: [{ name: 'Abdirizak Abdalla', url: 'https://abdorizak.dev' }],
+    authors: [{ name: SITE_NAME, url: SITE_URL }],
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title,
       description,
-      url: exactUrl || 'https://abdorizak.dev',
-      siteName: title,
+      url,
+      siteName: SITE_NAME,
       locale: 'en_US',
       type: 'website',
+      images: [ogImage],
     },
     twitter: {
       title,
       description,
       card: 'summary_large_image',
-      creator: '@abdorizak3',
-      site: '@abdorizak3',
+      creator: TWITTER_HANDLE,
+      site: TWITTER_HANDLE,
+      images: [ogImage],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+        'max-video-preview': -1,
+      },
     },
     verification: {
       google: 'lJwL3cKpjX_Eqp6yEY4hsydJazQl85xv29ZUmEg4oEE',
     },
-    metadataBase: new URL('https://abdorizak.dev'),
   };
-  if (imageURL && Boolean(imageURL)) {
-    const image = {
-      url: imageURL,
-      type: config.contentType,
-      width: config.size.width,
-      height: config.size.height,
-    };
-    if (metadata.openGraph) metadata.openGraph['images'] = image;
-    if (metadata.twitter) metadata.twitter['images'] = image;
-  }
-  return metadata;
 };
 
 export const colorMetaTags = [

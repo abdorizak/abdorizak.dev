@@ -51,7 +51,7 @@ export default function AboutPage() {
               🇸🇴
             </span>
           </Link>{' '}
-          with over two (2) years of professional experience.
+          with over four (4) years of professional experience.
         </p>
         <p className={'max-w-nice'}>
           I focus on details and I&apos;m passionate about crafting software
@@ -59,18 +59,41 @@ export default function AboutPage() {
         </p>
         <Photo />
         <p className={'max-w-nice'}>
-          I&apos;m a skilled software developer and an experienced trainer,
-          specializing in iOS app development, Swift programming language,
-          Flutter development, and Odoo training. With a deep understanding of
-          these technologies, I create innovative and user-friendly
-          applications, while also providing expert training to individuals and
-          organizations looking to enhance their skills and capabilities. My
-          passion for technology, combined with my excellent communication
-          skills and ability to simplify complex concepts, make me a highly
-          effective trainer and a sought-after developer in the software
-          industry. Whether you are looking to build an iOS app, learn Swift or
-          Flutter, or receive Odoo training, I have the knowledge, experience,
-          and expertise to help you achieve your goals.
+          I build mobile apps for a living. Right now I&apos;m an iOS Developer
+          at{' '}
+          <Link
+            title={'SafariOne'}
+            href={'https://safarione.ca/'}
+            data-umami-event={'Link to SafariOne'}
+          >
+            SafariOne
+          </Link>
+          , shipping features in Swift with UIKit, Combine, and MVVM — and I
+          architected a full call-center platform that integrates with Asterisk
+          PBX over WebSocket. That project pulled me into full-stack territory:
+          Go services for call routing, recording storage, and CDR/reporting,
+          plus a Next.js web client using SIP.js for browser-based SIP calling.
+        </p>
+        <p className={'max-w-nice'}>
+          Before SafariOne, I spent over two years at Softprime Consulting
+          shipping Flutter apps for iOS and Android, and training clients on
+          Odoo ERP across accounting, inventory, sales, purchase, and project
+          modules — both on-site and remote. I&apos;ve also consulted on Flutter
+          work for{' '}
+          <Link
+            title={'Qaamuus Academy'}
+            href={'https://qaamuus.academy/members'}
+            data-umami-event={'Link to Qaamuus Academy'}
+          >
+            Qaamuus Academy
+          </Link>
+          , taking apps from build through app-store publication.
+        </p>
+        <p className={'max-w-nice'}>
+          My sweet spot is the mobile surface, but I&apos;m comfortable anywhere
+          the feature needs me — backend, web, or infrastructure. I care about
+          details, performance, and code that the next person on the team can
+          actually read.
         </p>
         <p className={'max-w-nice'}>
           If you&apos;re curious about the hardware and software tools I use
@@ -100,15 +123,30 @@ export default function AboutPage() {
             Open to iOS &amp; Flutter work — usually reply within 24 hours.
           </span>
         </p>
-        <p className={'max-w-nice'}>
-          Email me at{' '}
+        <p
+          className={cx(
+            'inline-flex flex-wrap items-center gap-x-2 gap-y-1',
+            'text-xs text-secondary-txt',
+          )}
+        >
           <Link
             title={'Email'}
             href={'mailto:info@abdorizak.dev?subject=Hi%20abdorizak!'}
           >
             info@abdorizak.dev
           </Link>
-          , or find me on social media:
+          <span aria-hidden className={'opacity-60'}>
+            ·
+          </span>
+          <Link
+            title={'WhatsApp'}
+            href={
+              // eslint-disable-next-line max-len
+              'https://wa.me/252618125834?text=Hi%20Abdirizak%2C%20I%27d%20like%20to%20discuss%20a%20project'
+            }
+          >
+            +252 618 125 834
+          </Link>
         </p>
         <SocialLinks />
       </Section>

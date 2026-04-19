@@ -1,0 +1,393 @@
+---
+title: 'Swift Concurrency: A Practical Guide to async/await and Actors'
+date: '2026-04-19'
+color: '#F05138'
+summary: 'A hands-on tour of modern Swift concurrency — async/await, structured Tasks, TaskGroup, Actors, and @MainActor — with runnable snippets and the pitfalls that bite you in production.'
+keywords: 'Swift, iOS, Swift Concurrency, async/await, Actors, MainActor, TaskGroup, Structured Concurrency, GCD, Completion Handlers, iOS Engineering'
+---
+
+👋 Hey there,
+
+If you still reach for `DispatchQueue.global().async { ... }` and nested completion handlers every time you need to do work off the main thread, this post is for you. Swift Concurrency (shipped with Swift 5.5, battle-tested ever since) isn't just sugar over GCD — it's a new mental model that makes concurrent code **readable, cancellable, and safer by default**.
+
+We'll go from "why does any of this exist" to a working network layer in about eight minutes.
+
+## Why Swift Concurrency exists
+
+The old tools work. They're just painful at scale:
+
+- **Callback pyramids.** Three nested `completion:` closures and you're already in trouble.
+- **Implicit context.** Which queue is this closure running on? Who knows.
+- **Leaky error handling.** `Result<T, Error>` is fine, but every layer re-wraps it.
+- **Data races.** Nothing in GCD stops two threads from mutating the same `var`.
+- **Cancellation is manual.** You have to thread a flag through everything.
+
+`async/await` + structured concurrency fixes all five. Let's see how.
+
+## `async/await` in 30 seconds
+
+An `async` function is one that can **suspend**. `await` marks the suspension points. While suspended, the thread isn't blocked — it's free to do other work.
+
+```swift
+func greeting(for name: String) async -> String {
+  try? await Task.sleep(for: .seconds(1))
+  return "Hello, \(name)"
+}
+
+// Call site:
+Task {
+  let msg = await greeting(for: "Rizak")
+  print(msg)
+}
+```
+
+`Task { ... }` is how you bridge from synchronous code (like a SwiftUI button handler) into async land. Inside an async function, you just `await` — no wrapper needed.
+
+## Converting a completion handler to async/await
+
+Here's the "before" — classic callback API:
+
+```swift
+func fetchUser(id: String, completion: @escaping (Result<User, Error>) -> Void) {
+  URLSession.shared.dataTask(with: userURL(id)) { data, _, error in
+    if let error { return completion(.failure(error)) }
+    guard let data else { return completion(.failure(NetworkError.empty)) }
+    do {
+      let user = try JSONDecoder().decode(User.self, from: data)
+      completion(.success(user))
+    } catch {
+      completion(.failure(error))
+    }
+  }.resume()
+}
+```
+
+Now the async version. Same behavior, half the code, real `throws`:
+
+```swift
+func fetchUser(id: String) async throws -> User {
+  let (data, _) = try await URLSession.shared.data(from: userURL(id))
+  return try JSONDecoder().decode(User.self, from: data)
+}
+```
+
+Call site goes from this mess:
+
+```swift
+fetchUser(id: "42") { result in
+  switch result {
+  case .success(let user): self.render(user)
+  case .failure(let err):  self.show(err)
+  }
+}
+```
+
+To this:
+
+```swift
+Task {
+  do {
+    let user = try await fetchUser(id: "42")
+    render(user)
+  } catch {
+    show(error)
+  }
+}
+```
+
+### Bridging legacy APIs you can't rewrite
+
+When you're stuck with a callback API, wrap it with `withCheckedThrowingContinuation`:
+
+```swift
+func legacyFetch(id: String) async throws -> User {
+  try await withCheckedThrowingContinuation { cont in
+    fetchUser(id: id) { result in
+      cont.resume(with: result)
+    }
+  }
+}
+```
+
+> ⚠️ You must call `resume` **exactly once**. Zero = hang forever. Two = crash.
+
+## Structured concurrency: `Task` and `TaskGroup`
+
+"Structured" means child tasks can't outlive their parent. If the parent is cancelled, children cancel. If a child throws, siblings cancel. You don't manage lifetimes — the tree does.
+
+### `async let` for a fixed number of parallel operations
+
+Need to fetch three things at once? Don't serialize them:
+
+- ❌ Serial — 3 round trips in sequence
+
+```swift
+let user    = try await fetchUser(id: id)
+let posts   = try await fetchPosts(for: id)
+let friends = try await fetchFriends(of: id)
+```
+
+- ✅ Parallel — all three start immediately, await gathers them
+
+```swift
+func loadProfile(id: String) async throws -> Profile {
+  async let user    = fetchUser(id: id)
+  async let posts   = fetchPosts(for: id)
+  async let friends = fetchFriends(of: id)
+  return try await Profile(user: user, posts: posts, friends: friends)
+}
+```
+
+`async let` is perfect when the **number of tasks is known at compile time**.
+
+### `TaskGroup` for a dynamic fan-out
+
+When the count is dynamic — say, fetching N images for a feed — use `withThrowingTaskGroup`:
+
+```swift
+func fetchImages(urls: [URL]) async throws -> [URL: UIImage] {
+  try await withThrowingTaskGroup(of: (URL, UIImage).self) { group in
+    for url in urls {
+      group.addTask {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        guard let image = UIImage(data: data) else { throw ImageError.decode }
+        return (url, image)
+      }
+    }
+
+    var results: [URL: UIImage] = [:]
+    for try await (url, image) in group {
+      results[url] = image
+    }
+    return results
+  }
+}
+```
+
+If any child throws, the group cancels the rest automatically. No manual bookkeeping.
+
+## Actors: thread-safe state without locks
+
+An `actor` is a reference type that **serializes access to its own state**. Only one task can be executing inside an actor at a time. No `NSLock`, no `DispatchQueue.sync`, no race conditions.
+
+Classic use case — an in-memory cache:
+
+```swift
+actor ImageCache {
+  private var storage: [URL: UIImage] = [:]
+
+  func image(for url: URL) -> UIImage? {
+    storage[url]
+  }
+
+  func insert(_ image: UIImage, for url: URL) {
+    storage[url] = image
+  }
+}
+```
+
+Usage crosses the actor boundary, so you `await`:
+
+```swift
+let cache = ImageCache()
+
+Task {
+  if let cached = await cache.image(for: url) {
+    return cached
+  }
+  let fresh = try await downloadImage(url)
+  await cache.insert(fresh, for: url)
+}
+```
+
+Even under massive parallelism, that dictionary is never mutated from two threads at once. The compiler enforces it.
+
+### Counter example (pun intended)
+
+```swift
+actor Counter {
+  private var value = 0
+  func increment() { value += 1 }
+  func current() -> Int { value }
+}
+
+let counter = Counter()
+await withTaskGroup(of: Void.self) { group in
+  for _ in 0..<10_000 {
+    group.addTask { await counter.increment() }
+  }
+}
+print(await counter.current()) // 10000, guaranteed
+```
+
+Do the same with a plain `class` and a `var` and you'll get a corrupt number, a crash, or both.
+
+## `@MainActor` — safe UI updates
+
+UIKit and SwiftUI require all UI work on the main thread. `@MainActor` is a compile-time guarantee that a function, property, or type runs on the main thread.
+
+```swift
+@MainActor
+final class ProfileViewModel: ObservableObject {
+  @Published var user: User?
+  @Published var isLoading = false
+
+  func load(id: String) async {
+    isLoading = true
+    defer { isLoading = false }
+    do {
+      user = try await fetchUser(id: id)
+    } catch {
+      // show error
+    }
+  }
+}
+```
+
+Because the whole class is `@MainActor`, writes to `@Published` properties are always on main — no `DispatchQueue.main.async` anywhere. If you call non-isolated async work from inside, Swift hops threads for you and hops back when you `await` the result.
+
+You can also annotate just one method:
+
+```swift
+@MainActor
+func updateHeader(with user: User) {
+  headerLabel.text = user.name
+}
+```
+
+## A real-world example: a small network layer
+
+Let's tie everything together — a typed API client that caches responses and publishes to a SwiftUI view model.
+
+```swift
+// 1. The transport
+struct APIClient {
+  let baseURL: URL
+  let session = URLSession.shared
+
+  func get<T: Decodable>(_ path: String, as type: T.Type) async throws -> T {
+    let url = baseURL.appending(path: path)
+    let (data, response) = try await session.data(from: url)
+    guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+      throw APIError.badStatus
+    }
+    return try JSONDecoder().decode(T.self, from: data)
+  }
+}
+```
+
+```swift
+// 2. The cache
+actor ResponseCache {
+  private var store: [String: (value: Any, storedAt: Date)] = [:]
+  private let ttl: TimeInterval = 60
+
+  func value<T>(for key: String, as _: T.Type) -> T? {
+    guard let entry = store[key],
+          Date().timeIntervalSince(entry.storedAt) < ttl,
+          let value = entry.value as? T
+    else { return nil }
+    return value
+  }
+
+  func set<T>(_ value: T, for key: String) {
+    store[key] = (value, Date())
+  }
+}
+```
+
+```swift
+// 3. The repository — composes transport + cache
+struct UserRepository {
+  let api: APIClient
+  let cache: ResponseCache
+
+  func user(id: String) async throws -> User {
+    let key = "user/\(id)"
+    if let cached = await cache.value(for: key, as: User.self) { return cached }
+    let fresh = try await api.get("/users/\(id)", as: User.self)
+    await cache.set(fresh, for: key)
+    return fresh
+  }
+}
+```
+
+```swift
+// 4. The view model — glues it to SwiftUI
+@MainActor
+final class UserViewModel: ObservableObject {
+  @Published private(set) var user: User?
+  @Published private(set) var error: String?
+  private let repo: UserRepository
+
+  init(repo: UserRepository) { self.repo = repo }
+
+  func load(id: String) async {
+    do {
+      user = try await repo.user(id: id)
+    } catch {
+      self.error = error.localizedDescription
+    }
+  }
+}
+```
+
+Four tiny types. No queues, no locks, no completion handlers. The actor is thread-safe. The view model is main-thread-safe. Errors propagate through one `throws` chain.
+
+## Common pitfalls (and how to avoid them)
+
+**1. Forgetting `await`.** The compiler will yell, but if you're bridging with `Task { ... }` inside a sync function, it's easy to fire-and-forget when you meant to observe a result.
+
+- ❌ The Task runs, but nothing awaits its result
+
+```swift
+Task { try await repo.user(id: id) }
+
+// ✅ Capture and await if you need the value
+let user = try await repo.user(id: id)
+```
+
+**2. Blocking an actor with heavy CPU work.** Actors serialize access, so a long-running computation inside an actor method blocks every other caller. Push heavy work out to a detached task or a non-actor helper.
+
+- ❌ Every other caller of `process()` waits for this
+
+```swift
+actor Processor {
+  func process(_ data: Data) -> Result {
+    return expensiveCPUWork(data) // blocks the actor
+  }
+}
+```
+
+**3. Cancellation isn't automatic in tight loops.** Structured tasks check cancellation at suspension points. If your loop never awaits anything, it won't notice a cancel.
+
+```swift
+for item in hugeList {
+  try Task.checkCancellation() // opt-in check
+  process(item)
+}
+```
+
+**4. Sendable warnings.** When you hit `Type X does not conform to Sendable`, Swift is telling you that the value could be accessed from two isolation domains without protection. Either mark it `Sendable`, make it a value type, or isolate it to an actor.
+
+**5. `Task { }` inside SwiftUI `body`.** Don't. It fires a new task on every render. Use `.task { }` — it ties the task's lifetime to the view.
+
+-  ✅
+```swift
+.task {
+  await viewModel.load(id: id)
+}
+```
+
+**6. `MainActor.run` when you already are on MainActor.** Harmless but noisy. If the enclosing function is `@MainActor`, you're already there — no hop needed.
+
+## Wrapping up
+
+Swift Concurrency isn't just a prettier GCD. It's:
+
+- **Linear control flow** — code reads top-to-bottom, even when it's concurrent.
+- **Structured lifetimes** — parent tasks own children; cancel propagates.
+- **Compiler-enforced safety** — actors + `Sendable` catch data races at build time.
+- **First-class cancellation and errors** — no sentinel values, no callback juggling.
+
+Start by converting one completion-handler API. Then replace the nearest queue-based cache with an `actor`. Then annotate your view models with `@MainActor` and delete every `DispatchQueue.main.async`. Your pull requests will shrink, and so will your bug count.

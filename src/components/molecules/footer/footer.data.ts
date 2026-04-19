@@ -35,11 +35,22 @@ export const linksGroups = [
     a11yTitle: 'Miscellaneous links',
     links: [
       {
-        title: 'Contact',
-        href: '/contact',
+        title: 'Email',
+        href: 'mailto:info@abdorizak.dev?subject=Hi%20abdorizak!',
         className: 'text-green',
         props: {
           ignoreNextLink: true,
+          'data-umami-event': 'Footer email',
+        },
+      },
+      {
+        title: 'WhatsApp',
+        a11yTitle: 'WhatsApp for business inquiries',
+        href: 'https://wa.me/252618125834?text=Hi%20Abdirizak%2C%20I%27d%20like%20to%20discuss%20a%20project',
+        className: 'text-green',
+        props: {
+          ignoreNextLink: true,
+          'data-umami-event': 'Footer WhatsApp',
         },
       },
       {

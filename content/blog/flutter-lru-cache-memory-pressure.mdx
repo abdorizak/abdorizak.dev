@@ -1,0 +1,216 @@
+---
+title: 'Building a Smart LRU Cache in Flutter: Dedup, Prefetch, and Memory Pressure'
+date: '2026-04-19'
+color: '#02569B'
+summary: 'A production-grade in-memory cache for Flutter — LRU eviction, in-flight deduplication, adjacent-page prefetching, and OS memory pressure handling. Battle-tested on a 604-page Quran reader.'
+keywords: 'Flutter, Dart, Caching, LRU Cache, LinkedHashMap, WidgetsBindingObserver, Memory Pressure, Prefetch, Quran, Performance'
+---
+
+👋 Hey there,
+
+If your Flutter app is re-decoding the same image, re-parsing the same JSON, or re-querying SQLite for data you just fetched two seconds ago — you need a cache. Not `package:cached_network_image`, not a `Map<K, V>` sitting on a `StatefulWidget`. You need a real one, with **eviction**, **deduplication**, and **a plan for when iOS screams `didReceiveMemoryWarning`**.
+
+This post walks through the cache layer I built for a Quran reader — 604 high-resolution page images, glyph hit-testing, surah names — and why each layer exists. Everything here is plain Dart + one Flutter binding. No dependencies.
+
+## Why `Map<K, V>` is not a cache
+
+A plain `Map` has three problems:
+
+- **Unbounded growth.** Every page you visit stays in memory forever. On a 604-page Quran, that's a one-way ticket to an OOM kill.
+- **No dedup.** Tap a page twice quickly and you'll fire two async loads for the same input. Both will finish, both will update state, one will win — and you burned the other.
+- **No eviction policy.** When you do finally clear it, you lose everything, including the pages the user is actively reading.
+
+The fix is a three-layer stack: an **LRU cache** at the bottom, a **deduplicating service** on top of it, and a **page-aware prefetcher** on top of that.
+
+## Layer 1 — An LRU cache backed by `LinkedHashMap`
+
+The trick most people miss: Dart's `LinkedHashMap` already maintains **insertion order**. That's 80% of an LRU. To mark a key as "recently used," you remove it and re-insert — it jumps to the end. Evict by popping `.keys.first`.
+
+```dart
+class Cache<K, V> {
+  final int countLimit;
+  final String? name;
+  final LinkedHashMap<K, V> _cache = LinkedHashMap<K, V>();
+
+  Cache({this.countLimit = 50, this.name});
+
+  V? object(K key) {
+    final value = _cache.remove(key);
+    if (value != null) {
+      _cache[key] = value; // move to end = most recently used
+    }
+    return value;
+  }
+
+  void setObject(V value, K key) {
+    _cache.remove(key);
+    while (_cache.length >= countLimit && _cache.isNotEmpty) {
+      _cache.remove(_cache.keys.first); // evict oldest
+    }
+    _cache[key] = value;
+  }
+}
+```
+
+A few things that look small but matter:
+
+- **`null` means cache miss.** That's why `setObject` doesn't accept null values. If you need to cache "we asked and there's nothing there," wrap it: `Cache<K, Optional<V>>`.
+- **Eviction is count-based, not byte-based.** For uniform items (one decoded page image ≈ the same size), that's fine. For mixed payloads, you need a size-aware policy — but don't build that until you measure and care.
+- **`_cache.remove(_cache.keys.first)` is O(1)** on `LinkedHashMap`. You're not scanning.
+
+That's the foundation. Everything else sits on top.
+
+## Layer 2 — Deduplicating in-flight operations
+
+Here's a real bug I shipped once: the user scrolled, we started fetching page 42. Before it finished, they scrolled back and triggered page 42 again. Two SQLite queries, two JSON decodes, two `setState` calls. On a slow device, the second overwrote the first's UI update with identical data — burning frames for nothing.
+
+The fix is a `Completer` map keyed by the same key as the cache:
+
+```dart
+class OperationCacheableService<I, O> {
+  final Cache<I, O> cache;
+  final CacheableOperation<I, O> operation;
+  final Map<I, Completer<O>> _inProgressOperations = {};
+
+  Future<O> get(I input) async {
+    final cached = cache.object(input);
+    if (cached != null) return cached;
+
+    // Already fetching? Wait for that one.
+    if (_inProgressOperations.containsKey(input)) {
+      return _inProgressOperations[input]!.future;
+    }
+
+    final completer = Completer<O>();
+    _inProgressOperations[input] = completer;
+
+    try {
+      final result = await operation(input);
+      cache.setObject(result, input);
+      completer.complete(result);
+      return result;
+    } catch (e) {
+      completer.completeError(e);
+      rethrow;
+    } finally {
+      _inProgressOperations.remove(input);
+    }
+  }
+}
+```
+
+Three callers asking for page 42 concurrently now do exactly **one** operation and three awaits. The `finally` is load-bearing — without it, a thrown error leaves a poisoned completer in the map forever.
+
+> ⚠️ This is **single-isolate safe only**. If you call it from a background isolate, you need `Isolate.run` boundaries or a port-based protocol. The Completer lives on one heap.
+
+## Layer 3 — Page-aware prefetching
+
+Reading a book is predictable: if the user is on page 42, they're probably headed to 43 next, maybe 44 after that. A smart cache exploits that:
+
+```dart
+Future<O> get(int pageNumber) async {
+  final result = await _service.get(pageNumber);
+  _prefetchAdjacentPages(pageNumber); // fire-and-forget
+  return result;
+}
+
+void _prefetchAdjacentPages(int currentPage) {
+  for (int i = 1; i <= nextPagesCount; i++) {
+    final nextPage = currentPage + i;
+    if (nextPage <= totalPages && _service.getCached(nextPage) == null) {
+      unawaited(_service.get(nextPage).catchError((e) {
+        debugPrint('⚠️ Prefetch failed for page $nextPage: $e');
+      }));
+    }
+  }
+  // ... same for previous pages
+}
+```
+
+Two things worth calling out:
+
+- **`unawaited(...)`.** Without it, the analyzer will warn. It's a signal to readers (and to `await_only_futures` lint) that the fire-and-forget is intentional.
+- **Prefetch errors are swallowed, not rethrown.** A failed prefetch shouldn't break the page the user actually asked for. Log it, move on.
+- **`getCached` before `get`.** Dedup already handles the race, but checking cached first avoids growing `_inProgressOperations` with entries we don't need.
+
+I default to 2 previous + 3 next pages. That's asymmetric because most reading goes forward. Tune it for your app — a left-to-right reader flips the numbers.
+
+## Layer 4 — Memory pressure is not optional
+
+Here's the thing nobody talks about: iOS will kill your app if you ignore memory warnings, and Android will do it with even less ceremony. Flutter gives you a hook; use it.
+
+```dart
+class QuranCacheManager with WidgetsBindingObserver {
+  static QuranCacheManager? _instance;
+  static QuranCacheManager get instance => _instance ??= QuranCacheManager._();
+
+  QuranCacheManager._() {
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didHaveMemoryPressure() {
+    debugPrint('⚠️ Memory pressure — clearing caches');
+    clearAll();
+  }
+
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    clearAll();
+  }
+}
+```
+
+`didHaveMemoryPressure` fires when the OS signals the app is close to being killed. Clearing the cache here is the difference between a slight scroll stutter and a process termination.
+
+A few rules I learned the hard way:
+
+- **Clear aggressively, not selectively.** When the OS is about to kill you, this is not the moment to be clever about which items to keep. Dump everything.
+- **Never cache the current page in a way that depends on the cache.** If your UI fetches from the cache every frame, memory pressure will wipe it out mid-scroll. The active screen should hold its own reference.
+- **Test it.** On iOS simulator: `Debug menu → Simulate Memory Warning`. On Android: `adb shell am send-trim-memory <pkg> RUNNING_CRITICAL`. Don't ship without pulling this trigger at least once.
+
+## Putting it together — the singleton manager
+
+The public API ends up small:
+
+```dart
+final mgr = QuranCacheManager.instance;
+mgr.initialize(loadPageImageInfo: _loadFromDisk);
+
+// Hot path — called every frame during scroll
+final info = await mgr.getPageImageInfo(42);
+
+// Synchronous peek — won't trigger a load
+final cached = mgr.getCachedPageImageInfo(42);
+
+// Paint glyphs, cache the hit-test data
+mgr.cacheGlyphs(42, glyphs);
+```
+
+Three independent caches (page images, glyphs, surah names) share one memory-pressure observer. When the signal comes, all three drop in one call.
+
+## Common pitfalls
+
+**1. Caching `null`.** If your operation can legitimately return null, wrap it in a sentinel (`Optional`, `Result.empty()`) before caching. Otherwise every call becomes a cache miss.
+
+**2. Forgetting to `unawaited` prefetch.** The analyzer warns, but more importantly, letting an exception escape a fire-and-forget future crashes in release. Always `.catchError`.
+
+**3. Singleton + hot reload.** Hot reload re-runs `main()` but keeps the old heap. Your `_instance` can point to a `QuranCacheManager` whose observer was never re-registered against the new `WidgetsBinding`. Add a `reset()` for tests, and accept a dev-mode wart.
+
+**4. Using this across isolates.** `Completer`, `LinkedHashMap`, and `WidgetsBinding` are all isolate-local. If you move the operation to a background isolate (correct, for heavy decoding), the cache stays on the UI isolate and the background isolate returns results over a port.
+
+**5. Cache invalidation on content change.** If the user switches mushaf (or your content source changes at all), call `clearAll()`. Stale pages with correct-looking keys are the worst class of bug.
+
+## Wrapping up
+
+A good cache is three things stacked:
+
+- **LRU eviction** so it doesn't grow forever.
+- **Dedup** so concurrent requests for the same thing collapse to one operation.
+- **Prefetch** so the next thing the user wants is already loaded.
+
+And one thing over the top: **memory-pressure awareness** so the OS doesn't kill you for hoarding.
+
+None of this is Quran-specific. Swap `PageImageInfo` for `Uint8List`, `User`, or `ParsedMarkdown` and you've got the same layer for any repeated async load. The whole thing is ~250 lines of Dart — no dependencies, no magic, no dragons.
+
+Start by replacing one `Map<K, V>` with the LRU. Then wrap your loader in `OperationCacheableService`. Then — and only then — look at prefetching. Build it in layers; debug it in layers.

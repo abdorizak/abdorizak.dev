@@ -65,8 +65,8 @@ export const SocialLinks = (props: ComponentProps<'div'>) => {
   return (
     <div
       className={cx(
-        'group/social flex flex-col gap-y-2',
-        'text-base tablet-sm:text-lg text-secondary-txt',
+        'group/social flex flex-col gap-y-1.5',
+        'text-2xs text-secondary-txt',
         props.className,
       )}
     >
@@ -94,7 +94,7 @@ export const SocialLinks = (props: ComponentProps<'div'>) => {
                 )}
               >
                 <Icon
-                  className={'size-5 fill-current shrink-0'}
+                  className={'size-3.5 fill-current shrink-0'}
                   path={s.iconPath}
                 />
                 <span>{s.title}</span>
@@ -104,7 +104,7 @@ export const SocialLinks = (props: ComponentProps<'div'>) => {
                   aria-hidden
                   className={cx(
                     'select-none font-bold leading-none',
-                    'text-base tablet-sm:text-lg text-divider',
+                    'text-2xs text-divider',
                   )}
                 >
                   •

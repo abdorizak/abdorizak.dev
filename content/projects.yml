@@ -1,9 +1,56 @@
 - order: 0
   name: Wacyi
-  description: Wacyi is a comprehensive Islamic learning platform designed to serve the community by providing easy access to religious education and resources. Our goal is to enhance the learning experience through interactive tools, diverse content, and community engagement.
+  slug: wacyi
+  category: Web
+  year: '2024 – Present'
+  role: Tech Lead & Full-stack Developer
+  description: Wacyi is a comprehensive Islamic learning platform — Quran, Hisnul Muslim, lessons, podcasts and community — on web, iOS and Android, localised in English, Arabic and Somali.
+  longDescription: |
+    Wacyi is a comprehensive Islamic learning platform that unifies the Holy
+    Quran, supplications, structured lessons, and community into a single
+    experience across web, iOS, and Android. It delivers the Quran in Madani
+    script with audio recitations and tafseer, the complete Hisnul Muslim
+    collection of authentic adhkar, interactive Arabic and Islamic-science
+    courses, podcasts, and curated content from leading Somali scholars — all
+    fully searchable and localized in English, Arabic, and Somali.
+
+    I lead Wacyi as its tech lead, and have shaped the product from inception.
+    It launched in late 2024 (originally as "Masjid Abii Hureyra," later
+    rebranded to Wacyi) and entered full-scale development in early 2025. The
+    initial architecture combined Frappe with a Go API for media uploads and
+    user management; I subsequently led a complete migration to a standalone,
+    fully Go-powered backend paired with a Next.js front-end — giving the
+    platform end-to-end ownership of its data, performance, and roadmap.
+  highlights:
+    - Complete Quran in Madani script with audio recitations and integrated tafseer
+    - Full Hisnul Muslim library, interactive courses, podcasts, and Somali-scholar content
+    - Unified smart search across surahs, lessons, scholars, and topics
+    - Community forum and events, fully localized in English, Arabic, and Somali
+    - Native iOS and Android apps backed by a fast Next.js web experience
+    - Architected and led the migration to a standalone, Go-powered backend
+  links:
+    - label: App Store
+      url: https://apps.apple.com/us/app/wacyi/id6756961736
+      icon: appstore
+    - label: Google Play
+      url: https://play.google.com/store/apps/details?id=dev.abdorizak.wacyi
+      icon: googleplay
+  # Screenshots gallery — drop your images in public/media/projects/wacyi/
+  # then uncomment. `group` adds a labelled section; `caption` is optional.
+  # screenshots:
+  #   - src: wacyi/mobile-1.png
+  #     group: Mobile App
+  #     caption: Home & lessons
+  #   - src: wacyi/web-1.png
+  #     group: Website
+  #     caption: Landing page
+  #   - src: wacyi/portal-1.png
+  #     group: Admin Portal
+  #     caption: Content management dashboard
   icon: https://avatars.githubusercontent.com/u/122404788?s=200&v=4
   preview: https://avatars.githubusercontent.com/u/122404788?s=200&v=4
   url: https://wacyi.net/
+  live: https://wacyi.net/
   color: '#00897b'
   stack:
     - Go
@@ -13,34 +60,159 @@
     - Dart
 
 - order: 1
+  name: x_logger
+  slug: x-logger
+  category: Open Source
+  year: '2026'
+  role: Author & Maintainer
+  description: Configurable logging for Flutter — named loggers, levels, pretty / JSON / colored output, filtering, and async export of the log history to a shareable file. Published on pub.dev.
+  longDescription: |
+    x_logger is a configurable logging package for Flutter, published on pub.dev.
+    It gives apps named loggers (one per subsystem), log levels, and pluggable
+    printers for pretty, JSON or colored output — all configured once and reused
+    across the app.
+
+    Every record flows through three independent, swappable stages — a filter
+    (whether to log), a printer (how it looks) and an output (where it goes) — so
+    a single call can fan out to the console, an async on-device file, an in-app
+    stream and a ring buffer at once. The history can be exported as a string or
+    handed to a native share sheet, and it runs on Android, iOS, macOS, Windows
+    and Linux. I built it during Wacyi to give the apps real, user-shareable
+    diagnostics.
+  highlights:
+    - Named loggers per subsystem with cheap child() labels sharing one config
+    - Pluggable printers — Simple, boxed Pretty, JSON, or fully custom Callback
+    - ANSI color output with flexible header and timestamp formatting
+    - Composable filtering by level, name or predicate, globally or per output
+    - Multiple destinations — console, async file, stream and memory ring buffer
+    - Export and share the log file on Android, iOS, macOS, Windows and Linux
+  links:
+    - label: pub.dev
+      url: https://pub.dev/packages/x_logger
+      icon: pub
+  icon: https://raw.githubusercontent.com/abdorizak/x_logger/main/doc/banner.png
+  preview: https://raw.githubusercontent.com/abdorizak/x_logger/main/doc/banner.png
+  url: https://github.com/abdorizak/x_logger
+  color: '#7c3aed'
+  repo: x_logger
+  owner: abdorizak
+  stack:
+    - Dart
+    - Flutter
+  screenshots:
+    - src: https://raw.githubusercontent.com/abdorizak/x_logger/main/doc/banner.png
+      caption: x_logger — configurable logging for Flutter
+
+- order: 2
   name: Max Player
-  description: Max Player is a powerful and flexible video player package for Flutter. It supports playing videos from various sources including network URLs, local files, assets, YouTube, and Vimeo. Built on top of video_player and flutter_riverpod, it offers a customizable UI and a robust controller.
+  slug: max-player
+  category: Open Source
+  year: '2024'
+  role: Author & Maintainer
+  description: A professional, production-ready video player for Flutter with a YouTube-style UI out of the box — plays network, asset, file, YouTube and Vimeo sources, with quality control, playback speed, fullscreen and rich playback streams.
+  longDescription: |
+    Max Player is a professional, production-ready video player package for
+    Flutter, published on pub.dev. Built on `video_player` and `flutter_riverpod`,
+    it ships with a polished, YouTube-style UI out of the box — gradient overlays,
+    double-tap seek and auto-hiding controls — so teams get a complete playback
+    experience without building one from scratch.
+
+    It plays from virtually any source — network, assets, files, YouTube and
+    Vimeo (including private videos) — and exposes the controls production apps
+    need: adaptive quality selection, 0.5x–3x playback speed, fullscreen with
+    auto-rotation, thumbnails, wakelock and a fully customizable theme. Real-time
+    position, buffered, status and error streams give developers fine-grained
+    control, while built-in error handling, auto-retry and buffering-timeout
+    detection keep playback robust on real-world networks.
+  highlights:
+    - Plays network, asset, file, YouTube and Vimeo (incl. private) sources from one API
+    - YouTube-style UI with gradient overlays, double-tap seek and auto-hide controls
+    - Adaptive quality control, 0.5x–3x playback speed and fullscreen with auto-rotation
+    - Real-time position, buffered, status and error streams for fine-grained control
+    - Robust error handling — auto-retry, buffering-timeout detection and built-in retry UI
+    - Customizable theme, thumbnails and wakelock; published on pub.dev for iOS & Android
+  links:
+    - label: pub.dev
+      url: https://pub.dev/packages/max_player
+      icon: pub
   icon: https://raw.githubusercontent.com/abdorizak/max_player/refs/heads/main/mx_logo.png
   preview: https://raw.githubusercontent.com/abdorizak/max_player/refs/heads/main/mx_logo.png
   url: https://github.com/abdorizak/max_player
   color: '#6366f1'
   repo: max_player
+  owner: abdorizak
   stack:
     - Flutter
     - Dart
     - Riverpod
     - video_player
 
-- order: 2
+- order: 3
   name: Expense Tracker App
-  description: Expense Tracker 🫰 is a financial app that used to track daily Expense from you Income
+  slug: expense-tracker-app
+  category: Mobile
+  year: '2022'
+  role: iOS Developer
+  description: A native iOS expense tracker built 100% in Swift with a fully programmatic UI. Authenticate, log income and expenses, and visualise daily cash flow in an interactive line chart.
+  longDescription: |
+    Expense Tracker is a native iOS app for managing personal income and
+    expenses. It offers secure user authentication and a clean, fully
+    programmatic UIKit interface — no storyboards — following the MVC pattern,
+    with support down to the iPhone SE.
+
+    You can record income and expenses and review them as an interactive line
+    chart or a table, switching between the two with a UISegmentedControl. Under
+    the hood it uses URLSession with async/await and a generic networking layer,
+    native image caching with NSCache, an image picker built on Photos / PhotosUI,
+    and custom alert and view components throughout.
+  highlights:
+    - 100% Swift, fully programmatic UIKit (no storyboards), MVC architecture
+    - Secure user authentication with add and track income and expenses
+    - Daily cash flow as an interactive line chart and table via UISegmentedControl
+    - Generic networking with URLSession async/await and NSCache image caching
+    - Custom alert views, image picker (Photos / PhotosUI) and iPhone SE support
   icon: other/expenses-Tracker.jpeg
   preview: other/expenses-Tracker.jpeg
   url: https://github.com/abdorizak/Expense-Tracker-App
   color: '#4d8af0'
   repo: Expense-Tracker-App
   stack:
-    - Flutter
-    - Dart
+    - Swift
+    - UIKit
+    - iOS
+    - Charts
 
-- order: 3
+- order: 4
   name: Hisnul Muslim
-  description: Hisnul Muslim App. is Supplication of Muslims. from holy quran and hadith of prophet Muhammad Salallahu Alaihi Wasallam
+  slug: hisnul-muslim
+  category: Mobile
+  year: '2023'
+  role: iOS Developer
+  description: A native iOS supplications app — 100+ authentic adhkar from the Quran and Sunnah, with search, bookmarks and scheduled reminders. Built 100% in Swift with programmatic UIKit and Combine.
+  longDescription: |
+    Hisnul Muslim (حِصن المسلم) is a native iOS app that puts the classic book of
+    Muslim supplications in your pocket — over 100 authentic adhkar drawn from the
+    Quran and Sunnah, organised thematically for morning and evening, specific
+    occasions, protection and guidance. It's free, with no ads or in-app
+    purchases.
+
+    Built 100% in Swift with a programmatic UIKit interface and the Combine
+    framework on an MVVM architecture, it supports bookmarking and searching
+    supplications, local reminders scheduled to the user's chosen time via
+    UNUserNotificationCenter, and offline storage in Core Data. It runs on iPhone
+    and iPad (including iPhone SE) from iOS 15, with full dark and light mode
+    support.
+  highlights:
+    - 100+ authentic supplications from the Quran and Sunnah, organised by theme
+    - 100% Swift with programmatic UIKit, Combine and an MVVM architecture
+    - Bookmark and search supplications, with reminders via UNUserNotificationCenter
+    - Offline storage in Core Data; runs on iPhone and iPad from iOS 15
+    - Dark and light mode, async/await, and refined alert and empty-state handling
+    - Free to use, with no ads or in-app purchases
+  links:
+    - label: App Store
+      url: https://apps.apple.com/us/app/hisnul-muslim/id6447127371
+      icon: appstore
   icon: apps/hisnul-muslim.png
   preview: apps/hisnul-muslim.png
   url: https://github.com/abdorizak/Hisnul-Muslim
@@ -49,26 +221,60 @@
   repo: Hisnul-Muslim
   owner: abdorizak
   stack:
-    - Flutter
-    - Dart
+    - Swift
+    - UIKit
+    - Combine
+    - Core Data
+    - iOS
 
-- order: 4
+- order: 5
   name: Doctor Appointment App
+  slug: doctor-appointment-app
+  category: Mobile
+  role: Mobile Developer
   description: This is simple app It also connects patients with doctors by requesting there Favorite doctor, It also allow the users to make favorite.
+  longDescription: |
+    Doctor Appointment is a healthcare app that connects patients with doctors.
+    Patients can browse practitioners, mark their favourites, and request an
+    appointment with the doctor of their choice — turning a slow, manual process
+    into a few taps.
+
+    It's built with Flutter and talks to a REST API for doctor data and booking,
+    giving patients a responsive experience backed by a real service.
+  highlights:
+    - Connects patients with doctors and lets them request appointments
+    - Save favourite doctors for faster future booking
+    - Flutter front-end backed by a REST API for live data
   icon: other/doctor-appointment.png
   preview: other/doctor-appointment.png
   url: https://github.com/abdorizak/Doctor_Appointment_App
   color: '#3E95FB'
   hide: true
-  repo: chipview
+  repo: Doctor_Appointment_App
   stack:
     - Flutter
     - Dart
     - REST API
 
-- order: 5
+- order: 6
   name: Github Followers
+  slug: github-followers
+  category: Mobile
+  role: iOS Developer
   description: Github Followers is a UIkit project with programmatic UI written in Swift
+  longDescription: |
+    GitHub Followers is an iOS app that lets you search any GitHub user and
+    explore their followers. It's a deep dive into UIKit done the hard (and
+    instructive) way — the entire interface is built programmatically, with no
+    storyboards.
+
+    The project covers real-world iOS fundamentals: networking against the
+    GitHub API, pagination, image caching, diffable data sources and custom
+    layouts, all written in Swift.
+  highlights:
+    - 100% programmatic UIKit — no storyboards
+    - Live data from the GitHub API with pagination and image caching
+    - Demonstrates diffable data sources and custom layouts in Swift
   icon: other/github-followers.png
   preview: other/github-followers.png
   url: https://github.com/abdorizak/Github_Followers
@@ -81,9 +287,23 @@
     - UIKit
     - iOS
 
-- order: 6
+- order: 7
   name: Expense Tracker Backend
+  slug: expense-tracker-backend
+  category: Backend
+  role: Backend Developer
   description: Expense Tracker Backend is a simple backend that used to store the data from the Expense Tracker App it was built using Node.js and MongoDB.
+  longDescription: |
+    This is the server that powers the Expense Tracker app. It exposes a REST
+    API for storing and retrieving a user's income and expense records, so the
+    mobile client can sync data instead of keeping everything on-device.
+
+    Built with Node.js and Express on top of MongoDB, it handles the data layer,
+    routing and persistence behind a clean set of endpoints.
+  highlights:
+    - REST API for persisting income and expense records
+    - Node.js + Express service backed by MongoDB
+    - Powers data sync for the Expense Tracker mobile app
   icon: other/backends.png
   preview: other/backends.png
   url: https://github.com/abdorizak/expense_managerBackEnd
@@ -96,15 +316,30 @@
     - MongoDB
     - Express
 
-- order: 7
+- order: 8
   name: Doctor Appointment Backend
+  slug: doctor-appointment-backend
+  category: Backend
+  role: Backend Developer
   description: Doctor Appointment Backend is a simple backend for Doctor Appointment App that allows you to get all doctors and book an appointment.
+  # TODO: verify this repo name — the previous value pointed at expense_managerBackEnd by mistake
+  longDescription: |
+    This service is the backend for the Doctor Appointment app. It provides the
+    endpoints the mobile client needs — listing available doctors and creating
+    appointment bookings — so the app works against real, shared data.
+
+    It's a Node.js and Express API backed by MongoDB, handling the doctor
+    catalogue and the booking workflow.
+  highlights:
+    - Endpoints to list doctors and create appointment bookings
+    - Node.js + Express API backed by MongoDB
+    - Serves the Doctor Appointment mobile app
   icon: other/backends.png
   preview: other/backends.png
-  url: https://github.com/abdorizak/expense_managerBackEnd
+  url: https://github.com/abdorizak/doctor_appointmentBackEnd
   color: '#eb3b75'
   hide: true
-  repo: expense_managerBackEnd
+  repo: doctor_appointmentBackEnd
   invertOnDark: true
   stack:
     - Node.js

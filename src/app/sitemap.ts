@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 
 import { allReadableBlogs, sortBlogPostsByDate } from '@/utils/blog';
 import { getDate } from '@/utils/date';
+import { visibleProjects } from '@/utils/projects';
 
 const today = ((): Date => {
   const d = new Date();
@@ -20,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }));
 
+  const projects = visibleProjects.map((project) => ({
+    url: `https://abdorizak.dev/projects/${project.slug}`,
+    lastModified: today.toISOString().split('T')[0],
+    priority: 0.7,
+  }));
+
   const routes = [
     '',
     'about',
@@ -34,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route ? 0.8 : 1,
   }));
 
-  return [...routes, ...blogs].sort(
+  return [...routes, ...projects, ...blogs].sort(
     (a, b) => (b.priority || 0) - (a.priority || 0),
   );
 }

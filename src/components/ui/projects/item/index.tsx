@@ -1,10 +1,10 @@
 import { type CSSProperties } from 'react';
 
-import { Icon } from '@/components/atoms/icon';
-import { findSkill } from '@/components/ui/about/skills/data';
 import type { Project } from '@/content';
 import { hexToRgb } from '@/utils/color';
 import cx from '@/utils/cx';
+
+import { StackList } from '../stack-list';
 
 import { ProjectIcon, ProjectLink } from './item.styles';
 import { StarsCounter } from './stars-count';
@@ -22,8 +22,8 @@ export const ProjectItem = ({ project }: ProjectItemProps) => {
     'var(--color-accent-dark)';
   return (
     <ProjectLink
-      title={project.name}
-      href={project.url}
+      title={`View ${project.name}`}
+      href={`/projects/${project.slug}`}
       style={{ '--tint': color } as CSSProperties}
       data-umami-event={'View project'}
       data-umami-event-project={project.name}
@@ -58,52 +58,11 @@ export const ProjectItem = ({ project }: ProjectItemProps) => {
         <p className={'text-2xs text-secondary-txt text-pretty'}>
           {project.description}
         </p>
-        {project.stack && project.stack.length > 0 ? (
-          <ul className={'flex flex-wrap items-center gap-1.5 mt-2'}>
-            {project.stack.map((tech, i) => {
-              const skill = findSkill(tech);
-              const tint = skill
-                ? hexToRgb(skill.color, 0, true)
-                : hexToRgb('#6b7280', 0, true);
-              return (
-                <li key={`${project.name}-stack-${i}`}>
-                  <span
-                    className={cx(
-                      'inline-flex items-center gap-1',
-                      'rounded-full px-2 py-1',
-                      'text-[0.625rem] font-medium',
-                      'bg-toolbar text-secondary-txt',
-                      'transition-colors duration-200',
-                      'hocus:bg-tint-bg hocus:text-primary-txt',
-                    )}
-                    style={{ '--tint': tint } as CSSProperties}
-                  >
-                    {skill ? (
-                      <span
-                        aria-hidden
-                        className={cx(
-                          'flex items-center',
-                          'text-[color:rgb(var(--tint))]',
-                        )}
-                      >
-                        <Icon path={skill.icon} className={'size-3'} />
-                      </span>
-                    ) : (
-                      <span
-                        aria-hidden
-                        className={cx(
-                          'size-1.5 rounded-full',
-                          'bg-[color:rgb(var(--tint))]',
-                        )}
-                      />
-                    )}
-                    {tech}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        ) : null}
+        <StackList
+          stack={project.stack}
+          keyPrefix={project.name}
+          className={'mt-2'}
+        />
       </div>
       <span
         aria-hidden

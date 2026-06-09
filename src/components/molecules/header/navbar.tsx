@@ -23,6 +23,7 @@ const toolbarLinksList = [
   { title: 'Blog', href: '/blog' },
   { title: 'Projects', href: '/projects' },
   { title: 'Uses', href: '/uses' },
+  { title: 'Hire', href: '/hire' },
 ];
 
 interface NavbarProps extends TWComponentProps<typeof Nav> {

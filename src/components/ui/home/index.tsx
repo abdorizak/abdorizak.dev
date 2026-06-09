@@ -119,6 +119,47 @@ export const Intro = () => {
         </span>
       </Link>
 
+      <Link
+        title={'Work with me'}
+        href={'/hire'}
+        data-umami-event={'Home work with me'}
+        className={cx(
+          'group/hire mt-2 self-stretch no-underline',
+          'flex flex-row items-center justify-between gap-3',
+          'rounded-3 border border-divider bg-toolbar p-4',
+          'transition-colors hocus:border-accent',
+        )}
+      >
+        <span className={'flex flex-col gap-0.5'}>
+          <span
+            className={cx(
+              'flex flex-row items-center gap-1.5',
+              'text-2xs font-medium text-green-500',
+            )}
+          >
+            <span
+              aria-hidden
+              className={
+                'inline-block size-1.5 rounded-full bg-green-500 motion-safe:animate-pulse'
+              }
+            />
+            Available for new work
+          </span>
+          <span className={'text-sm font-semibold text-primary-txt'}>
+            Have a project or an app to ship? Let&apos;s work together.
+          </span>
+        </span>
+        <span
+          aria-hidden
+          className={cx(
+            'shrink-0 text-accent text-lg',
+            'transition-transform group-hocus/hire:translate-x-0.5',
+          )}
+        >
+          →
+        </span>
+      </Link>
+
       <section className={'flex flex-col gap-3 mt-2'} id={'connect'}>
         <h2 className={getColoredTextClasses('brand')}>Connect</h2>
         <SocialLinks />

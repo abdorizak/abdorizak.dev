@@ -9,6 +9,7 @@ const pathEmojiMap = {
   uses: '💻',
   blog: '📄',
   colophon: '🛠️',
+  hire: '🤝',
 };
 export type PathName = keyof typeof pathEmojiMap | null;
 
@@ -21,6 +22,7 @@ const pathTitleMap = {
   uses: 'Uses',
   blog: 'Blog',
   colophon: 'Colophon',
+  hire: 'Work with me',
 };
 
 const titleFontSize = 64;

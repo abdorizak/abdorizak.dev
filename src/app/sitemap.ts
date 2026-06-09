@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'projects',
     'uses',
     'colophon',
+    'hire',
   ].map((route) => ({
     url: `https://abdorizak.dev/${route}`,
     lastModified: today.toISOString().split('T')[0],

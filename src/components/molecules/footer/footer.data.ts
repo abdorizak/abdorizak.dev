@@ -28,6 +28,11 @@ export const linksGroups = [
         href: '/uses',
         className: 'text-blue',
       },
+      {
+        title: 'Work with me',
+        href: '/hire',
+        className: 'text-green',
+      },
     ],
   },
   {

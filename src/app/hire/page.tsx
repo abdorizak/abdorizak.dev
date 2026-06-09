@@ -5,7 +5,7 @@ import { getColoredTextClasses } from '@/utils/colored-text';
 import cx from '@/utils/cx';
 import { createMetadata } from '@/utils/metadata';
 
-import { IntakeForm } from './intake-form';
+// import { IntakeForm } from './intake-form';
 
 const services = [
   {
@@ -31,12 +31,46 @@ const services = [
 ];
 
 const terms = [
-  'Payment is agreed upfront — a deposit before work begins, with the balance on delivery (or per milestone on larger projects).',
-  'You own your app and everything in it, and confirm you have the rights to all code, media, branding and data. I act on your behalf to ship it.',
-  'Store review decisions (Apple / Google) are outside my control. If your app is rejected I’ll handle fixes and resubmit within a fair number of rounds — a store rejection is not grounds for a refund.',
-  'While an app is published under my developer account, I manage it on your behalf; we agree in advance on updates, removal, and transferring it to your own account.',
-  'You remain responsible for the legality, content and data practices of your app — that stays with you, the owner.',
-  'Scope, timeline and revisions are agreed in writing before I start, so we both know what “done” looks like.',
+  {
+    title: 'Payment & deposits',
+    body: 'A non-refundable deposit is required before any work begins; the balance is due on delivery, or per milestone on larger projects. Work pauses on any overdue payment, and every amount paid is non-refundable once the corresponding work has been performed.',
+  },
+  {
+    title: 'Your content & your rights',
+    body: 'You confirm you own, or are fully licensed to use, everything you provide or ask me to publish — code, designs, media, branding, text and data. You are solely responsible for it, and you agree to defend, indemnify and hold me harmless against any claim, loss, fine or cost arising from your app or its content, including intellectual-property, privacy, defamation or regulatory claims.',
+  },
+  {
+    title: 'App Store & Play Store outcomes',
+    body: 'Apple and Google solely control all review, approval, ranking, suspension and removal decisions, and these are outside my control. Rejections, delays, takedowns or account actions are not my responsibility and are not grounds for a refund. You are responsible for ensuring your app complies with each store’s guidelines and all applicable laws.',
+  },
+  {
+    title: 'Apps published under my account',
+    body: 'Where I publish under my developer account on your behalf, I may, at my sole discretion and without liability, update, unpublish or permanently remove the app if it puts my account at risk or appears to breach any law, store policy or these terms. You agree to transfer the app to your own developer account promptly on request, and I am not liable for any loss arising from such removal or transfer.',
+  },
+  {
+    title: 'Legal & data responsibility',
+    body: 'You remain solely responsible for the legality of your app and for how it collects, stores and uses any user or personal data, including compliance with applicable privacy and consumer-protection laws. I provide engineering services only and give no legal, tax, accounting or compliance advice.',
+  },
+  {
+    title: 'Scope, revisions & no guarantees',
+    body: 'Scope, timeline and the number of revisions are agreed in writing before work starts; anything beyond that is quoted and billed separately. I do not guarantee any specific result, ranking, revenue, performance, uptime or store approval.',
+  },
+  {
+    title: 'Warranty & limitation of liability',
+    body: 'Beyond the agreed scope and any short fix period stated in writing, work is provided “as is”. To the maximum extent permitted by law, I am not liable for any indirect, incidental or consequential loss (including lost profits or data), and my total liability for any and all claims is limited to the fees you actually paid me for the work in question.',
+  },
+  {
+    title: 'Ownership & confidentiality',
+    body: 'Ownership of the final deliverables transfers to you only once full payment is received; until then all rights remain with me, and any of my pre-existing tools, libraries and know-how stay mine. We each agree to keep the other’s non-public information confidential.',
+  },
+  {
+    title: 'Termination',
+    body: 'Either of us may end an engagement in writing at any time. Fees for work already performed are due and non-refundable, and licences to anything not yet paid for in full do not pass to you.',
+  },
+  {
+    title: 'Binding agreement',
+    body: 'Engaging me for any work means you accept these terms. They are confirmed and, where needed, expanded in a signed agreement for each project — which is the binding version and prevails over this summary if they ever conflict. That agreement also sets the governing law and venue for any dispute.',
+  },
 ];
 
 const jsonLd = JSON.stringify({
@@ -123,27 +157,35 @@ export default function HirePage() {
 
       {/* Terms */}
       <div className={'flex flex-col gap-4'}>
-        <h2 className={'text-base font-semibold text-primary-txt'}>
-          How I work
-        </h2>
-        <ul className={'flex flex-col gap-2.5 max-w-nice'}>
+        <div className={'flex flex-col gap-1'}>
+          <h2 className={'text-base font-semibold text-primary-txt'}>
+            Terms of engagement
+          </h2>
+          <p className={'text-xs text-tertiary-txt max-w-nice text-pretty'}>
+            A plain-language summary of how I work and what protects both of us.
+            The signed agreement for your project is the binding version.
+          </p>
+        </div>
+        <ul className={'flex flex-col gap-3.5 max-w-nice'}>
           {terms.map((term, i) => (
             <li key={i} className={'flex flex-row gap-2.5'}>
-              <span
-                aria-hidden
-                className={'shrink-0 text-accent font-bold leading-relaxed'}
-              >
-                ✓
+              <span aria-hidden className={'shrink-0 text-accent font-bold'}>
+                {i + 1}.
               </span>
-              <span className={'text-sm text-secondary-txt text-pretty'}>
-                {term}
+              <span className={'flex flex-col gap-0.5'}>
+                <span className={'text-sm font-semibold text-primary-txt'}>
+                  {term.title}
+                </span>
+                <span className={'text-xs text-secondary-txt text-pretty'}>
+                  {term.body}
+                </span>
               </span>
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Intake */}
+      {/* Start a project */}
       <div className={'flex flex-col gap-4'}>
         <div className={'flex flex-col gap-1'}>
           <h2 className={'text-base font-semibold text-primary-txt'}>
@@ -173,7 +215,8 @@ export default function HirePage() {
             .
           </p>
         </div>
-        <IntakeForm />
+        {/* Intake form temporarily disabled — re-enable the import above and this line */}
+        {/* <IntakeForm /> */}
       </div>
     </Section>
   );

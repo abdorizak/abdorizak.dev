@@ -1,50 +1,89 @@
+'use client';
+
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+
 import polaroid0 from '@/assets/images/about/0.jpg';
-import polaroid1 from '@/assets/images/about/3.jpg';
-import polaroid2 from '@/assets/images/about/6.jpg';
+import polaroid1 from '@/assets/images/about/1.jpg';
+import polaroid2 from '@/assets/images/about/2.jpg';
+import polaroid3 from '@/assets/images/about/3.jpg';
+import polaroid4 from '@/assets/images/about/4.jpg';
+import polaroid5 from '@/assets/images/about/5.jpg';
+import polaroid6 from '@/assets/images/about/6.jpg';
+import polaroid7 from '@/assets/images/about/7.jpg';
 import { Img } from '@/components/atoms/img';
 import cx from '@/utils/cx';
 
-const images = [polaroid0, polaroid1, polaroid2];
+const images = [
+  polaroid0,
+  polaroid1,
+  polaroid2,
+  polaroid3,
+  polaroid4,
+  polaroid5,
+  polaroid6,
+  polaroid7,
+];
 
-const polaroidTilts = ['-rotate-6', 'rotate-1', 'rotate-6'];
-const polaroidOffsets = ['-mr-4 tablet-sm:-mr-6', '', '-ml-4 tablet-sm:-ml-6'];
+// How long each photo stays before crossfading to the next.
+const AUTO_ADVANCE_MS = 3500;
 
 export default function Photo() {
+  const reduceMotion = useReducedMotion();
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  // Auto-advance on a timer; pauses on hover/focus. Cleaned up on every change.
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(
+      () => setActive((prev) => (prev + 1) % images.length),
+      AUTO_ADVANCE_MS,
+    );
+    return () => clearInterval(id);
+  }, [paused]);
+
   return (
     <figure
-      className={cx(
-        'mt-4 mb-2',
-        'flex flex-row items-center justify-center',
-        'gap-0',
-      )}
+      className={'mt-5 mb-4 flex flex-col items-center gap-3'}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
     >
-      {images.map((img, i) => (
-        <div
-          key={`polaroid-${i}`}
-          className={cx(
-            'relative shrink-0',
-            'bg-accent',
-            'p-1.5 pb-4 tablet-sm:p-2 tablet-sm:pb-6',
-            'rounded-[2px]',
-            'shadow-[0_10px_28px_rgba(0,0,0,0.45)]',
-            'transition-transform duration-300',
-            'hover:rotate-0 hover:z-10 hover:scale-105',
-            polaroidTilts[i],
-            polaroidOffsets[i],
-            i === 1 ? 'z-1' : '',
-          )}
-        >
-          <div className={'overflow-hidden'} style={{ aspectRatio: '3/4' }}>
+      <div
+        className={cx(
+          'relative overflow-hidden',
+          'w-full',
+          'rounded-3 border border-divider bg-toolbar',
+          'shadow-[0_18px_44px_rgba(0,0,0,0.4)]',
+        )}
+        style={{ aspectRatio: '16/9' }}
+      >
+        <AnimatePresence initial={false} mode={'popLayout'}>
+          <motion.div
+            key={active}
+            className={'absolute inset-0'}
+            initial={{ opacity: 0, scale: reduceMotion ? 1 : 1.03 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: reduceMotion ? 1 : 1.0 }}
+            transition={
+              reduceMotion
+                ? { duration: 0 }
+                : { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
+            }
+          >
             <Img
-              src={img}
-              alt={`Polaroid ${i + 1}`}
+              src={images[active]}
+              alt={`Photo ${active + 1} of ${images.length}`}
               placeholder={'blur'}
-              className={'h-full w-[9rem] tablet-sm:w-[11rem] object-cover'}
-              priority={i === 1}
+              draggable={false}
+              priority={active === 0}
+              className={'h-full w-full object-cover'}
             />
-          </div>
-        </div>
-      ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </figure>
   );
 }

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import safariOne from '@/assets/images/experience/safariOne.jpeg';
-import photo from '@/assets/images/photo.jpg';
+import photo from '@/assets/images/photo.jpeg';
 import { Img } from '@/components/atoms/img';
 import { Link } from '@/components/atoms/link';
 import { Section } from '@/components/atoms/section';

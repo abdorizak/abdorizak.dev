@@ -35,8 +35,9 @@ if sm2 describe "$APP_NAME" >/dev/null 2>&1; then
   sm2 restart "$APP_NAME"
 else
   echo "→ Starting $APP_NAME on port $PORT"
+  # Absolute path: after a reboot systemd won't have bun on its PATH.
   sm2 start "$APP_NAME" --restart always --dir "$APP_DIR" \
-    -e PORT="$PORT" -e NODE_ENV=production -- bun run start
+    -e PORT="$PORT" -e NODE_ENV=production -- "$(command -v bun)" run start
 fi
 
 # Snapshot the process list so it comes back after a reboot.

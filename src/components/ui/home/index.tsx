@@ -81,7 +81,7 @@ export const Intro = () => {
         >
           <span className={'underline'}>Wacyi</span>
         </Link>
-        . Working as iOS Developer at{' '}
+        . Working as Software Engineer at{' '}
         <Link
           title={'SafariOne'}
           href={'https://safarione.ca/'}

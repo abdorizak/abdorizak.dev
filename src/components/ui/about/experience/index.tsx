@@ -23,12 +23,13 @@ const experience: Array<ExperienceRecord> = [
     locationType: 'On-site',
     roles: [
       {
-        position: 'iOS Developer',
+        position: 'Software Engineer',
         from: 'Apr 2024',
         until: 'Present',
         duration: '2 yrs 1 mo',
         description: [
           'Develop new features for the iOS app in Swift, using UIKit, Combine, and MVVM architecture.',
+          'Maintain and support multiple projects beyond the iOS app, spanning backend services and web applications.',
           'Collaborate in product design and brainstorming sessions with cross-functional teams.',
           'Work with backend and QA teams to integrate REST APIs and ship reliable mobile features.',
           'Participate in code reviews and pair programming sessions to maintain code quality.',

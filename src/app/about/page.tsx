@@ -59,8 +59,7 @@ export default function AboutPage() {
         </p>
         <Photo />
         <p className={'max-w-nice'}>
-          I build mobile apps for a living. Right now I&apos;m an iOS Developer
-          at{' '}
+          Right now I&apos;m a Software Engineer at{' '}
           <Link
             title={'SafariOne'}
             href={'https://safarione.ca/'}
@@ -68,11 +67,13 @@ export default function AboutPage() {
           >
             SafariOne
           </Link>
-          , shipping features in Swift with UIKit, Combine, and MVVM — and I
-          architected a full call-center platform that integrates with Asterisk
-          PBX over WebSocket. That project pulled me into full-stack territory:
-          Go services for call routing, recording storage, and CDR/reporting,
-          plus a Next.js web client using SIP.js for browser-based SIP calling.
+          . On the iOS side I ship features in Swift with UIKit, Combine, and
+          MVVM — but my work goes well beyond the iOS app. I also build and
+          maintain several of the company&apos;s other projects across the
+          stack, including a call-center platform I architected that integrates
+          with Asterisk PBX over WebSocket: Go services for call routing,
+          recording storage, and CDR/reporting, plus a Next.js web client using
+          SIP.js for browser-based SIP calling.
         </p>
         <p className={'max-w-nice'}>
           Before SafariOne, I spent over two years at Softprime Consulting
@@ -90,10 +91,21 @@ export default function AboutPage() {
           , taking apps from build through app-store publication.
         </p>
         <p className={'max-w-nice'}>
-          My sweet spot is the mobile surface, but I&apos;m comfortable anywhere
-          the feature needs me — backend, web, or infrastructure. I care about
-          details, performance, and code that the next person on the team can
-          actually read.
+          Mobile is where I started, but day to day I work wherever a project
+          needs me — iOS, backend, web, or infrastructure. I care about details,
+          performance, and code that the next person on the team can actually
+          read.
+        </p>
+        <p className={'max-w-nice'}>
+          Outside of work, I&apos;m an open-source contributor — including to{' '}
+          <Link
+            title={'Quran for iOS'}
+            href={'https://github.com/quran/quran-ios'}
+            data-umami-event={'Link to quran-ios'}
+          >
+            Quran for iOS
+          </Link>
+          , the open-source Quran app for iPhone and iPad.
         </p>
         <p className={'max-w-nice'}>
           If you&apos;re curious about the hardware and software tools I use
@@ -120,7 +132,8 @@ export default function AboutPage() {
             )}
           />
           <span>
-            Open to iOS &amp; Flutter work — usually reply within 24 hours.
+            Open to mobile apps, integrations &amp; web development — usually
+            reply within 24 hours.
           </span>
         </p>
         <p

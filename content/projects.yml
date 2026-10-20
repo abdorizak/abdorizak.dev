@@ -60,6 +60,53 @@
     - Dart
 
 - order: 1
+  name: sm2
+  slug: sm2
+  category: Open Source
+  year: '2026'
+  role: Author & Maintainer
+  description: An open-source service manager written in Go — runs and supervises apps in any language, restarts them when they crash, and reports crashes and system alerts to Discord. One single binary.
+  longDescription: |
+    sm2 is an open-source application operations agent and service manager
+    written in Go. It runs your applications — Go, Node, Python, Rust, shell
+    scripts or any executable — watches them, and brings them back when they
+    die. It ships as a single binary: a small CLI paired with a background agent
+    that talks over a local Unix socket, with no daemon to configure and no
+    runtime to install.
+
+    Beyond keeping processes alive, sm2 watches the system around them. It sends
+    rich, color-coded Discord notifications when an app starts, stops, crashes
+    or restarts, warns you before the disk runs out of space, and reports when
+    the agent itself shuts down — with rate-limit-aware retries so important
+    alerts aren't silently dropped. Apps can be declared in an `sm2.yaml` file
+    and survive reboots through launchd and systemd.
+  highlights:
+    - Runs and supervises any app — Go, Node, Python, Rust, shell or any executable
+    - Auto-restart on crash with always / on-failure / never policies and backoff
+    - Discord alerts on start, stop, crash and restart, plus low disk space
+    - Live per-process CPU, memory, uptime and restart counts
+    - Declarative sm2.yaml config, log rotation, and reboot survival via launchd / systemd
+    - Restart triggers on memory limit, file changes or a cron schedule
+  links:
+    - label: sm2.dev
+      url: https://sm2.dev/
+      icon: web
+  icon: sm2/sm2-logo.png
+  preview: sm2/sm2-logo.png
+  url: https://github.com/abdorizak/sm2
+  color: '#f59e0b'
+  repo: sm2
+  owner: abdorizak
+  stack:
+    - Go
+    - CLI
+    - Unix
+    - Discord Webhooks
+  screenshots:
+    - src: sm2/sm2-banner.png
+      caption: sm2 — run any app, keep it alive
+
+- order: 2
   name: x_logger
   slug: x-logger
   category: Open Source
@@ -103,7 +150,7 @@
     - src: https://raw.githubusercontent.com/abdorizak/x_logger/main/doc/banner.png
       caption: x_logger — configurable logging for Flutter
 
-- order: 2
+- order: 3
   name: Max Player
   slug: max-player
   category: Open Source
@@ -147,7 +194,7 @@
     - Riverpod
     - video_player
 
-- order: 3
+- order: 4
   name: Expense Tracker App
   slug: expense-tracker-app
   category: Mobile
@@ -182,7 +229,7 @@
     - iOS
     - Charts
 
-- order: 4
+- order: 5
   name: Hisnul Muslim
   slug: hisnul-muslim
   category: Mobile
@@ -227,7 +274,7 @@
     - Core Data
     - iOS
 
-- order: 5
+- order: 6
   name: Doctor Appointment App
   slug: doctor-appointment-app
   category: Mobile
@@ -256,7 +303,7 @@
     - Dart
     - REST API
 
-- order: 6
+- order: 7
   name: Github Followers
   slug: github-followers
   category: Mobile
@@ -287,7 +334,7 @@
     - UIKit
     - iOS
 
-- order: 7
+- order: 8
   name: Expense Tracker Backend
   slug: expense-tracker-backend
   category: Backend
@@ -316,7 +363,7 @@
     - MongoDB
     - Express
 
-- order: 8
+- order: 9
   name: Doctor Appointment Backend
   slug: doctor-appointment-backend
   category: Backend
